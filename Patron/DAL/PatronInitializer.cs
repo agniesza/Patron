@@ -60,12 +60,12 @@ namespace Patron.DAL
 
             var authors = new List<Author>
             {
-                new Author {FirstName ="Damian", LastName ="Kurek", UserName ="kurek@wp.pl", CategoryID=categories[0].ID, Category=categories[0],
+                new Author {FirstName ="Darek", LastName ="Kurek", UserName ="kurek@wp.pl",  Category=categories[0],
                     BankAccount="61921000080024460630000010",
                     Goals="Zakup nowego sprzętu i auta na koncerty",
                 Description="Jestem muzykiem i chcę dawać radość ludziom",
                 InstagramLink ="https://www.instagram.com/xxx/"},
-                new Author {FirstName ="Maria", LastName ="Maria", UserName ="maria@wp.pl", CategoryID=categories[1].ID, Category=categories[1],
+                new Author {FirstName ="Maria", LastName ="Maria", UserName ="maria@wp.pl",  Category=categories[1],
                     BankAccount="62921000080024460630000010",
                     Goals="Chcę zebrać fundusze na rozwijanie swoich umiejętności",
                 Description="Maluję obrazy olejne",
@@ -78,7 +78,7 @@ namespace Patron.DAL
             {
                 new AuthorThreshold
                 {
-                    AuthorID = authors[0].ID,
+                    
                     Author =authors[0],
                     Patrons = {patrons[0], patrons[1]},
                     Name = "Super",
@@ -88,7 +88,7 @@ namespace Patron.DAL
                 },
                 new AuthorThreshold
                 {
-                    AuthorID = authors[0].ID,
+                   
                     Author =authors[0],
                     Patrons = {patrons[2], patrons[1]},
                     Name = "Jesteś mega!",
@@ -98,7 +98,7 @@ namespace Patron.DAL
                 },
                  new AuthorThreshold
                 {
-                    AuthorID = authors[1].ID,
+                    
                     Author =authors[1],
                     Patrons = {patrons[2], patrons[0]},
                     Name = "Bosko",
@@ -114,7 +114,7 @@ namespace Patron.DAL
             {
                 new Post
                 {
-                    AuthorID =authors[0].ID,
+                   
                     Author = authors[0],
                     Patrons= {patrons[0], patrons[1], patrons[2]},
                     Content ="Test",
