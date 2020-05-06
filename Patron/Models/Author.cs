@@ -25,5 +25,9 @@ namespace Patron.Models
 
 
         public virtual Category Category { get; set; }
+
+        public virtual List<Post> Posts { get; set; }
+        public virtual List<Payment> Payments { get; set; }
+        public virtual List<AuthorThreshold> AuthorThresholds { get; set; }
     }
 }
