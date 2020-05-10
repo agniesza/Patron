@@ -30,6 +30,10 @@
         </div>
     </div>
     <div class="form-group">
+        Patron:   @Html.RadioButton("UserType", "Patron", new { @checked = true })
+        Autor: @Html.RadioButton("UserType", "Author")
+    </div>
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Zarejestruj" />
         </div>
