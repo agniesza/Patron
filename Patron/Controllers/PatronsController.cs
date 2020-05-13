@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Patron.DAL;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Patron.DAL;
-using Patron.Models;
 
 namespace Patron.Controllers
 {

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Patron.Models
 {
@@ -19,6 +16,7 @@ namespace Patron.Models
         [DataType(DataType.MultilineText)]
         public string Goals { get; set; }
         public string City { get; set; }
+        public string Avatar { get; set; }
 
 
 

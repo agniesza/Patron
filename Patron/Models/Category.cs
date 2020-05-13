@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Patron.Models
 {
@@ -12,6 +9,6 @@ namespace Patron.Models
 
 
         public virtual List<Author> Authors { get; set; }
- 
+
     }
 }

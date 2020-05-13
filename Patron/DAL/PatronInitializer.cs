@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Patron.Models;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace Patron.DAL
 {
@@ -78,7 +75,7 @@ namespace Patron.DAL
             {
                 new AuthorThreshold
                 {
-                    
+
                     Author = authors[0],
                     Patrons = new List<Models.Patron> {patrons[0], patrons[1]},
                     Name = "Super",
@@ -88,7 +85,7 @@ namespace Patron.DAL
                 },
                 new AuthorThreshold
                 {
-                   
+
                     Author =authors[0],
                     Patrons = new List<Models.Patron> {patrons[2], patrons[1]},
                     Name = "Jesteś mega!",
@@ -98,7 +95,7 @@ namespace Patron.DAL
                 },
                  new AuthorThreshold
                 {
-                    
+
                     Author =authors[1],
                     Patrons = new List<Models.Patron> {patrons[2], patrons[0]},
                     Name = "Bosko",
@@ -114,7 +111,7 @@ namespace Patron.DAL
             {
                 new Post
                 {
-                   
+
                     Author = authors[0],
                     Patrons= new List<Models.Patron> {patrons[0], patrons[1], patrons[2]},
                     Content ="Test",

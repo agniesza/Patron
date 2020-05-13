@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Patron.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Patron.Models;
 
 namespace Patron.Controllers
 {
@@ -32,9 +31,9 @@ namespace Patron.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -333,7 +332,7 @@ namespace Patron.Controllers
             base.Dispose(disposing);
         }
 
-#region Pomocnicy
+        #region Pomocnicy
         // Służy do ochrony XSRF podczas dodawania logowań zewnętrznych
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +383,6 @@ namespace Patron.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

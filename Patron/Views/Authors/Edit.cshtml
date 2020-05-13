@@ -7,10 +7,10 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Authors", FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
-  //  @Html.AntiForgeryToken()
-    
+    //  @Html.AntiForgeryToken()
+
 <div class="form-horizontal">
     <h4>Author</h4>
     <hr />
@@ -143,19 +143,26 @@
             @Html.ValidationMessageFor(model => model.OtherLink, "", new { @class = "text-danger" })
         </div>
     </div>
-
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Zapisz!" class="btn btn-default" />
+        @Html.LabelFor(model => model.Avatar, htmlAttributes:
+                        new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="avatarFile"/>
+            @Html.ValidationMessageFor(model => model.Avatar, "", new { @class ="text-danger"})
         </div>
     </div>
-</div>
-}
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz!" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

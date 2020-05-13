@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Patron.DAL;
+using Patron.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Patron.DAL;
-using Patron.Models;
 
 namespace Patron.Controllers
 {
@@ -85,7 +81,7 @@ namespace Patron.Controllers
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-      //  [ValidateAntiForgeryToken]
+        //  [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,AuthorID,PatronID,SourceBankAcc,Date,Value,Status")] Payment payment)
         {
             if (ModelState.IsValid)

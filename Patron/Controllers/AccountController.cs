@@ -1,15 +1,12 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Patron.DAL;
 using Patron.Models;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Patron.Controllers
 {
@@ -147,7 +144,7 @@ namespace Patron.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-      [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model, string UserType)
         {
             if (ModelState.IsValid)
@@ -172,19 +169,19 @@ namespace Patron.Controllers
                         db.SaveChanges();
 
                         // return View("~/Views/Patrons/Edit.cshtml", patron);
-                        return RedirectToAction("Edit", "Patrons", new { id= patron.ID});
+                        return RedirectToAction("Edit", "Patrons", new { id = patron.ID });
                     }
                     else if (UserType.Equals("Author"))
                     {
                         PatronContext db = new PatronContext();
-                        Author author = new Author { UserName = model.Email, Category = db.Categories.First()};                     
+                        Author author = new Author { UserName = model.Email, Category = db.Categories.First() };
                         db.Authors.Add(author);
                         db.SaveChanges();
-                       // ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);
+                        // ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);
                         // return View("~/Views/Authors/Edit.cshtml", author);
                         return RedirectToAction("Edit", "Authors", new { id = author.ID });
                     }
-                    
+
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
