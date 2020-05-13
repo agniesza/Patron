@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Patron.Controllers
@@ -28,6 +29,7 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Avt = patron.Avatar;
             return View(patron);
         }
 
@@ -74,10 +76,16 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserName,FirstName,LastName")] Models.Patron patron)
+        public ActionResult Edit([Bind(Include = "ID,UserName,FirstName,LastName,Avatar")] Models.Patron patron)
         {
             if (ModelState.IsValid)
             {
+                HttpPostedFileBase file = Request.Files["avatarFile"];
+                if (file != null && file.ContentLength > 0)
+                {
+                    patron.Avatar = file.FileName;
+                    file.SaveAs(HttpContext.Server.MapPath("~/Avatars/") + patron.Avatar);
+                }
                 db.Entry(patron).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", new { id = patron.ID });
