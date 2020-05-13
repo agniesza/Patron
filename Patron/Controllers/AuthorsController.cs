@@ -82,14 +82,15 @@ namespace Patron.Controllers
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       // [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,UserName,FirstName,LastName,CategoryID,BankAccount,Description,Goals,FacebookLink,InstagramLink,YouTubeLink,OtherLink")] Author author)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(author).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = author.ID });
+               
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);
             return View(author);

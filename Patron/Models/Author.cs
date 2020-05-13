@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,7 +14,9 @@ namespace Patron.Models
         public string LastName { get; set; }
         public int CategoryID { get; set; }
         public string BankAccount { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Goals { get; set; }
 
 
@@ -29,5 +32,8 @@ namespace Patron.Models
         public virtual List<Post> Posts { get; set; }
         public virtual List<Payment> Payments { get; set; }
         public virtual List<AuthorThreshold> AuthorThresholds { get; set; }
+
+
+
     }
 }

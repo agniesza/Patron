@@ -79,18 +79,18 @@ namespace Patron.DAL
                 new AuthorThreshold
                 {
                     
-                    Author =authors[0],
-                    Patrons = {patrons[0], patrons[1]},
+                    Author = authors[0],
+                    Patrons = new List<Models.Patron> {patrons[0], patrons[1]},
                     Name = "Super",
                     Description = "Dzięki! W podziękowaniu mogę zrobić ...",
-                    MaxNumberOfPatrons=30,
-                    Value=5
+                    MaxNumberOfPatrons = 30,
+                    Value = 5
                 },
                 new AuthorThreshold
                 {
                    
                     Author =authors[0],
-                    Patrons = {patrons[2], patrons[1]},
+                    Patrons = new List<Models.Patron> {patrons[2], patrons[1]},
                     Name = "Jesteś mega!",
                     Description = "Dzięki! W podziękowaniu mogę zrobić ...",
                     MaxNumberOfPatrons=20,
@@ -100,7 +100,7 @@ namespace Patron.DAL
                 {
                     
                     Author =authors[1],
-                    Patrons = {patrons[2], patrons[0]},
+                    Patrons = new List<Models.Patron> {patrons[2], patrons[0]},
                     Name = "Bosko",
                     Description = "Dzięki! W podziękowaniu mogę zrobić ...",
                     MaxNumberOfPatrons=50,
@@ -116,7 +116,7 @@ namespace Patron.DAL
                 {
                    
                     Author = authors[0],
-                    Patrons= {patrons[0], patrons[1], patrons[2]},
+                    Patrons= new List<Models.Patron> {patrons[0], patrons[1], patrons[2]},
                     Content ="Test",
                     Raiting=5.0,
                     NumberOfRatings=2

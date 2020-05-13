@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Patron.DAL;
 using Patron.Models;
 
 namespace Patron.Controllers
@@ -22,7 +23,7 @@ namespace Patron.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +35,9 @@ namespace Patron.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +121,7 @@ namespace Patron.Controllers
             // Jeśli użytkownik będzie wprowadzać niepoprawny kod przez określoną ilość czasu, konto użytkownika 
             // zostanie zablokowane na określoną ilość czasu. 
             // Możesz skonfigurować ustawienia blokady konta w elemencie IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -146,8 +147,8 @@ namespace Patron.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+      [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(RegisterViewModel model, string UserType)
         {
             if (ModelState.IsValid)
             {
@@ -155,14 +156,35 @@ namespace Patron.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // Aby uzyskać więcej informacji o sposobie włączania potwierdzania konta i resetowaniu hasła, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=320771
                     // Wyślij wiadomość e-mail z tym łączem
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Potwierdź konto", "Potwierdź konto, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
+                    if (UserType.Equals("Patron"))
+                    {
+                        Models.Patron patron = new Models.Patron { UserName = model.Email };
+                        //  Author author = new Author { UserName = model.Email };
+                        PatronContext db = new PatronContext();
+                        db.Patrons.Add(patron);
+                        db.SaveChanges();
 
+                        // return View("~/Views/Patrons/Edit.cshtml", patron);
+                        return RedirectToAction("Edit", "Patrons", new { id= patron.ID});
+                    }
+                    else if (UserType.Equals("Author"))
+                    {
+                        PatronContext db = new PatronContext();
+                        Author author = new Author { UserName = model.Email, Category = db.Categories.First()};                     
+                        db.Authors.Add(author);
+                        db.SaveChanges();
+                       // ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);
+                        // return View("~/Views/Authors/Edit.cshtml", author);
+                        return RedirectToAction("Edit", "Authors", new { id = author.ID });
+                    }
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
