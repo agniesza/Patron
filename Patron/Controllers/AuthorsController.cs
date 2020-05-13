@@ -49,7 +49,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserName,FirstName,LastName,CategoryID,BankAccount,Description,Goals,FacebookLink,InstagramLink,YouTubeLink,OtherLink")] Author author)
+        public ActionResult Create([Bind(Include = "ID,UserName,FirstName,LastName,City,CategoryID,BankAccount,Description,Goals,FacebookLink,InstagramLink,YouTubeLink,TwitterLink,OtherLink")] Author author)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
        // [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserName,FirstName,LastName,CategoryID,BankAccount,Description,Goals,FacebookLink,InstagramLink,YouTubeLink,OtherLink")] Author author)
+        public ActionResult Edit([Bind(Include = "ID,UserName,FirstName,LastName,City,CategoryID,BankAccount,Description,Goals,FacebookLink,InstagramLink,YouTubeLink,TwitterLink,OtherLink")] Author author)
         {
             if (ModelState.IsValid)
             {
