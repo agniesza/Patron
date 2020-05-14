@@ -57,12 +57,14 @@ namespace Patron.DAL
 
             var authors = new List<Author>
             {
-                new Author {FirstName ="Darek", LastName ="Kurek", UserName ="kurek@wp.pl",  Category= categories[0],
+                new Author {FirstName ="Darek", LastName ="Kurek", UserName ="kurek@wp.pl",
+                Categories = new List<Category> {categories[0], categories[1]},
                     BankAccount="61921000080024460630000010",
                     Goals="Zakup nowego sprzętu i auta na koncerty",
                 Description="Jestem muzykiem i chcę dawać radość ludziom",
                 InstagramLink ="https://www.instagram.com/xxx/"},
-                new Author {FirstName ="Maria", LastName ="Maria", UserName ="maria@wp.pl",  Category= categories [3],
+                new Author {FirstName ="Maria", LastName ="Maria", UserName ="maria@wp.pl",
+                Categories = new List<Category> {categories[3], categories[1]},
                     BankAccount="62921000080024460630000010",
                     Goals="Chcę zebrać fundusze na rozwijanie swoich umiejętności",
                 Description="Maluję obrazy olejne",

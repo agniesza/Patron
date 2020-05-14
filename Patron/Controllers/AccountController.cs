@@ -174,7 +174,7 @@ namespace Patron.Controllers
                     else if (UserType.Equals("Author"))
                     {
                         PatronContext db = new PatronContext();
-                        Author author = new Author { UserName = model.Email, Category = db.Categories.First() };
+                        Author author = new Author { UserName = model.Email}; //, Category = db.Categories.First() 
                         db.Authors.Add(author);
                         db.SaveChanges();
                         // ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);

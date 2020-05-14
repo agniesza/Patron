@@ -16,7 +16,10 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Category.Name)
+            @foreach (var cat in @ViewBag.Categories)
+            {
+                @(cat.Name)
+            }
         </dd>
 
         <dt>

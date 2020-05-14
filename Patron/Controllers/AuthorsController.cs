@@ -1,5 +1,6 @@
 ﻿using Patron.DAL;
 using Patron.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -15,7 +16,7 @@ namespace Patron.Controllers
         // GET: Authors
         public ActionResult Index()
         {
-            var authors = db.Authors.Include(a => a.Category);
+            var authors = db.Authors.Include(a => a.Categories);
             return View(authors.ToList());
         }
 
@@ -32,13 +33,15 @@ namespace Patron.Controllers
                 return HttpNotFound();
             }
             ViewBag.Avt = author.Avatar;
+            ViewBag.Categories = author.Categories;
             return View(author);
         }
 
         // GET: Authors/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name");
+           
+            ViewBag.Categories = db.Categories;
             return View();
         }
 
@@ -47,16 +50,25 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserName,FirstName,LastName,City,CategoryID,BankAccount,Description,Goals,FacebookLink,InstagramLink,YouTubeLink,TwitterLink,OtherLink")] Author author)
+        public ActionResult Create( Author author, int[] cats)
         {
             if (ModelState.IsValid)
             {
+               
+                author.Categories = new List<Category>();
+                if (cats != null)
+                {
+                    foreach (var item in cats)
+                    {
+                        author.Categories.Add(db.Categories.Find(item));
+                    }
+                }
                 db.Authors.Add(author);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);
+            
             return View(author);
         }
 
@@ -72,7 +84,8 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);
+            
+            ViewBag.Categories = db.Categories; 
             return View(author);
         }
 
@@ -81,7 +94,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         // [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserName,FirstName,LastName,City,Avatar,CategoryID,BankAccount,Description,Goals,FacebookLink,InstagramLink,YouTubeLink,TwitterLink,OtherLink")] Author author)
+        public ActionResult Edit(Author author, int[] cats)
         {
             if (ModelState.IsValid)
             {
@@ -91,12 +104,23 @@ namespace Patron.Controllers
                     author.Avatar = file.FileName;
                     file.SaveAs(HttpContext.Server.MapPath("~/Avatars/") + author.Avatar);
                 }
+                author.Categories = new List<Category>();
+                if (cats != null)
+                {
+                    foreach (var item in cats)
+                    {
+                        author.Categories.Add(db.Categories.Find(item));
+                    }
+                }
                 db.Entry(author).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", new { id = author.ID });
 
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);
+
+
+            // ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);
+            ViewBag.Categories = db.Categories;
             return View(author);
         }
 
@@ -112,6 +136,7 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Categories = author.Categories;
             return View(author);
         }
 
