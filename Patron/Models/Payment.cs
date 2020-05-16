@@ -17,6 +17,7 @@ namespace Patron.Models
         public int ID { get; set; }
         public int AuthorID { get; set; }
         public int PatronID { get; set; }
+        public int AuthorThreshold { get; set; }
         public string SourceBankAcc { get; set; }
         public DateTime Date { get; set; }
         public int Value { get; set; }
@@ -25,6 +26,7 @@ namespace Patron.Models
 
         public virtual Author Author { get; set; }
         public virtual Patron Patron { get; set; }
+        public virtual AuthorThreshold AuthorThreshold { get; set; }
 
 
 
