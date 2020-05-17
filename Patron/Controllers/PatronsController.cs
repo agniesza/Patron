@@ -1,4 +1,6 @@
 ﻿using Patron.DAL;
+using Patron.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -33,6 +35,25 @@ namespace Patron.Controllers
             return View(patron);
         }
 
+        //GET
+        public ActionResult PatronHomePage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Models.Patron patron = db.Patrons.Find(id);
+            if (patron == null)
+            {
+                return HttpNotFound();
+            }
+            Status status = (Status)Enum.Parse(typeof(Status), "INACTIVE", true);
+            ViewBag.ActiveSubscriptions = patron.AuthorThresholds;
+            ViewBag.InActiveSubscriptions = patron.Payments.Where(p => p.Status==status);
+            ViewBag.Avt = patron.Avatar;
+            return View(patron);
+
+        }
         // GET: Patrons/Create
         public ActionResult Create()
         {

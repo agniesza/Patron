@@ -4,10 +4,10 @@ namespace Patron.Models
 {
     public enum Status
     {
-        CANCELLED,
+        INACTIVE,
         ACTIVE
     };
-    public enum Type
+    public enum Periodicity
     {
         MONTHLY,
         ONE_TIME
@@ -15,16 +15,15 @@ namespace Patron.Models
     public class Payment
     {
         public int ID { get; set; }
-        public int AuthorID { get; set; }
+       // public int AuthorID { get; set; }
         public int PatronID { get; set; }
-        public int AuthorThreshold { get; set; }
+        public int AuthorThresholdID { get; set; }
         public string SourceBankAcc { get; set; }
         public DateTime Date { get; set; }
         public int Value { get; set; }
         public Status Status { get; set; }
-        public Type Type { get; set; }
-
-        public virtual Author Author { get; set; }
+        public Periodicity Periodicity { get; set; }
+            public int MyProperty { get; set; }
         public virtual Patron Patron { get; set; }
         public virtual AuthorThreshold AuthorThreshold { get; set; }
 

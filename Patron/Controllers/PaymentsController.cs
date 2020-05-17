@@ -1,9 +1,13 @@
-﻿using Patron.DAL;
-using Patron.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using Patron.DAL;
+using Patron.Models;
 
 namespace Patron.Controllers
 {
@@ -14,7 +18,7 @@ namespace Patron.Controllers
         // GET: Payments
         public ActionResult Index()
         {
-            var payments = db.Payments.Include(p => p.Author).Include(p => p.Patron);
+            var payments = db.Payments.Include(p => p.AuthorThreshold).Include(p => p.Patron);
             return View(payments.ToList());
         }
 
@@ -36,7 +40,7 @@ namespace Patron.Controllers
         // GET: Payments/Create
         public ActionResult Create()
         {
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName");
+            ViewBag.AuthorThresholdID = new SelectList(db.AuthorThresholds, "ID", "Name");
             ViewBag.PatronID = new SelectList(db.Patrons, "ID", "UserName");
             return View();
         }
@@ -46,7 +50,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,AuthorID,PatronID,SourceBankAcc,Date,Value,Status")] Payment payment)
+        public ActionResult Create([Bind(Include = "ID,PatronID,AuthorThresholdID,SourceBankAcc,Date,Value,Status,Periodicity")] Payment payment)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +59,7 @@ namespace Patron.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", payment.AuthorID);
+            ViewBag.AuthorThresholdID = new SelectList(db.AuthorThresholds, "ID", "Name", payment.AuthorThresholdID);
             ViewBag.PatronID = new SelectList(db.Patrons, "ID", "UserName", payment.PatronID);
             return View(payment);
         }
@@ -72,7 +76,7 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", payment.AuthorID);
+            ViewBag.AuthorThresholdID = new SelectList(db.AuthorThresholds, "ID", "Name", payment.AuthorThresholdID);
             ViewBag.PatronID = new SelectList(db.Patrons, "ID", "UserName", payment.PatronID);
             return View(payment);
         }
@@ -81,8 +85,8 @@ namespace Patron.Controllers
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //  [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,AuthorID,PatronID,SourceBankAcc,Date,Value,Status")] Payment payment)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,PatronID,AuthorThresholdID,SourceBankAcc,Date,Value,Status,Periodicity")] Payment payment)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +94,7 @@ namespace Patron.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", payment.AuthorID);
+            ViewBag.AuthorThresholdID = new SelectList(db.AuthorThresholds, "ID", "Name", payment.AuthorThresholdID);
             ViewBag.PatronID = new SelectList(db.Patrons, "ID", "UserName", payment.PatronID);
             return View(payment);
         }

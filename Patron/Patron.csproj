@@ -269,16 +269,17 @@
     <Content Include="Views\Patrons\Details.cshtml" />
     <Content Include="Views\Patrons\Edit.cshtml" />
     <Content Include="Views\Patrons\Index.cshtml" />
-    <Content Include="Views\Payments\Create.cshtml" />
-    <Content Include="Views\Payments\Delete.cshtml" />
-    <Content Include="Views\Payments\Details.cshtml" />
-    <Content Include="Views\Payments\Edit.cshtml" />
-    <Content Include="Views\Payments\Index.cshtml" />
     <Content Include="Views\Posts\Create.cshtml" />
     <Content Include="Views\Posts\Delete.cshtml" />
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Patrons\PatronHomePage.cshtml" />
+    <Content Include="Views\Payments\Create.cshtml" />
+    <Content Include="Views\Payments\Delete.cshtml" />
+    <Content Include="Views\Payments\Details.cshtml" />
+    <Content Include="Views\Payments\Edit.cshtml" />
+    <Content Include="Views\Payments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

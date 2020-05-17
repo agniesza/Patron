@@ -18,18 +18,18 @@
         @Html.HiddenFor(model => model.ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AuthorID, "AuthorID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("AuthorID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.AuthorID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.PatronID, "PatronID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("PatronID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PatronID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AuthorThresholdID, "AuthorThresholdID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("AuthorThresholdID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AuthorThresholdID, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -62,6 +62,14 @@
             <div class="col-md-10">
                 @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Periodicity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Periodicity, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Periodicity, "", new { @class = "text-danger" })
             </div>
         </div>
 

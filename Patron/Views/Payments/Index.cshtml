@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Author.UserName)
+            @Html.DisplayNameFor(model => model.AuthorThreshold.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Patron.UserName)
@@ -29,13 +29,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Periodicity)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Author.UserName)
+            @Html.DisplayFor(modelItem => item.AuthorThreshold.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Patron.UserName)
@@ -51,6 +54,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Periodicity)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

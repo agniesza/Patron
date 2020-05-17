@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Patron.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 
@@ -123,6 +124,24 @@ namespace Patron.DAL
             };
             posts.ForEach(c => context.Posts.Add(c));
             context.SaveChanges();
+
+            var payments = new List<Payment>
+            {
+                new Payment
+                {
+                 //   Author=authors[0],
+                    Patron=patrons[1],
+                    AuthorThreshold=authorThresholds[0],
+                    SourceBankAcc="617267876576655678",
+                   Value=authorThresholds[0].Value,
+                   Status= (Status) Enum.Parse(typeof(Status), "INACTIVE", true),
+                   Periodicity=(Periodicity) Enum.Parse(typeof(Periodicity), "MONTHLY", true),
+                   Date= DateTime.Today
+    }
+        };
+            payments.ForEach(c => context.Payments.Add(c));
+            context.SaveChanges();
+
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
