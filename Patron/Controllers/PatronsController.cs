@@ -1,4 +1,5 @@
-﻿using Patron.DAL;
+﻿using Microsoft.Ajax.Utilities;
+using Patron.DAL;
 using Patron.Models;
 using System;
 using System.Data.Entity;
@@ -48,9 +49,15 @@ namespace Patron.Controllers
                 return HttpNotFound();
             }
             Status status = (Status)Enum.Parse(typeof(Status), "INACTIVE", true);
+            Periodicity period = (Periodicity)Enum.Parse(typeof(Periodicity), "MONTHLY", true);
             ViewBag.ActiveSubscriptions = patron.AuthorThresholds;
-            ViewBag.InActiveSubscriptions = patron.Payments.Where(p => p.Status==status);
+            ViewBag.InActiveSubscriptions = patron.Payments.Where(p => p.Status==status && p.Periodicity==period);
+            ViewBag.OneTimeSupport = patron.Payments.Where(p => p.Periodicity != period);
             ViewBag.Avt = patron.Avatar;
+            ViewBag.CountActiveSub = patron.AuthorThresholds.Count;
+            ViewBag.CountInActiveSub = patron.Payments.DistinctBy(p => p.AuthorThreshold).Count(p => p.Status == status && p.Periodicity == period);
+            ViewBag.AllPayments = patron.Payments.Sum(p => p.Value);
+            
             return View(patron);
 
         }

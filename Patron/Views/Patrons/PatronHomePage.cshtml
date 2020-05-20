@@ -1,4 +1,5 @@
-﻿@model Patron.Models.Patron
+﻿@using Microsoft.AspNet.Identity
+@model Patron.Models.Patron
 
 @{
     ViewBag.Title = "PatronHomePage";
@@ -43,6 +44,7 @@
         </dd>
         <dt>
             Aktywne subskrupcje:
+            @ViewBag.CountActiveSub
         </dt>
         <dd>
             @foreach (var asub in @ViewBag.ActiveSubscriptions)
@@ -51,10 +53,12 @@
                 @(asub.Name)
                 @(asub.Author.FirstName)
                 @(asub.Author.LastName)
+                <a href="https://localhost:44321/Authors/Details/@(asub.Author.ID)">@(asub.Author.LastName)</a>
             }
         </dd>
         <dt>
             Niektywne subskrupcje:
+            @ViewBag.CountInActiveSub
         </dt>
         <dd>
             @foreach (var nsub in @ViewBag.InActiveSubscriptions)
@@ -62,6 +66,21 @@
                 @(nsub.Value)
                 @(nsub.AuthorThreshold.Author.FirstName)
 
+            }
+        </dd>
+        <dt>Łacznie wpłacono: @ViewBag.AllPayments</dt>
+        <dt>Jednorazowe:</dt>
+        <dd>
+            @foreach (var oneTime in @ViewBag.OneTimeSupport)
+            {
+                @(oneTime.Value)
+                @(oneTime.AuthorThreshold.Author.FirstName)
+
+            }
+            
+            @if (@User.Identity.GetUserName() == @Model.UserName)
+            {
+                <p>JESTES ZALOGOWANY, A TO TWOJA STRONA</p>
             }
         </dd>
     </dl>
