@@ -129,13 +129,35 @@ namespace Patron.DAL
             {
                 new Payment
                 {
-                 //   Author=authors[0],
+                   Author=authors[0],
                     Patron=patrons[1],
-                    AuthorThreshold=authorThresholds[0],
+                    //AuthorThreshold=authorThresholds[0],
                     SourceBankAcc="617267876576655678",
                    Value=authorThresholds[0].Value,
                    Status= (Status) Enum.Parse(typeof(Status), "INACTIVE", true),
                    Periodicity=(Periodicity) Enum.Parse(typeof(Periodicity), "MONTHLY", true),
+                   Date= DateTime.Today
+    },
+                                new Payment
+                {
+                   Author=authors[0],
+                    Patron=patrons[1],
+                    //AuthorThreshold=authorThresholds[0],
+                    SourceBankAcc="617267876576655678",
+                   Value=authorThresholds[0].Value,
+                   Status= (Status) Enum.Parse(typeof(Status), "ACTIVE", true),
+                   Periodicity=(Periodicity) Enum.Parse(typeof(Periodicity), "MONTHLY", true),
+                   Date= DateTime.Today
+    },
+                                                new Payment
+                {
+                    Author=authors[0],
+                    Patron=patrons[1],
+                    //AuthorThreshold=authorThresholds[1],
+                    SourceBankAcc="617267876576655678",
+                   Value=authorThresholds[1].Value,
+                   Status= (Status) Enum.Parse(typeof(Status), "ACTIVE", true),
+                   Periodicity=(Periodicity) Enum.Parse(typeof(Periodicity), "ONE_TIME", true),
                    Date= DateTime.Today
     }
         };

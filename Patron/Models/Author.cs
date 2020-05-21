@@ -9,7 +9,6 @@ namespace Patron.Models
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        //public int CategoryID { get; set; }
         public string BankAccount { get; set; }
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
