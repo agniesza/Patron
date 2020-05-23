@@ -36,6 +36,41 @@ namespace Patron.Controllers
             ViewBag.Categories = author.Categories;
             return View(author);
         }
+        public ActionResult AuthorPage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Author author = db.Authors.Find(id);
+            if (author == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Avt = author.Avatar;
+            ViewBag.Categories = author.Categories;
+            ViewBag.AuthorThresholds = author.AuthorThresholds;
+            //wspierających:
+            AuthorThreshold at;
+            int num = 0;
+            foreach (var item in author.AuthorThresholds)
+            {
+                at = db.AuthorThresholds.Find(item.ID);
+                num += at.Patrons.Count();
+            }
+            ViewBag.PatronsCount = num;
+            //miesięcznie
+            int mvalue = 0;
+            foreach (var item in author.AuthorThresholds)
+            {
+                at = db.AuthorThresholds.Find(item.ID);
+                mvalue += at.Patrons.Count()*at.Value;
+            }
+            ViewBag.Monthly = mvalue;
+            
+            ViewBag.AllPatrons = db.Patrons;
+            return View(author);
+        }
 
         // GET: Authors/Create
         public ActionResult Create()

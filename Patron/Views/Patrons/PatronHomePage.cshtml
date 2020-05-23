@@ -64,17 +64,17 @@
             @foreach (var nsub in @ViewBag.InActiveSubscriptions)
             {
                 @(nsub.Value)
-                @(nsub.AuthorThreshold.Author.FirstName)
+                @(nsub.Author.FirstName)
 
             }
         </dd>
-        <dt>Łacznie wpłacono: @ViewBag.AllPayments</dt>
+        <dt>Łacznie wpłacono:  @Html.DisplayFor(model => model.TotalMoney)</dt>
         <dt>Jednorazowe:</dt>
         <dd>
             @foreach (var oneTime in @ViewBag.OneTimeSupport)
             {
                 @(oneTime.Value)
-                @(oneTime.AuthorThreshold.Author.FirstName)
+                @(oneTime.Author.FirstName)
 
             }
             

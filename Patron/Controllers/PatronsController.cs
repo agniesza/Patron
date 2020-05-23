@@ -55,8 +55,7 @@ namespace Patron.Controllers
             ViewBag.OneTimeSupport = patron.Payments.Where(p => p.Periodicity != period);
             ViewBag.Avt = patron.Avatar;
             ViewBag.CountActiveSub = patron.AuthorThresholds.Count;
-            ViewBag.CountInActiveSub = patron.Payments.DistinctBy(p => p.AuthorThreshold).Count(p => p.Status == status && p.Periodicity == period);
-            ViewBag.AllPayments = patron.Payments.Sum(p => p.Value);
+            ViewBag.CountInActiveSub = patron.Payments.DistinctBy(p => p.Author).Count(p => p.Status == status && p.Periodicity == period);
             
             return View(patron);
 
