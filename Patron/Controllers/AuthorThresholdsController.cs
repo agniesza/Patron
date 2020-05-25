@@ -125,5 +125,22 @@ namespace Patron.Controllers
             }
             base.Dispose(disposing);
         }
+        //GET
+        public ActionResult Support(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            if (authorThreshold == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.NumbersOfPatrons = authorThreshold.Patrons.Count();
+            ViewBag.CurrentPatron = db.Patrons.Find(User.Identity.Name);
+            return View(authorThreshold);
+        }
+
     }
 }
