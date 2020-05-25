@@ -120,7 +120,20 @@
             @foreach (var item in @ViewBag.AuthorThresholds)
             {
                 @(item.Name)
-                
+                if (@ViewBag.isPatron)
+                {
+                    <p>Wspierasz tego autora</p>
+                }
+                else
+                {
+
+                    <button>Wspieraj</button>
+                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { idAT = item.ID })
+                    
+                }
+
+
+
             }
         </dd>
 

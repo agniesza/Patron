@@ -69,6 +69,18 @@ namespace Patron.Controllers
             ViewBag.Monthly = mvalue;
             
             ViewBag.AllPatrons = db.Patrons;
+
+            string currentUserName = User.Identity.Name;
+            ViewBag.isPatron = false;
+            foreach (var item in author.AuthorThresholds)
+            {
+                if (item.Patrons.Any(p => p.UserName.Equals(currentUserName)))
+                {
+                    ViewBag.isPatron=true;
+                }
+            }
+
+
             return View(author);
         }
 
