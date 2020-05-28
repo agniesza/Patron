@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Patron.Models
 {
@@ -17,7 +18,7 @@ namespace Patron.Models
         public int ID { get; set; }
         public int AuthorID { get; set; }
         public int PatronID { get; set; }
-       // public int AuthorThresholdID { get; set; }
+        [StringLength(30, MinimumLength = 15, ErrorMessage = "Numer rachunku nie może przekraczać 30 znaków.")]
         public string SourceBankAcc { get; set; }
         public DateTime Date { get; set; }
         public int Value { get; set; }
@@ -26,7 +27,6 @@ namespace Patron.Models
 
         public virtual Author Author { get; set; }
         public virtual Patron Patron { get; set; }
-       // public virtual AuthorThreshold AuthorThreshold { get; set; }
 
 
 

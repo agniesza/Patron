@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Patron.Models
 {
@@ -6,7 +7,9 @@ namespace Patron.Models
     {
         public int ID { get; set; }
         public string UserName { get; set; }
+
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
         public string Avatar { get; set; }
         public int TotalMoney { get; set; }
