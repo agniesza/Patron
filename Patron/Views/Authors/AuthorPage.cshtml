@@ -128,7 +128,7 @@
                 {
 
                     <button>Wspieraj</button>
-                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID })
+                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, null)
                     
                 }
 
@@ -161,6 +161,9 @@
     </dl>
 </div>
 <p>
+  
+
+
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

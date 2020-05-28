@@ -138,7 +138,7 @@ namespace Patron.Controllers
                 return HttpNotFound();
             }
             ViewBag.NumbersOfPatrons = authorThreshold.Patrons.Count();
-            ViewBag.CurrentPatron = db.Patrons.Find(User.Identity.Name);
+            ViewBag.CurrentPatron = db.Patrons.Where(p => p.UserName.Equals(User.Identity.Name)).Take(1);
             return View(authorThreshold);
         }
 

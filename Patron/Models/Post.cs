@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Patron.Models
@@ -11,6 +12,9 @@ namespace Patron.Models
         public string Content { get; set; }
         public double Raiting { get; set; }
         public int NumberOfRatings { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Date { get; set; }
 
         public virtual List<Patron> Patrons { get; set; }
         public virtual Author Author { get; set; }
