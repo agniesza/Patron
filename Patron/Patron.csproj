@@ -184,6 +184,7 @@
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\AuthorThreshold.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CreditCard.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Patron.cs" />
