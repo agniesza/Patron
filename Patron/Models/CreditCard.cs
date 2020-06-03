@@ -8,7 +8,7 @@ namespace Patron.Models
 {
     public enum CardType
     {
-        American_Express,
+        AmericanExpress,
         MasterCard,
         Visa
     };
@@ -18,6 +18,8 @@ namespace Patron.Models
         [ForeignKey("Patron")]
         public int ID { get; set; }
         public CardType CardType { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string CardNumber { get; set; }
         public int ExpirationMonth { get; set; }
         public int ExpirationYear { get; set; }
