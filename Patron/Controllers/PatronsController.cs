@@ -2,6 +2,7 @@
 using Patron.DAL;
 using Patron.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -17,6 +18,7 @@ namespace Patron.Controllers
         // GET: Patrons
         public ActionResult Index()
         {
+
             return View(db.Patrons.ToList());
         }
 
@@ -55,8 +57,23 @@ namespace Patron.Controllers
             ViewBag.OneTimeSupport = patron.Payments.Where(p => p.Periodicity != period);
             ViewBag.Avt = patron.Avatar;
             ViewBag.CountActiveSub = patron.AuthorThresholds.Count;
-            ViewBag.CountInActiveSub = patron.Payments.DistinctBy(p => p.Author).Count(p => p.Status == status && p.Periodicity == period);
-            
+            // ViewBag.CountInActiveSub = patron.Payments.DistinctBy(p => p.Author);
+            // var paym = patron.Payments.Any(p => p.Author.ID ==;
+            List<Payment> ap = patron.Payments;
+            List<Author> aap = new List<Author>();
+            foreach (var item in ap)
+            {
+                aap.Add(item.Author);
+            }
+            List<AuthorThreshold> at = patron.AuthorThresholds;
+            List<Author> aat= new List<Author>();
+            foreach (var item in at)
+            {
+                aat.Add(item.Author);
+            }
+            ViewBag.InActiveSub = aap.Where(p => !aat.Any(p2 => p2.ID == p.ID));
+            ViewBag.InActiveSubCount = aap.Where(p => !aat.Any(p2 => p2.ID == p.ID)).Count();
+
             return View(patron);
 
         }

@@ -17,10 +17,18 @@ namespace Patron.DAL
         public DbSet<Post> Posts { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<AuthorThreshold> AuthorThresholds { get; set; }
+        public DbSet<CreditCard> CreditCards { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            /*
+            // Configure Student & StudentAddress entity
+            modelBuilder.Entity<Models.Patron>()
+                        .HasOptional(p => p.CreditCard) // Mark Address property optional in Student entity
+                        .WithRequired(ad => ad.Patron); // mark Student property as required in StudentAddress entity. Cannot save StudentAddress without Student
+*/
+
         }
     }
 }

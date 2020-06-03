@@ -61,10 +61,11 @@
             @ViewBag.CountInActiveSub
         </dt>
         <dd>
-            @foreach (var nsub in @ViewBag.InActiveSubscriptions)
+            @foreach (var nsub in @ViewBag.InActiveSub)
             {
-                @(nsub.Value)
-                @(nsub.Author.FirstName)
+
+                @(nsub.FirstName)
+                @(nsub.LastName)
 
             }
         </dd>

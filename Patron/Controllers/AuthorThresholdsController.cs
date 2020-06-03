@@ -141,6 +141,21 @@ namespace Patron.Controllers
             ViewBag.CurrentPatron = db.Patrons.Where(p => p.UserName.Equals(User.Identity.Name)).Take(1);
             return View(authorThreshold);
         }
-
+        public ActionResult ConfirmSupport(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            if (authorThreshold == null)
+            {
+                return HttpNotFound();
+            }
+            Models.Patron patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
+            authorThreshold.Patrons.Add(patron);
+            
+            return View(authorThreshold);
+        }
     }
 }

@@ -1,10 +1,10 @@
 ﻿@model Patron.Models.AuthorThreshold
 
 @{
-    ViewBag.Title = "Support";
+    ViewBag.Title = "ConfirmSupport";
 }
 
-<h2>Support</h2>
+<h2>ConfirmSupport</h2>
 
 <div>
     <h4>AuthorThreshold</h4>
@@ -53,6 +53,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Wspieraj", "ConfirmSupport", new { id = Model.ID }) |
-
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>
