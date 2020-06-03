@@ -132,7 +132,7 @@ namespace Patron.Controllers
                 }
                 db.Entry(patron).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("CreditCards","Create", new { id = patron.ID });
+                return RedirectToAction("Create", "CreditCards", new { id = patron.ID });
             }
             return View(patron);
         }

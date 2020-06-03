@@ -53,9 +53,11 @@ namespace Patron.Controllers
         {
             if (ModelState.IsValid)
             {
+                Models.Patron patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
+                creditCard.Patron = patron;
                 db.CreditCards.Add(creditCard);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("PatronHomePage", "Patrons", new { id = patron.ID });
             }
 
             ViewBag.ID = new SelectList(db.Patrons, "ID", "UserName", creditCard.ID);
