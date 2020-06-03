@@ -5,8 +5,37 @@
 #patr {
     color: white;
 }
-
+#patr2 {
+    color: darkslategrey;
+}
 #on {
     color: lime;
 }
 
+input[type='radio']:after {
+    width: 18px;
+    height: 18px;
+    border-radius: 18px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 17px;
+    height: 17px;
+    border-radius: 17px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: lime;
+    content: '';
+   display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
