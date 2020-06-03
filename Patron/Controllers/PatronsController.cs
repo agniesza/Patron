@@ -132,12 +132,14 @@ namespace Patron.Controllers
                 }
                 db.Entry(patron).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("AddCreditCard", new { id = patron.ID });
+                return RedirectToAction("CreditCards","Create", new { id = patron.ID });
             }
             return View(patron);
         }
-        public ActionResult AddCreditCard(int? id)
+        public ActionResult AddCreditCard()
         {
+            return View();
+            /*
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -157,20 +159,10 @@ namespace Patron.Controllers
                 return HttpNotFound();
             }
             ViewBag.thisPatron = patron;
-            return View(card);
+            */
+            
         }
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult AddCreditCard(CreditCard creditCard)
-        {
-            if (ModelState.IsValid)
-            {              
-                db.Entry(creditCard).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return RedirectToAction("Index");
-        }
+
         // GET: Patrons/Delete/5
         public ActionResult Delete(int? id)
         {
