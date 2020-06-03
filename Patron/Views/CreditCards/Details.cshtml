@@ -1,0 +1,74 @@
+﻿@model Patron.Models.CreditCard
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CreditCard</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Patron.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patron.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CardType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CardNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CardNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpirationMonth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpirationMonth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpirationYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpirationYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CVV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CVV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PatronID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PatronID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

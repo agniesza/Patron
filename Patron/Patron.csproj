@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\AuthorThresholdsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CreditCardsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PatronsController.cs" />
@@ -279,7 +280,11 @@
     <Content Include="Views\Authors\AuthorPage.cshtml" />
     <Content Include="Views\AuthorThresholds\Support.cshtml" />
     <Content Include="Views\AuthorThresholds\ConfirmSupport.cshtml" />
-    <Content Include="Views\Patrons\AddCreditCard.cshtml" />
+    <Content Include="Views\CreditCards\Create.cshtml" />
+    <Content Include="Views\CreditCards\Delete.cshtml" />
+    <Content Include="Views\CreditCards\Details.cshtml" />
+    <Content Include="Views\CreditCards\Edit.cshtml" />
+    <Content Include="Views\CreditCards\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
