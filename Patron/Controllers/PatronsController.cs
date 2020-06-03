@@ -53,8 +53,9 @@ namespace Patron.Controllers
             Status status = (Status)Enum.Parse(typeof(Status), "INACTIVE", true);
             Periodicity period = (Periodicity)Enum.Parse(typeof(Periodicity), "MONTHLY", true);
             ViewBag.ActiveSubscriptions = patron.AuthorThresholds;
-            ViewBag.InActiveSubscriptions = patron.Payments.Where(p => p.Status==status && p.Periodicity==period);
+            //ViewBag.InActiveSubscriptions = patron.Payments.Where(p => p.Periodicity==period);
             ViewBag.OneTimeSupport = patron.Payments.Where(p => p.Periodicity != period);
+            ViewBag.OneTimeSupportCount = patron.Payments.Where(p => p.Periodicity != period).Count;
             ViewBag.Avt = patron.Avatar;
             ViewBag.CountActiveSub = patron.AuthorThresholds.Count;
             // ViewBag.CountInActiveSub = patron.Payments.DistinctBy(p => p.Author);
@@ -63,13 +64,13 @@ namespace Patron.Controllers
             List<Author> aap = new List<Author>();
             foreach (var item in ap)
             {
-                aap.Add(item.Author);
+                aap.Add(item.Author); //autorzy z płatnosci
             }
             List<AuthorThreshold> at = patron.AuthorThresholds;
             List<Author> aat= new List<Author>();
             foreach (var item in at)
             {
-                aat.Add(item.Author);
+                aat.Add(item.Author); //autozy z progow
             }
             ViewBag.InActiveSub = aap.Where(p => !aat.Any(p2 => p2.ID == p.ID));
             ViewBag.InActiveSubCount = aap.Where(p => !aat.Any(p2 => p2.ID == p.ID)).Count();

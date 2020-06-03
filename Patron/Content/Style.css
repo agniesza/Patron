@@ -15,6 +15,31 @@
     border: 1px solid #e6e6e6;
     border-radius: 8px;
 }
+.leftcolumn {
+    float: left;
+    width: 35%;
+    background-color: #f1f1f1;
+}
+
+/* Right column */
+.rightcolumn {
+    float: left;
+    width: 65%;
+    background-color: white;
+    padding-left: 20px;
+}
+.card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 input[type='radio']:after {
     width: 18px;
     height: 18px;

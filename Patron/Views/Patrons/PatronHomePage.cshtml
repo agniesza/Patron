@@ -4,89 +4,101 @@
 @{
     ViewBag.Title = "PatronHomePage";
 }
+<div class="title">
+    <h2 style="text-align: center;">
+        @Html.DisplayFor(model => model.FirstName)
+        @Html.DisplayFor(model => model.LastName)
+    </h2>
+    <h4 style="text-align: center; color: lime">wspiera talenty</h4>
+</div>
+<div class="row">
+    <div class="leftcolumn">
+        <div>
 
-<h2>PatronHomePage</h2>
-
-<div>
-    <h4>Patron</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Avatar)
-        </dt>
-
-        <dd>
-            <img src="~/Avatars/@ViewBag.Avt" alt="" height="100px" width="100px" />
-        </dd>
-        <dt>
-            Aktywne subskrupcje:
-            @ViewBag.CountActiveSub
-        </dt>
-        <dd>
-            @foreach (var asub in @ViewBag.ActiveSubscriptions)
-            {
-                @(asub.Value)
-                @(asub.Name)
-                @(asub.Author.FirstName)
-                @(asub.Author.LastName)
-                <a href="https://localhost:44321/Authors/Details/@(asub.Author.ID)">@(asub.Author.LastName)</a>
-            }
-        </dd>
-        <dt>
-            Niektywne subskrupcje:
-            @ViewBag.CountInActiveSub
-        </dt>
-        <dd>
-            @foreach (var nsub in @ViewBag.InActiveSub)
-            {
-
-                @(nsub.FirstName)
-                @(nsub.LastName)
-
-            }
-        </dd>
-        <dt>Łacznie wpłacono:  @Html.DisplayFor(model => model.TotalMoney)</dt>
-        <dt>Jednorazowe:</dt>
-        <dd>
-            @foreach (var oneTime in @ViewBag.OneTimeSupport)
-            {
-                @(oneTime.Value)
-                @(oneTime.Author.FirstName)
-
-            }
+       
+            <dd>
+                <img src="~/Avatars/@ViewBag.Avt" alt="" height="100px" width="100px" />
+            </dd>
             
-            @if (@User.Identity.GetUserName() == @Model.UserName)
+                <dt>
+                    @Html.DisplayFor(model => model.UserName)
+                </dt>
+           
+
+            <dt>Suma wpłat:  @Html.DisplayFor(model => model.TotalMoney)</dt>
+
+        </div>
+    </div>
+    <div class="rightcolumn">
+        @if (@ViewBag.CountActiveSub > 0)
+        {
+            <dt>
+                Aktywne subskrupcje:
+                @ViewBag.CountActiveSub
+            </dt>
+
+            <dd>
+                @foreach (var asub in @ViewBag.ActiveSubscriptions)
+                {
+
+                    @(asub.Value)
+                    @(asub.Name)
+                    @(asub.Author.FirstName)
+                    @(asub.Author.LastName)
+                    <a href="https://localhost:44321/Authors/Details/@(asub.Author.ID)">@(asub.Author.LastName)</a>
+                }
+            </dd>
+        }
+        else
+        {
+            if (@User.Identity.GetUserName() == @Model.UserName)
             {
-                <p>JESTES ZALOGOWANY, A TO TWOJA STRONA</p>
+                <p>W tej chwili nie wspierasz żadnych twórców.</p>
             }
-        </dd>
-    </dl>
+            else
+            {
+                @Model.FirstName <span>nie wspiera obecnie żadnych twórców.</span>
+            }
+        }
+
+
+
+
+        @if (@ViewBag.CountInActiveSub > 0)
+        {
+            <dt>
+                Niektywne subskrupcje:
+
+            </dt>
+            <dd>
+                @foreach (var nsub in @ViewBag.InActiveSub)
+                {
+
+                    @(nsub.FirstName)
+                    @(nsub.LastName)
+
+                }
+            </dd>
+        }
+       @if (@ViewBag.OneTimeSupportCount > 0)
+       {
+            <dt>Jednorazowo udzielone wsparcie:</dt>
+            <dd>
+                @foreach (var oneTime in @ViewBag.OneTimeSupport)
+                {
+                    @(oneTime.Value)
+                    @(oneTime.Author.FirstName)
+
+                }
+            </dd>
+       }
+                @if (@User.Identity.GetUserName() == @Model.UserName)
+                {
+                    <p>JESTES ZALOGOWANY, A TO TWOJA STRONA</p>
+                }
+           
+        </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+
 </p>
