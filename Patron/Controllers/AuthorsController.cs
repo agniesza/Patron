@@ -79,7 +79,14 @@ namespace Patron.Controllers
                     ViewBag.isPatron=true;
                 }
             }
-
+            ViewBag.isLoggedInAsPatron = false;
+            foreach (var item in db.Patrons)
+            {
+                if (item.UserName.Equals(currentUserName))
+                {
+                    ViewBag.isLoggedInAsPatron = true;
+                }
+            }
 
             return View(author);
         }

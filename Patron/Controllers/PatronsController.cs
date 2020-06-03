@@ -132,11 +132,45 @@ namespace Patron.Controllers
                 }
                 db.Entry(patron).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = patron.ID });
+                return RedirectToAction("AddCreditCard", new { id = patron.ID });
             }
             return View(patron);
         }
-
+        public ActionResult AddCreditCard(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Models.Patron patron = db.Patrons.Find(id);
+            CreditCard card = new CreditCard {
+                Patron = patron,
+                CVV=640
+            };
+            db.CreditCards.Add(card);
+            db.SaveChanges();
+            //patron.CreditCard = card;
+            
+           
+            if (patron == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.thisPatron = patron;
+            return View(card);
+        }
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult AddCreditCard(CreditCard creditCard)
+        {
+            if (ModelState.IsValid)
+            {              
+                db.Entry(creditCard).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
         // GET: Patrons/Delete/5
         public ActionResult Delete(int? id)
         {
