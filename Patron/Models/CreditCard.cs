@@ -15,7 +15,7 @@ namespace Patron.Models
 
     public class CreditCard
     {
-        [ForeignKey("Patron")]
+       
         public int ID { get; set; }
         public CardType CardType { get; set; }
         public string FirstName { get; set; }

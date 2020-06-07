@@ -22,6 +22,11 @@ namespace Patron.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<CreditCard>()
+                 .HasRequired(c => c.Patron)
+                 .WithRequiredDependent(cc => cc.CreditCard);
+                 
+                 
             /*
             // Configure Student & StudentAddress entity
             modelBuilder.Entity<Models.Patron>()
