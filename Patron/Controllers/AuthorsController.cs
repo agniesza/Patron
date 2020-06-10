@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList.Mvc;
+using PagedList;
 
 namespace Patron.Controllers
 {
@@ -14,17 +16,20 @@ namespace Patron.Controllers
         private PatronContext db = new PatronContext();
 
         // GET: Authors
-        public ActionResult Index(string phrase)
+        public ActionResult Index(string phrase, int? page)
         {
-            var authors = db.Authors.Include(a => a.Categories);
+            var authors = db.Authors.Include(a => a.Categories).OrderBy(aa => aa.UserName);
             if (phrase != null)
             {
+                page = 1;
                 authors = authors.Where(a => a.FirstName.Contains(phrase)
                     || a.LastName.Contains(phrase)
-                    || a.UserName.Contains(phrase));
+                    || a.UserName.Contains(phrase)).OrderBy(aa => aa.UserName);
             }
-           
-            return View(authors.ToList());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            return View(authors.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Authors/Details/5
