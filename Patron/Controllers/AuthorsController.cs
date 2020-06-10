@@ -23,7 +23,7 @@ namespace Patron.Controllers
                     || a.LastName.Contains(phrase)
                     || a.UserName.Contains(phrase));
             }
-
+           
             return View(authors.ToList());
         }
 

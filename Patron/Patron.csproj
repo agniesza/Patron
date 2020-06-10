@@ -285,6 +285,7 @@
     <Content Include="Views\CreditCards\Details.cshtml" />
     <Content Include="Views\CreditCards\Edit.cshtml" />
     <Content Include="Views\CreditCards\Index.cshtml" />
+    <Content Include="Views\Categories\ShowAuthors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

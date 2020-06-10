@@ -4,13 +4,13 @@
     ViewBag.Title = "Autorzy";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Category.Name</h2>
 
 @using (Html.BeginForm())
 {
 
     @Html.TextBox("phrase");
-   
+
     <input type="submit" value="Search" />
 
 }
@@ -19,7 +19,7 @@
 @foreach (var item in Model)
 {
     <div class="col-xs-3">
-        @Html.ActionLink(item.FirstName+" "+item.LastName, "Details", new { id = item.ID }) |
+        @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", "Authors", ""+new { id = item.ID }) |
 
         @Html.DisplayFor(modelItem => item.Avatar)
     </div>

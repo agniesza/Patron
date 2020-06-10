@@ -17,6 +17,22 @@ namespace Patron.Controllers
             return View(db.Categories.ToList());
         }
 
+        public ActionResult ShowAuthors(int? id, string phrase)
+        {
+            var authors = db.Authors.Include(a => a.Categories);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (phrase==null)
+                authors = authors.Where(a => a.Categories.Any(c => c.ID == id));
+            else
+                authors = authors.Where(a => a.FirstName.Contains(phrase)
+                   || a.LastName.Contains(phrase)
+                   || a.UserName.Contains(phrase) && a.Categories.Any(c => c.ID == id));
+            ViewBag.Category = db.Categories.Single(cat => cat.ID == id);
+            return View(authors.ToList());
+        }
         // GET: Categories/Details/5
         public ActionResult Details(int? id)
         {
