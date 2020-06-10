@@ -14,9 +14,16 @@ namespace Patron.Controllers
         private PatronContext db = new PatronContext();
 
         // GET: Authors
-        public ActionResult Index()
+        public ActionResult Index(string phrase)
         {
             var authors = db.Authors.Include(a => a.Categories);
+            if (phrase != null)
+            {
+                authors = authors.Where(a => a.FirstName.Contains(phrase)
+                    || a.LastName.Contains(phrase)
+                    || a.UserName.Contains(phrase));
+            }
+
             return View(authors.ToList());
         }
 

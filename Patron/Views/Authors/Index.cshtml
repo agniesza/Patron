@@ -6,103 +6,20 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Kategorie
-        </th>
-        <th>
-            Nazwa użytkownika
-        </th>
-        <th>
-            Imię
-        </th>
-        <th>
-            Nazwisko
-        </th>
-        <th>
-            Miasto
-        </th>
-        <th>
-            Numer rachunku bankowego
-        </th>
-        <th>
-            Opis
-        </th>
-        <th>
-            Cele
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FacebookLink)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InstagramLink)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.YouTubeLink)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TwitterLink)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OtherLink)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @foreach (var cat in item.Categories)
-        {
-            @(cat.Name)
-        }
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.UserName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FirstName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.LastName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.City)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.BankAccount)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Goals)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FacebookLink)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.InstagramLink)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.YouTubeLink)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TwitterLink)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.OtherLink)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-    </td>
-</tr>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("phrase")
+        <input type="submit" value="Search" />
+    </p>
 }
 
-</table>
+
+@foreach (var item in Model)
+{
+    <div class="col-xs-3">
+        @Html.ActionLink(item.FirstName+" "+item.LastName, "Details", new { id = item.ID }) |
+
+        @Html.DisplayFor(modelItem => item.Avatar)
+    </div>
+}
