@@ -1,17 +1,24 @@
-﻿@model IEnumerable<Patron.Models.Author>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Patron.Models.Author>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 
 @{
+    /**/
+
     ViewBag.Title = "Autorzy";
 }
 
 <h2>@ViewBag.Category.Name</h2>
+<h4>Szukaj autorów w tej kategorii</h4>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("ShowAuthors", "Categories", FormMethod.Get))
 {
 
     @Html.TextBox("phrase");
 
-    <input type="submit" value="Search" />
+    <input type="submit" value="Szukaj" />
 
 }
 
@@ -19,8 +26,14 @@
 @foreach (var item in Model)
 {
     <div class="col-xs-3">
-        @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", "Authors", ""+new { id = item.ID }) |
+        @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", "Authors", "" + new { id = item.ID }) |
 
         @Html.DisplayFor(modelItem => item.Avatar)
     </div>
 }
+<br />
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))

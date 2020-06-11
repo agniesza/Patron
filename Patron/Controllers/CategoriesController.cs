@@ -18,21 +18,28 @@ namespace Patron.Controllers
             return View(db.Categories.ToList());
         }
 
-        public ActionResult ShowAuthors(int? id, string phrase)
+        public ActionResult ShowAuthors(int? id, string phrase, int? page)
         {
-            var authors = db.Authors.Include(a => a.Categories);
+            var authors = db.Authors.Include(a => a.Categories).OrderBy(aa => aa.UserName);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            if (phrase==null)
-                authors = authors.Where(a => a.Categories.Any(c => c.ID == id));
+            if (phrase == null)
+            {
+                page = 1;
+                authors = authors.Where(a => a.Categories.Any(c => c.ID == id)).OrderBy(aa => aa.UserName);
+            }
             else
                 authors = authors.Where(a => a.FirstName.Contains(phrase)
                    || a.LastName.Contains(phrase)
-                   || a.UserName.Contains(phrase) && a.Categories.Any(c => c.ID == id));
+                   || a.UserName.Contains(phrase) && a.Categories.Any(c => c.ID == id))
+                   .OrderBy(aa => aa.UserName);
+
             ViewBag.Category = db.Categories.Single(cat => cat.ID == id);
-            return View(authors.ToList());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(authors.ToPagedList(pageNumber, pageSize));
         }
         // GET: Categories/Details/5
         public ActionResult Details(int? id)
