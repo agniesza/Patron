@@ -60,7 +60,6 @@ namespace Patron.Controllers
                 return HttpNotFound();
             }
             ViewBag.Avt = author.Avatar;
-            ViewBag.Categories = author.Categories;
             ViewBag.AuthorThresholds = author.AuthorThresholds;
             //wspierających:
             AuthorThreshold at;
