@@ -1,4 +1,5 @@
 using Patron.DAL;
+using Patron.ScheduledTasks;
 using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -16,6 +17,8 @@ namespace Patron
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Database.SetInitializer(new PatronInitializer());
+
+            JobScheduler.Start();
         }
     }
 }
