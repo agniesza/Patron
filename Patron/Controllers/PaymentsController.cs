@@ -21,7 +21,16 @@ namespace Patron.Controllers
             var payments = db.Payments.Include(p => p.Author).Include(p => p.Patron);
             return View(payments.ToList());
         }
-
+        public ActionResult PatronPayments(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var payments = db.Payments.Where(p => p.PatronID==id).Include(p => p.Author).Include(p => p.Patron).OrderByDescending(p => p.Date);
+            ViewBag.patron = db.Patrons.Find(id);
+            return View(payments.ToList());
+        }
         // GET: Payments/Details/5
         public ActionResult Details(int? id)
         {
