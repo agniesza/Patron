@@ -1,25 +1,18 @@
 ﻿@model Patron.Models.CreditCard
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Karta kredytowa";
 }
 
-<h2>Details</h2>
+<h2>Informacje o karcie</h2>
 
 <div>
-    <h4>CreditCard</h4>
+    <h4>Karta płatnicza użytkownika @Html.DisplayFor(model => model.Patron.FirstName) @Html.DisplayFor(model => model.Patron.LastName)</h4>
     <hr />
     <dl class="dl-horizontal">
+        
         <dt>
-            @Html.DisplayNameFor(model => model.Patron.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Patron.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CardType)
+            <p>Typ karty</p>
         </dt>
 
         <dd>
@@ -27,7 +20,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CardNumber)
+            <p>Numer karty</p>
         </dt>
 
         <dd>
@@ -35,40 +28,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ExpirationMonth)
+            <p>Data wygaśnięcia:(MM/YY)</p>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ExpirationMonth)
+            @Html.DisplayFor(model => model.ExpirationMonth) / @Html.DisplayFor(model => model.ExpirationYear)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpirationYear)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ExpirationYear)
-        </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CVV)
+            <p>Kod CVV</p>
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CVV)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PatronID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PatronID)
-        </dd>
-
+       
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
+    <a href="https://localhost:44321/Patrons/PatronHomePage/@(Model.Patron.ID)">Profil Patrona</a>
+
 </p>
