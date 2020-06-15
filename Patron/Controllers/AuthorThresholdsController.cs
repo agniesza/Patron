@@ -154,7 +154,7 @@ namespace Patron.Controllers
             }
             Models.Patron patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
             authorThreshold.Patrons.Add(patron);
-            
+            db.SaveChanges();
             return View(authorThreshold);
         }
     }
