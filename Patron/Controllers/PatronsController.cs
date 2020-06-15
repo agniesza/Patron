@@ -101,6 +101,37 @@ namespace Patron.Controllers
             return View(patron);
         }
 
+        public ActionResult EditProfile(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Models.Patron patron = db.Patrons.Find(id);
+            if (patron == null)
+            {
+                return HttpNotFound();
+            }
+            return View(patron);
+        }
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult EditProfile([Bind(Include = "ID,UserName,FirstName,LastName,Avatar")] Models.Patron patron)
+        {
+            if (ModelState.IsValid)
+            {
+                HttpPostedFileBase file = Request.Files["avatarFile"];
+                if (file != null && file.ContentLength > 0)
+                {
+                    patron.Avatar = file.FileName;
+                    file.SaveAs(HttpContext.Server.MapPath("~/Avatars/") + patron.Avatar);
+                }
+                db.Entry(patron).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("PatronHomePage", new { id = patron.ID });
+            }
+            return View(patron);
+        }
         // GET: Patrons/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -137,6 +168,7 @@ namespace Patron.Controllers
             }
             return View(patron);
         }
+
         public ActionResult AddCreditCard()
         {
             return View();
