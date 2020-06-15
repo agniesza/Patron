@@ -4,55 +4,33 @@
     ViewBag.Title = "ConfirmSupport";
 }
 
-<h2>ConfirmSupport</h2>
+<h2>
+    Zostałeś patronem autora
+    @Html.DisplayFor(model => model.Author.FirstName)
+    @Html.DisplayFor(model => model.Author.LastName)
+</h2>
 
 <div>
-    <h4>AuthorThreshold</h4>
+    <h4>Gratulacje!</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+<p>Próg</p>
 
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Value)
-        </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Value)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaxNumberOfPatrons)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaxNumberOfPatrons)
+            Miesięcznie:@Html.DisplayFor(model => model.Value)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a href="https://localhost:44321/Authors/AuthorPage/@(Model.Author.ID)" class="btn btn-default">Powrót </a>
+
 </p>
