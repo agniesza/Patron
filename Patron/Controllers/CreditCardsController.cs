@@ -76,6 +76,7 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.ID = new SelectList(db.Patrons, "ID", "UserName", creditCard.ID);
             return View(creditCard);
         }
@@ -87,12 +88,15 @@ namespace Patron.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,CardType,CardNumber,ExpirationMonth,ExpirationYear,CVV,PatronID")] CreditCard creditCard)
         {
+            string currentUserName = User.Identity.Name;
+            Models.Patron p = db.Patrons.Single(pp => pp.UserName == currentUserName);
             if (ModelState.IsValid)
             {
                 db.Entry(creditCard).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("PatronHomePage", "Patrons",  new { id = p.ID });
             }
+           
             ViewBag.ID = new SelectList(db.Patrons, "ID", "UserName", creditCard.ID);
             return View(creditCard);
         }
