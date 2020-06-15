@@ -120,7 +120,7 @@ namespace Patron.Controllers
         {
             if (ModelState.IsValid)
             {
-                HttpPostedFileBase file = Request.Files["avatarFile"];
+                HttpPostedFileBase file = Request.Files["avatarFile2"];
                 if (file != null && file.ContentLength > 0)
                 {
                     patron.Avatar = file.FileName;
