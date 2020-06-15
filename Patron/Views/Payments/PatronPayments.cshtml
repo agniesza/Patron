@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Patron.Models.Payment>
+
+@{
+    ViewBag.Title = "Płatności";
+}
+<div class="title">
+    <h2 style="text-align: center;">
+        @ViewBag.patron.FirstName
+        @ViewBag.patron.LastName
+    </h2>
+    <h4 style="text-align: center; color: lime">płatności</h4>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            <p>Autor</p>
+        </th>
+
+        <th>
+            <p>Data</p>
+        </th>
+        <th>
+            <p>Wartość</p>
+        </th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author.FirstName)
+            @Html.DisplayFor(modelItem => item.Author.LastName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+
+    </tr>
+}
+
+</table>
