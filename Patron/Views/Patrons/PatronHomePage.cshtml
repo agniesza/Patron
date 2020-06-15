@@ -16,16 +16,16 @@
         <div>
 
        
-            <dd>
-                <img src="~/Avatars/@ViewBag.Avt" alt="" height="100px" width="100px" />
-            </dd>
+            <div style="text-align:center">
+                <img src="~/Avatars/@ViewBag.Avt" alt="" height="170px" width="150px" />
+            </div>
             
-                <dt>
+                <p>
                     @Html.DisplayFor(model => model.UserName)
-                </dt>
+                </p>
            
 
-            <dt>Suma wpłat:  @Html.DisplayFor(model => model.TotalMoney)</dt>
+            <h4>Suma wpłat:  @Html.DisplayFor(model => model.TotalMoney)</h4>
 
         </div>
     </div>
@@ -80,8 +80,8 @@
                 }
             </dd>
         }
-       @if (@ViewBag.OneTimeSupportCount > 0)
-       {
+        @if (@ViewBag.OneTimeSupportCount > 0)
+        {
             <dt>Jednorazowo udzielone wsparcie:</dt>
             <dd>
                 @foreach (var oneTime in @ViewBag.OneTimeSupport)
@@ -91,13 +91,18 @@
 
                 }
             </dd>
-       }
-                @if (@User.Identity.GetUserName() == @Model.UserName)
-                {
-                    <p>JESTES ZALOGOWANY, A TO TWOJA STRONA</p>
-                }
-           
-        </div>
+        }
+        @if (@User.Identity.GetUserName() == @Model.UserName)
+        {
+            @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID })
+           <br />
+            <a href="https://localhost:44321/Payments/PatronsPayments/@(Model.ID)">Twoje płatności</a>
+            <br />
+            <a href="https://localhost:44321/CreditCards/Details/@(Model.CreditCard.ID)">Twoja karta</a>
+
+        }
+
+    </div>
 </div>
 <p>
 
