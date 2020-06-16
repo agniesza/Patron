@@ -27,25 +27,37 @@
     <div class="leftcolumn">
         <img src="~/Avatars/@Model.Avatar" alt="" height="200px" width="200px" />
         <p> @Html.DisplayFor(model => model.UserName)</p>
+        <p>
 
+        </p>
         <div id="authorDesc>
             @Html.DisplayFor(model => model.Description)
         </div>
         <div id="authorGoals">
             @Html.DisplayFor(model => model.Goals)
         </div>
-        <p id="city">@Html.DisplayFor(model => model.City)</p>
-        <a id="FbLink" href=@Model.FacebookLink>@Html.DisplayFor(model => model.FacebookLink)</a>
-        <a id="IgLink" href=@Model.InstagramLink>
-            @Html.DisplayFor(model => model.InstagramLink)</a>
-        <a id="YtLink" href=@Model.YouTubeLink>
-            @Html.DisplayFor(model => model.YouTubeLink) </a>
-        <a id="TwitterLink" href=@Model.TwitterLink>
-            @Html.DisplayFor(model => model.TwitterLink)</a>
-        <a id="OtherLink" href=@Model.OtherLink>  
-        @Html.DisplayFor(model => model.OtherLink)</a>
+        <i class="fa fa-map-marker" style="font-size:27px">
+            <span style="font-size:20px">@Html.DisplayFor(model => model.City)</span>
+         </i>
+        <br />
+        @if (Model.FacebookLink != null)
+        {<a id="FbLink" href=@Model.FacebookLink class="fa fa-facebook-square" style="font-size:50px">
+            </a>}
+        @if (Model.InstagramLink != null)
+        {<a id="IgLink" href=@Model.InstagramLink class="fa fa-instagram" style="font-size:50px">
+            </a>}
+        @if (Model.YouTubeLink != null)
+        {<a id="YtLink" href=@Model.YouTubeLink class="fa fa-youtube" style="font-size:50px">
+            </a>}
+        @if (Model.TwitterLink != null)
+        {<a id="TwitterLink" href=@Model.TwitterLink class="fa fa-twitter-square" style="font-size:50px">
+            </a>}
+        @if (Model.OtherLink != null)
+        {<a id="OtherLink" href=@Model.OtherLink class="fa fa-laptop" style="font-size:50px">
+            </a>}
+        <br />
 
-</div>
+    </div>
     <div class="rightcolumn">
 
         
