@@ -64,22 +64,23 @@
 
         @foreach (var item in @ViewBag.AuthorThresholds)
         {
-            <div class="rounder-border">
-                <h2>@item.Name</h2>
-                <h4>@item.Value zł</h4>
-                <p>@item.Description</p>
+        <div class="rounder-border">
+            <h2>@item.Name</h2>
+            <h4>@item.Value zł</h4>
+            <p>@item.Description</p>
 
-                @if (@ViewBag.isPatron)
-                {
-                    <p>Wspierasz tego autora</p>
-                }
-                else if (@ViewBag.isLoggedInAsPatron)
-                {
-                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, null)
+            @if (@ViewBag.isPatron)
+            {
+                @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, null)
 
-                }
+            }
+            else if (@ViewBag.isLoggedInAsPatron)
+            {
+                @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, null)
 
-            </div>
+            }
+
+        </div>
         }
         @if (!@ViewBag.isPatron)
         {
