@@ -26,8 +26,8 @@
 @foreach (var item in Model)
 {
     <div class="col-xs-3">
-        @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", "Authors", "" + new { id = item.ID }) |
-
+        @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage",
+        "Authors", new {id = item.ID}, null)
         @Html.DisplayFor(modelItem => item.Avatar)
     </div>
 }

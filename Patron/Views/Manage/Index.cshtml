@@ -1,6 +1,6 @@
 ﻿@model Patron.Models.IndexViewModel
 @{
-    ViewBag.Title = "Zarządzaj";
+    ViewBag.Title = "Zarządzaj kontem";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -15,7 +15,7 @@
             [
             @if (Model.HasPassword)
             {
-                @Html.ActionLink("Zmień hasło", "ChangePassword")
+                @Html.ActionLink("Zmień hasło", "ChangePassword", new { @class = "btn btn-default" })
             }
             else
             {
@@ -23,65 +23,81 @@
             }
             ]
         </dd>
-        <dt>Logowania zewnętrzne:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Zarządzaj", "ManageLogins") ]
-        </dd>
+        <dt>Twój profil:</dt>
+        @if (ViewBag.patron != null)
+        {
+            @Html.ActionLink("Twój profil Patrona", "PatronHomePage",
+       "Patrons", new {id = ViewBag.patron.ID}, null)
+        }
+        @if (ViewBag.author != null)
+        {
+            @Html.ActionLink("Twój profil Autora", "AuthorPage",
+        "Authors", new {id = ViewBag.author.ID}, null)
+        }
+
+        <!--
+    <dt>Logowania zewnętrzne:</dt>
+    <dd>
+        @Model.Logins.Count [
+        @Html.ActionLink("Zarządzaj", "ManageLogins") ]
+    </dd>
+        -->
         @*
-            Numery telefonów mogą być używane jako drugi składnik w systemach uwierzytelniania dwuskładnikowego.
-             
-             Zobacz <a href="https://go.microsoft.com/fwlink/?LinkId=403804">ten artykuł</a>,
-                        aby uzyskać szczegółowe informacje na temat konfigurowania tej aplikacji ASP.NET pod kątem obsługi uwierzytelniania dwuskładnikowego przy użyciu wiadomości SMS.
-             
-             Usuń komentarz z następującego bloku po skonfigurowaniu uwierzytelniania dwuskładnikowego
+        Numery telefonów mogą być używane jako drugi składnik w systemach uwierzytelniania dwuskładnikowego.
+
+         Zobacz <a href="https://go.microsoft.com/fwlink/?LinkId=403804">ten artykuł</a>,
+                    aby uzyskać szczegółowe informacje na temat konfigurowania tej aplikacji ASP.NET pod kątem obsługi uwierzytelniania dwuskładnikowego przy użyciu wiadomości SMS.
+
+         Usuń komentarz z następującego bloku po skonfigurowaniu uwierzytelniania dwuskładnikowego
         *@
-        @*  
-            <dt>Numer telefonu:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Usuń" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Uwierzytelnianie dwuetapowe:</dt>
+        @*
+        <dt>Numer telefonu:</dt>
         <dd>
-            <p>
-                Nie skonfigurowano żadnych dostawców uwierzytelniania dwuskładnikowego. Zobacz <a href="https://go.microsoft.com/fwlink/?LinkId=403804">ten artykuł</a>,
-                aby uzyskać szczegółowe informacje na temat konfigurowania tej aplikacji ASP.NET pod kątem obsługi uwierzytelniania dwuskładnikowego.
-            </p>
-            @*@if (Model.TwoFactor)
+            @(Model.PhoneNumber ?? "None")
+            @if (Model.PhoneNumber != null)
+            {
+                <br />
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Włączone
-                        <input type="submit" value="Wyłącz" class="btn btn-link" />
-                        </text>
-                    }
+                    @Html.AntiForgeryToken()
+                    <text>[<input type="submit" value="Usuń" class="btn-link" />]</text>
                 }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Wyłączone
-                        <input type="submit" value="Włącz" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
+            }
+            else
+            {
+                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+            }
+        </dd>
+        *@
+        <!--
+    <dt>Uwierzytelnianie dwuetapowe:</dt>
+    <dd>
+        <p>
+            Nie skonfigurowano żadnych dostawców uwierzytelniania dwuskładnikowego. Zobacz <a href="https://go.microsoft.com/fwlink/?LinkId=403804">ten artykuł</a>,
+            aby uzyskać szczegółowe informacje na temat konfigurowania tej aplikacji ASP.NET pod kątem obsługi uwierzytelniania dwuskładnikowego.
+        </p>
+        -->
+        @*@if (Model.TwoFactor)
+        {
+            using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <text>Włączone
+                <input type="submit" value="Wyłącz" class="btn btn-link" />
+                </text>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <text>Wyłączone
+                <input type="submit" value="Włącz" class="btn btn-link" />
+                </text>
+            }
+        }*@
         </dd>
     </dl>
 </div>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Patron.DAL;
 using Patron.Models;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,9 +10,14 @@ using System.Web.Mvc;
 
 namespace Patron.Controllers
 {
+   
+
+
     [Authorize]
     public class ManageController : Controller
     {
+        private PatronContext db = new PatronContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -71,6 +77,19 @@ namespace Patron.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+            ViewBag.author = null;
+            ViewBag.patron = null;
+            if (db.Patrons.Any(p => p.UserName == User.Identity.Name))
+            {
+                Models.Patron Patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
+                ViewBag.patron = Patron;
+            }
+            if (db.Authors.Any(a => a.UserName == User.Identity.Name))
+            {
+                Author Author = db.Authors.Single(a => a.UserName == User.Identity.Name);
+                ViewBag.author = Author;
+            }
+           
             return View(model);
         }
 

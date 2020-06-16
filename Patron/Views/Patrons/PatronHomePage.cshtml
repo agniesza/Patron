@@ -41,7 +41,7 @@
                 @foreach (var asub in @ViewBag.ActiveSubscriptions)
                 {
                 <div>
-
+                  
                     <a href="https://localhost:44321/Authors/AuthorPage/@(asub.Author.ID)">@(asub.Author.FirstName) @(asub.Author.LastName)</a>
                     @(asub.Value)zł/miesięcznie
                     @(asub.Name)
@@ -89,12 +89,11 @@
             <dd>
                 @foreach (var oneTime in @ViewBag.OneTimeSupport)
                 {
-                    <div>
+                <div>
+                    <a href="https://localhost:44321/Authors/AuthorPage/@(oneTime.Author.ID)">@(oneTime.Author.FirstName) @(oneTime.Author.LastName)</a>
+                    @(oneTime.Value)zł
 
-                        <a href="https://localhost:44321/Authors/AuthorPage/@(oneTime.Author.ID)">@(oneTime.Author.FirstName) @(oneTime.Author.LastName)</a>
-                        @(oneTime.Value)zł
-                      
-                    </div>
+                </div>
                 }
             </dd>
         }
