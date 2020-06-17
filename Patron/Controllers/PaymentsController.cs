@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Patron.DAL;
 using Patron.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace Patron.Controllers
 {
@@ -16,10 +18,41 @@ namespace Patron.Controllers
         private PatronContext db = new PatronContext();
 
         // GET: Payments
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string phrase, int? page)
         {
+            ViewBag.ValueSortParm = String.IsNullOrEmpty(sortOrder) ? "value_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
             var payments = db.Payments.Include(p => p.Author).Include(p => p.Patron);
-            return View(payments.ToList());
+            switch (sortOrder)
+            {
+                case "value_desc":
+                    payments = payments.OrderByDescending(s => s.Value);
+                    break;
+                case "Date":
+                    payments = payments.OrderBy(s => s.Date);
+                    break;
+                case "date_desc":
+                    payments = payments.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    payments = payments.OrderBy(s => s.Author.UserName);
+                    break;
+            }
+            if (phrase != null)
+            {
+                page = 1;
+                payments = payments.Where(a => a.Author.FirstName.Contains(phrase)
+                    || a.Author.LastName.Contains(phrase)
+                    || a.Author.UserName.Contains(phrase)
+                    || a.Patron.FirstName.Contains(phrase)
+                    || a.Patron.LastName.Contains(phrase)
+                    || a.Patron.UserName.Contains(phrase)
+                    );
+            }
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
+            return View(payments.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult PatronPayments(int? id)
         {

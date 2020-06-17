@@ -1,63 +1,79 @@
-﻿@model IEnumerable<Patron.Models.Payment>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Patron.Models.Payment>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Płatności";
 }
 
-<h2>Index</h2>
+<h2>Płatności</h2>
+@using (Html.BeginForm("Index", "Payments", FormMethod.Get))
+{
 
-<p>
+    @Html.TextBox("phrase");
+
+    <input type="submit" value="Szukaj" />
+
+}
+<p style="visibility:hidden">
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Author.UserName)
+            Autor
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Patron.UserName)
+            Patron
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.ActionLink("Data", "Index", new { sortOrder = ViewBag.DateSortParm })
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Value)
+          
+            @Html.ActionLink("Wartość", "Index", new { sortOrder = ViewBag.ValueSortParm })
+
         </th>
+        
         <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Periodicity)
+            Rodzaj płatności
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Patron.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Value)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Periodicity)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.FirstName)
+                @Html.DisplayFor(modelItem => item.Author.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patron.FirstName)
+                @Html.DisplayFor(modelItem => item.Patron.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Periodicity)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
