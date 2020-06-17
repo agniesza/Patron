@@ -13,7 +13,7 @@ namespace Patron.Models
         public string LastName { get; set; }
         public string Avatar { get; set; }
         public int TotalMoney { get; set; }
-        public int MyProperty { get; set; }
+
         public virtual CreditCard CreditCard { get; set; }
         public virtual List<Post> Posts { get; set; }
         public virtual List<Payment> Payments { get; set; }

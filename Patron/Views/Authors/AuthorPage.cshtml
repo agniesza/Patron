@@ -38,7 +38,7 @@
         </div>
         <i class="fa fa-map-marker" style="font-size:27px">
             <span style="font-size:20px">@Html.DisplayFor(model => model.City)</span>
-         </i>
+        </i>
         <br />
         @if (Model.FacebookLink != null)
         {<a id="FbLink" href=@Model.FacebookLink class="fa fa-facebook-square" style="font-size:50px">
@@ -56,7 +56,9 @@
         {<a id="OtherLink" href=@Model.OtherLink class="fa fa-laptop" style="font-size:50px">
             </a>}
         <br />
-
+        <div id="authorDesc">
+            @Html.DisplayFor(model => model.Description)
+        </div>
     </div>
     <div class="rightcolumn">
 
@@ -85,9 +87,10 @@
         }
         @if (!@ViewBag.isPatron)
         {
-            @Html.ActionLink("Wesprzyj jednorazowo", "Create", "Payments", new { id = Model.ID }, null)
-
-        }
+            if (@ViewBag.isLoggedInAsPatron)
+            { @Html.ActionLink("Wesprzyj jednorazowo", "Create", "Payments", new { id = Model.ID }, null)
+                }
+            }
 
 
     </div>

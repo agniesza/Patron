@@ -49,6 +49,7 @@ namespace Patron.Controllers
             ViewBag.Categories = author.Categories;
             return View(author);
         }
+
         public ActionResult AuthorPage(int? id)
         {
             if (id == null)
