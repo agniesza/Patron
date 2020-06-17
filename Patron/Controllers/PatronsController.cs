@@ -228,7 +228,14 @@ namespace Patron.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Models.Patron patron = db.Patrons.Find(id);
+            if (db.CreditCards.Any(card => card.PatronID == patron.ID))
+            {
+                CreditCard c = db.CreditCards.Single(card => card.PatronID == patron.ID);
+                db.CreditCards.Remove(c);
+            }
+            
             db.Patrons.Remove(patron);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

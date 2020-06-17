@@ -141,6 +141,20 @@ namespace Patron.Controllers
             return View(author);
         }
 
+        [Authorize]
+        public ActionResult AddAuthorProfile(int? id)
+        {
+            Models.Patron p = db.Patrons.Find(id);
+            Author author = new Author { UserName = p.UserName };
+            
+            db.Authors.Add(author);
+            db.SaveChanges();
+
+            // return View("~/Views/Patrons/Edit.cshtml", patron);
+            return RedirectToAction("Edit", "Authors", new { id = author.ID });
+
+
+        }
         // GET: Authors/Edit/5
         [Authorize]
         public ActionResult Edit(int? id)

@@ -168,7 +168,7 @@ namespace Patron.Controllers
 
                     if (UserType.Equals("Patron"))
                     {
-                        SendMail(model.Email, "Witaj w serwisie PatrON!", mess1);
+                   //     SendMail(model.Email, "Witaj w serwisie PatrON!", mess1);
                         Models.Patron patron = new Models.Patron { UserName = model.Email };
                         //  Author author = new Author { UserName = model.Email };
                         PatronContext db = new PatronContext();
@@ -180,7 +180,7 @@ namespace Patron.Controllers
                     }
                     else if (UserType.Equals("Author"))
                     {
-                        SendMail(model.Email, "Witaj w serwisie PatrON!", mess2);
+                     //   SendMail(model.Email, "Witaj w serwisie PatrON!", mess2);
                         PatronContext db = new PatronContext();
                         Author author = new Author { UserName = model.Email}; //, Category = db.Categories.First() 
                         db.Authors.Add(author);
