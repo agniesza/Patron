@@ -157,5 +157,21 @@ namespace Patron.Controllers
             db.SaveChanges();
             return View(authorThreshold);
         }
+        public ActionResult CancelSupport(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            if (authorThreshold == null)
+            {
+                return HttpNotFound();
+            }
+            Models.Patron patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
+            authorThreshold.Patrons.Remove(patron);
+            db.SaveChanges();
+            return RedirectToAction("AuthorPage", "Authors", new { id = id });
+        }
     }
 }
