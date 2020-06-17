@@ -206,6 +206,7 @@
     <Compile Include="ScheduledTasks\JobScheduler.cs" />
     <Compile Include="ScheduledTasks\PaymentJob.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PaymentGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

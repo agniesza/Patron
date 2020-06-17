@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Patron.ViewModels;
 
 namespace Patron.Controllers
 {
@@ -26,9 +27,19 @@ namespace Patron.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            IQueryable<PaymentGroup> data = from payment in db.Payments
+                                                   group payment by payment.Date into aGroup
+                                                   select new PaymentGroup()
+                                                   {
+                                                       Date = aGroup.Key,
+                                                       PaymentCount = aGroup.Count()
+                                                   };
+            return View(data.ToList());
+        }
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
 
         public ActionResult Contact()
