@@ -47,10 +47,16 @@ namespace Patron.Controllers
         }
 
         // GET: Payments/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName");
-            ViewBag.PatronID = new SelectList(db.Patrons, "ID", "UserName");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.AuthorID = id;
+
+            Models.Patron p = db.Patrons.Single(pp => pp.UserName == User.Identity.Name);
+            ViewBag.PatronID = p.ID;
             return View();
         }
 
