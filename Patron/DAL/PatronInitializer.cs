@@ -171,8 +171,8 @@ namespace Patron.DAL
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             roleManager.Create(new IdentityRole("Admin"));
 
-            var user = new ApplicationUser { UserName = "user1@gmail.com" };
-            string passwor = "password";
+            var user = new ApplicationUser { UserName = "kokomonajlepsze@gmail.com" };
+            string passwor = "Platon13";
             userManager.Create(user, passwor);
 
             userManager.AddToRole(user.Id, "Admin");

@@ -3,11 +3,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Patron.DAL;
 using Patron.Models;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Net.Mail;
 namespace Patron.Controllers
 {
     [Authorize]
@@ -158,10 +159,16 @@ namespace Patron.Controllers
                     // Aby uzyskać więcej informacji o sposobie włączania potwierdzania konta i resetowaniu hasła, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=320771
                     // Wyślij wiadomość e-mail z tym łączem
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Potwierdź konto", "Potwierdź konto, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Potwierdź konto", "Potwierdź konto, klikając <a href=\"" + callbackUrl + "\">tutaj</a>");
+                    string mess1 = "Zarejestrowałeś się w serwisie jako Patron. Możesz teraz wspierać autorów." +
+                        "W każdej chwili możesz również zostań Autorem, bez potrzeby zakładania nowego konta.";
+                    string mess2 = "Zarejestrowałeś się w serwisie jako Autor. Możesz teraz pozyskiwać finansowe wsparcie od Patronów." +
+                        "W każdej chwili możesz również zostań Patronem, bez potrzeby zakładania nowego konta.";
+
                     if (UserType.Equals("Patron"))
                     {
+                        SendMail(model.Email, "Witaj w serwisie PatrON!", mess1);
                         Models.Patron patron = new Models.Patron { UserName = model.Email };
                         //  Author author = new Author { UserName = model.Email };
                         PatronContext db = new PatronContext();
@@ -173,6 +180,7 @@ namespace Patron.Controllers
                     }
                     else if (UserType.Equals("Author"))
                     {
+                        SendMail(model.Email, "Witaj w serwisie PatrON!", mess2);
                         PatronContext db = new PatronContext();
                         Author author = new Author { UserName = model.Email}; //, Category = db.Categories.First() 
                         db.Authors.Add(author);
@@ -190,7 +198,23 @@ namespace Patron.Controllers
             // Dotarcie do tego miejsca wskazuje, że wystąpił błąd, wyświetl ponownie formularz
             return View(model);
         }
-
+        public static void SendMail(string to, string subject, string body)
+        {
+            var message = new System.Net.Mail.MailMessage(ConfigurationManager.AppSettings["sender"], to)
+            {
+                Subject = subject,
+                Body = body
+            };
+            var smtpClient = new System.Net.Mail.SmtpClient
+            {
+                Host = ConfigurationManager.AppSettings["smtpHost"],
+                Credentials = new System.Net.NetworkCredential(
+                    ConfigurationManager.AppSettings["sender"],
+                    ConfigurationManager.AppSettings["passwd"]),
+                EnableSsl = true
+            };
+            smtpClient.Send(message);
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
