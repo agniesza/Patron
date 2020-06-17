@@ -178,7 +178,6 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         // [ValidateAntiForgeryToken]
-        [Authorize]
         public ActionResult Edit(Author author, int[] cats)
         {
             if (ModelState.IsValid)
@@ -199,7 +198,7 @@ namespace Patron.Controllers
                 }
                 db.Entry(author).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = author.ID });
+                return RedirectToAction("AuthorPage", new { id = author.ID });
 
             }
 
