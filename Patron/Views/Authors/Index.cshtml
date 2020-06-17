@@ -16,19 +16,24 @@
     <input type="submit" value="Szukaj" />
 
 }
+<hr />
 
 
-@foreach (var item in Model)
-{
-    <div class="col-xs-3">
-        @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", new { id = item.ID })
+<div>
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-2">
+            <p>
+                @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", new { id = item.ID })
+                    </p>
+            <img src="~/Avatars/@item.Avatar" alt="" height="100px" width="100px" />
 
-        <img src="~/Avatars/@item.Avatar" alt="" height="100px" width="100px" />
-
-    </div>
-}
-
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        </div>
+    }
+</div>
+<p style="visibility:hidden"> sialalalggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg</p>
+<hr />
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page }))
