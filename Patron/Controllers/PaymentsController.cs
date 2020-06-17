@@ -54,6 +54,7 @@ namespace Patron.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ViewBag.AuthorID = id;
+            ViewBag.Author = db.Authors.Find(id);
 
             Models.Patron p = db.Patrons.Single(pp => pp.UserName == User.Identity.Name);
             ViewBag.PatronID = p.ID;
@@ -69,6 +70,8 @@ namespace Patron.Controllers
         {
             if (ModelState.IsValid)
             {
+                payment.Periodicity = (Periodicity)Enum.Parse(typeof(Periodicity), "ONE_TIME", true);
+                payment.Date = DateTime.Now;
                 db.Payments.Add(payment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
