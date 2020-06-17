@@ -14,10 +14,10 @@ namespace Patron.Models
         [StringLength(30, MinimumLength = 15, ErrorMessage = "Numer rachunku nie może przekraczać 30 znaków.")]
         public string BankAccount { get; set; }
         [DataType(DataType.MultilineText)]
-        [StringLength(300, MinimumLength = 20, ErrorMessage = "Opis musi posiadać od 50 do 300 znaków.")]
+        [StringLength(2000, MinimumLength = 50, ErrorMessage = "Opis musi posiadać od 50 do 2000 znaków.")]
         public string Description { get; set; }
         [DataType(DataType.MultilineText)]
-        [StringLength(200, MinimumLength = 20, ErrorMessage = "Opis celów musi posiadać od 20 do 200 znaków.")]
+        [StringLength(500, MinimumLength = 20, ErrorMessage = "Opis celów musi posiadać od 20 do 500 znaków.")]
         public string Goals { get; set; }
 
         public string City { get; set; }
