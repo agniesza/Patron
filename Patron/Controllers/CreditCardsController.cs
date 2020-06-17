@@ -16,6 +16,7 @@ namespace Patron.Controllers
         private PatronContext db = new PatronContext();
 
         // GET: CreditCards
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var creditCards = db.CreditCards.Include(c => c.Patron);
@@ -23,6 +24,7 @@ namespace Patron.Controllers
         }
 
         // GET: CreditCards/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,6 +40,7 @@ namespace Patron.Controllers
         }
 
         // GET: CreditCards/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.ID = new SelectList(db.Patrons, "ID", "UserName");
@@ -48,6 +51,7 @@ namespace Patron.Controllers
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,CardType,CardNumber,ExpirationMonth,ExpirationYear,CVV,PatronID")] CreditCard creditCard)
         {
@@ -65,6 +69,7 @@ namespace Patron.Controllers
         }
 
         // GET: CreditCards/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,6 +91,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ID,CardType,CardNumber,ExpirationMonth,ExpirationYear,CVV,PatronID")] CreditCard creditCard)
         {
             string currentUserName = User.Identity.Name;
@@ -102,6 +108,7 @@ namespace Patron.Controllers
         }
 
         // GET: CreditCards/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -119,6 +126,7 @@ namespace Patron.Controllers
         // POST: CreditCards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             CreditCard creditCard = db.CreditCards.Find(id);
