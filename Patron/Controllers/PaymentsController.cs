@@ -18,6 +18,7 @@ namespace Patron.Controllers
         private PatronContext db = new PatronContext();
 
         // GET: Payments
+       // [Authorize(Roles = "Admin")]
         public ActionResult Index(string sortOrder, string phrase, int? page)
         {
             ViewBag.ValueSortParm = String.IsNullOrEmpty(sortOrder) ? "value_desc" : "";
@@ -54,6 +55,7 @@ namespace Patron.Controllers
                 int pageNumber = (page ?? 1);
             return View(payments.ToPagedList(pageNumber, pageSize));
         }
+        [Authorize]
         public ActionResult PatronPayments(int? id)
         {
             if (id == null)
@@ -65,6 +67,7 @@ namespace Patron.Controllers
             return View(payments.ToList());
         }
         // GET: Payments/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -80,6 +83,7 @@ namespace Patron.Controllers
         }
 
         // GET: Payments/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(int? id)
         {
             if (id == null)
@@ -99,6 +103,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "ID,AuthorID,PatronID,Date,Value,Status,Periodicity")] Payment payment)
         {
             if (ModelState.IsValid)
@@ -116,6 +121,7 @@ namespace Patron.Controllers
         }
 
         // GET: Payments/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -137,6 +143,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ID,AuthorID,PatronID,Date,Value,Status,Periodicity")] Payment payment)
         {
             if (ModelState.IsValid)
@@ -151,6 +158,7 @@ namespace Patron.Controllers
         }
 
         // GET: Payments/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -168,6 +176,7 @@ namespace Patron.Controllers
         // POST: Payments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Payment payment = db.Payments.Find(id);
