@@ -16,6 +16,7 @@ namespace Patron.Controllers
         private PatronContext db = new PatronContext();
 
         // GET: Patrons
+        [Authorize(Roles ="Admin")]
         public ActionResult Index()
         {
 
@@ -23,6 +24,7 @@ namespace Patron.Controllers
         }
 
         // GET: Patrons/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -79,6 +81,7 @@ namespace Patron.Controllers
 
         }
         // GET: Patrons/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -89,6 +92,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "ID,UserName,FirstName,LastName")] Models.Patron patron)
         {
             if (ModelState.IsValid)
@@ -100,7 +104,7 @@ namespace Patron.Controllers
 
             return View(patron);
         }
-
+        [Authorize]
         public ActionResult EditProfile(int? id)
         {
             if (id == null)
@@ -115,6 +119,7 @@ namespace Patron.Controllers
             return View(patron);
         }
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult EditProfile([Bind(Include = "ID,UserName,FirstName,LastName,Avatar")] Models.Patron patron)
         {
@@ -133,6 +138,8 @@ namespace Patron.Controllers
             return View(patron);
         }
         // GET: Patrons/Edit/5
+
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -151,6 +158,7 @@ namespace Patron.Controllers
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         //[ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,UserName,FirstName,LastName,Avatar")] Models.Patron patron)
         {
@@ -169,6 +177,7 @@ namespace Patron.Controllers
             return View(patron);
         }
 
+        [Authorize]
         public ActionResult AddCreditCard()
         {
             return View();
@@ -197,6 +206,7 @@ namespace Patron.Controllers
         }
 
         // GET: Patrons/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -212,6 +222,7 @@ namespace Patron.Controllers
         }
 
         // POST: Patrons/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
