@@ -84,7 +84,7 @@
         }
         @if (!@ViewBag.isPatron)
         {
-            @Html.ActionLink("Wesprzyj jednorazowo", "OneTimeSupport", "Authors", new { id = Model.ID }, null)
+            @Html.ActionLink("Wesprzyj jednorazowo", "Create", "Payments", new { id = Model.ID }, null)
 
         }
 
