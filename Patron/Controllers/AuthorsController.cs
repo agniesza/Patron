@@ -33,6 +33,7 @@ namespace Patron.Controllers
         }
 
         // GET: Authors/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -103,6 +104,7 @@ namespace Patron.Controllers
         }
 
         // GET: Authors/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
            
@@ -115,6 +117,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create( Author author, int[] cats)
         {
             if (ModelState.IsValid)
@@ -138,6 +141,7 @@ namespace Patron.Controllers
         }
 
         // GET: Authors/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -159,6 +163,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         // [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit(Author author, int[] cats)
         {
             if (ModelState.IsValid)
@@ -190,6 +195,7 @@ namespace Patron.Controllers
         }
 
         // GET: Authors/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -208,6 +214,7 @@ namespace Patron.Controllers
         // POST: Authors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Author author = db.Authors.Find(id);
