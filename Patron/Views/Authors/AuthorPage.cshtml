@@ -71,8 +71,9 @@
 
             @if (@ViewBag.isPatron)
             {
+            
                 @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, null)
-
+           
             }
             else if (@ViewBag.isLoggedInAsPatron)
             {

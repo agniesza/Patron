@@ -26,7 +26,7 @@ namespace Patron.Controllers
                     || a.LastName.Contains(phrase)
                     || a.UserName.Contains(phrase)).OrderBy(aa => aa.UserName);
             }
-            int pageSize = 3;
+            int pageSize = 15;
             int pageNumber = (page ?? 1);
 
             return View(authors.ToPagedList(pageNumber, pageSize));
