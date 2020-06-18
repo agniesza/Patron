@@ -99,7 +99,9 @@
         }
         @if (@User.Identity.GetUserName() == @Model.UserName)
         {
-            
+
+            @Html.ActionLink("Napisz post", "Create", "Posts", new { id = Model.ID })
+
             @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID })
             <br />
             <a href="https://localhost:44321/Payments/PatronPayments/@(Model.ID)">Twoje płatności</a>

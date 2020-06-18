@@ -94,7 +94,8 @@
     }
         @if (@User.Identity.GetUserName() == @Model.UserName)
         {
-
+            @Html.ActionLink("Napisz post", "Create",
+        "Posts", new { id = Model.ID }, null)
             @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID })
             <br />
         }
