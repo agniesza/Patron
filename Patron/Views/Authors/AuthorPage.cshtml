@@ -1,4 +1,5 @@
-﻿@model Patron.Models.Author
+﻿@using Microsoft.AspNet.Identity
+@model Patron.Models.Author
 
 @{
     ViewBag.Title = Model.FirstName + " " + Model.LastName;
@@ -66,33 +67,37 @@
 
         @foreach (var item in @ViewBag.AuthorThresholds)
         {
-        <div class="rounder-border">
-            <h2>@item.Name</h2>
-            <h4>@item.Value zł</h4>
-            <p>@item.Description</p>
+            <div class="rounder-border">
+                <h2>@item.Name</h2>
+                <h4>@item.Value zł</h4>
+                <p>@item.Description</p>
 
-            @if (@ViewBag.isPatron)
-            {
-            
-                @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, null)
-           
-            }
-            else if (@ViewBag.isLoggedInAsPatron)
-            {
-                @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, null)
+                @if (@ViewBag.isPatron)
+                {
 
-            }
+                    @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, null)
 
-        </div>
+                }
+                else if (@ViewBag.isLoggedInAsPatron)
+                {
+                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, null)
+
+                }
+
+            </div>
         }
         @if (!@ViewBag.isPatron)
         {
             if (@ViewBag.isLoggedInAsPatron)
-            { @Html.ActionLink("Wesprzyj jednorazowo", "Create", "Payments", new { id = Model.ID }, null)
-                }
-            }
+            {@Html.ActionLink("Wesprzyj jednorazowo", "Create", "Payments", new { id = Model.ID }, null)
+        }
+    }
+        @if (@User.Identity.GetUserName() == @Model.UserName)
+        {
 
-
+            @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID })
+            <br />
+        }
     </div>
-    </div>
+</div>
 

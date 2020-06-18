@@ -316,6 +316,7 @@
     <Content Include="Views\Payments\Index.cshtml" />
     <Content Include="Views\Patrons\EditProfile.cshtml" />
     <Content Include="Views\Payments\PatronPayments.cshtml" />
+    <Content Include="Views\Authors\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
