@@ -11,137 +11,159 @@
     </h2>
     <h4 style="text-align: center; color: lime">edytuj swój profil Autora</h4>
 </div>
-
 @using (Html.BeginForm("EditProfile", "Authors", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.ID)
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
 
-    <div class="form-group">
-        <p>Nazwa użytkownika (email)</p>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <p> Imię</p>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <p> Nazwisko </p>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <p>Numer rachunku bankowego</p>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.BankAccount, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <p>Opis profilu</p>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <p>Opis celów</p>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Goals, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Goals, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <p>Miasto</p>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <p>Twoje zdjęcie </p>
-        <div class="col-md-10">
-            <img src="~/Avatars/@Model.Avatar" alt="" height="150px" width="120px" />
-            <span style="visibility:hidden">
-                @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control" } })
-            </span>
-            <p>
-                Wgraj nowe zdjęcie:
-            </p>
-            <input type="file" name="avatarFile2" />
-            @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
-
+        <div class="form-group">
+            <p>Nazwa użytkownika (email)</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
         </div>
 
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.FacebookLink, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FacebookLink, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FacebookLink, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <p> Imię</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.InstagramLink, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.InstagramLink, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.InstagramLink, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <p> Nazwisko </p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.YouTubeLink, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.YouTubeLink, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.YouTubeLink, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <p>Numer rachunku bankowego</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BankAccount, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.TwitterLink, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TwitterLink, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TwitterLink, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <p>Opis profilu</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.OtherLink, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.OtherLink, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.OtherLink, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <p>Opis celów</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Goals, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Goals, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Zapisz zmiany" class="btn btn-success" />
+        <div class="form-group">
+            <p>Miasto</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    @Html.ActionLink("Anuluj", "AuthorPage", new { id = Model.ID }, new { @class = "btn btn-default" })
 
-</div>
+        <div class="form-group">
+            <p>Twoje zdjęcie </p>
+            <div class="col-md-10">
+                <img src="~/Avatars/@Model.Avatar" alt="" height="150px" width="120px" />
+                <span style="visibility:hidden">
+                    @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control" } })
+                </span>
+                <p>
+                    Wgraj nowe zdjęcie:
+                </p>
+                <input type="file" name="avatarFile2" />
+                @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    Twoje kategorie:
+                </div>
+                <div class="col-md-10">
+
+                    @foreach (var item in ViewBag.AuthorCategories)
+                    {
+                        <p>@item.Name</p>
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    Kategorie:
+                </div>
+                <div class="col-md-10">
+
+                    @foreach (var item in ViewBag.Categories)
+                    {
+                        <p><input type="checkbox" name="cats" value="@(item.ID)" />@item.Name</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FacebookLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FacebookLink, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FacebookLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InstagramLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InstagramLink, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.InstagramLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.YouTubeLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.YouTubeLink, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.YouTubeLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TwitterLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TwitterLink, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TwitterLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OtherLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OtherLink, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OtherLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Zapisz zmiany" class="btn btn-success" />
+            </div>
+        </div>
+        @Html.ActionLink("Anuluj", "AuthorPage", new { id = Model.ID }, new { @class = "btn btn-default" })
+
+    </div>
 }
 
 <div>

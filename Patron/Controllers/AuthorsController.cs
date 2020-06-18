@@ -219,12 +219,14 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Categories = db.Categories;
+            ViewBag.AuthorCategories = author.Categories;
             return View(author);
         }
         [HttpPost]
         [Authorize]
         //[ValidateAntiForgeryToken]
-        public ActionResult EditProfile([Bind(Include = "ID,UserName,FirstName,LastName,Avatar")] Author author)
+        public ActionResult EditProfile([Bind(Include = "ID,UserName,FirstName,LastName, Goals, Description, BankAccount, City, TwitterLink, FacebookLink, YouTubeLink, InstagramLink, OtherLink")] Author author, int[] cats)
         {
             if (ModelState.IsValid)
             {
@@ -236,7 +238,22 @@ namespace Patron.Controllers
                 }
                 db.Entry(author).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("AuthorHomePage", new { id = author.ID });
+                if (cats != null)
+                {
+                    foreach (var item in cats)
+                    {
+                        if(author.Categories != null)
+                        author.Categories.Add(db.Categories.Find(item));
+                        else
+                        {
+                            author.Categories = new List<Category>();
+                            author.Categories.Add(db.Categories.Find(item));
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                
+                return RedirectToAction("AuthorPage", new { id = author.ID });
             }
             return View(author);
         }
