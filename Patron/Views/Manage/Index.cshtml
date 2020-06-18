@@ -28,14 +28,19 @@
         {
             @Html.ActionLink("Twój profil Patrona", "PatronHomePage",
        "Patrons", new {id = ViewBag.patron.ID}, null)
-            if (ViewBag.author == null) {
-            @Html.ActionLink("Zostań autorem", "AddAuthorProfile",
-"Authors", new { id = ViewBag.patron.ID }, null)}
+            if (ViewBag.author == null)
+            {
+                @Html.ActionLink("Zostań autorem", "AddAuthorProfile",
+    "Authors", new { id = ViewBag.patron.ID }, null)}
         }
         @if (ViewBag.author != null)
         {
             @Html.ActionLink("Twój profil Autora", "AuthorPage",
         "Authors", new {id = ViewBag.author.ID}, null)
+            if (ViewBag.patron == null)
+            {
+                @Html.ActionLink("Zostań patronem", "AddPatronProfile",
+    "Patrons", new { id = ViewBag.author.ID }, null)}
         }
 
         <!--

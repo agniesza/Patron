@@ -207,7 +207,39 @@ namespace Patron.Controllers
             ViewBag.Categories = db.Categories;
             return View(author);
         }
-
+        [Authorize]
+        public ActionResult EditProfile(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Author author = db.Authors.Find(id);
+            if (author == null)
+            {
+                return HttpNotFound();
+            }
+            return View(author);
+        }
+        [HttpPost]
+        [Authorize]
+        //[ValidateAntiForgeryToken]
+        public ActionResult EditProfile([Bind(Include = "ID,UserName,FirstName,LastName,Avatar")] Author author)
+        {
+            if (ModelState.IsValid)
+            {
+                HttpPostedFileBase file = Request.Files["avatarFile2"];
+                if (file != null && file.ContentLength > 0)
+                {
+                    author.Avatar = file.FileName;
+                    file.SaveAs(HttpContext.Server.MapPath("~/Avatars/") + author.Avatar);
+                }
+                db.Entry(author).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("AuthorHomePage", new { id = author.ID });
+            }
+            return View(author);
+        }
         // GET: Authors/Delete/5
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
