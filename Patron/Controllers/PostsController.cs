@@ -37,7 +37,7 @@ namespace Patron.Controllers
         public ActionResult Create()
         {
             Author author = db.Authors.Single(a => a.UserName == User.Identity.Name);
-            ViewBag.AuthorThresholds = author.AuthorThresholds;
+            ViewBag.Author = author;
             //ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName");
             return View();
         }
