@@ -36,7 +36,9 @@ namespace Patron.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName");
+            Author author = db.Authors.Single(a => a.UserName == User.Identity.Name);
+            ViewBag.AuthorThresholds = author.AuthorThresholds;
+            //ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName");
             return View();
         }
 

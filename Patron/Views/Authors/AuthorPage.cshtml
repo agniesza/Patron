@@ -94,8 +94,11 @@
     }
         @if (@User.Identity.GetUserName() == @Model.UserName)
         {
+            if (Model.AuthorThresholds != null)
+            {
             @Html.ActionLink("Napisz post", "Create",
-        "Posts", new { id = Model.ID }, null)
+                 "Posts", null, null) }
+
             @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID })
             <br />
         }
