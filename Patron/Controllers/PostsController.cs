@@ -1,5 +1,7 @@
 ﻿using Patron.DAL;
 using Patron.Models;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -47,17 +49,23 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,AuthorID,Content,Raiting,NumberOfRatings")] Post post)
+        public ActionResult Create( Post post, int[] authorthresholds)
         {
-            if (ModelState.IsValid)
+            post.Patrons = new List<Models.Patron>();
+            if (authorthresholds != null)
             {
-                db.Posts.Add(post);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                foreach (var item in authorthresholds)
+                {
+                    post.Patrons.Add(db.Patrons.Find(item));
+                }
             }
+            post.Author = db.Authors.Single(a => a.UserName == User.Identity.Name);
+            post.Date = DateTime.Now;
+            post.NumberOfRatings = 0;
+            db.Posts.Add(post);
+            db.SaveChanges();
+            return RedirectToAction("AuthorPage", "Authors", new { id = post.Author.ID });
 
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", post.AuthorID);
-            return View(post);
         }
 
         // GET: Posts/Edit/5
