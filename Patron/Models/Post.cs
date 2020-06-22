@@ -8,8 +8,10 @@ namespace Patron.Models
     {
         public int ID { get; set; }
         public int AuthorID { get; set; }
+        [StringLength(100, MinimumLength = 10, ErrorMessage = "Tytuł musi zawierać od 10 do 100 znaków.")]
+        public string Title { get; set; }
         [DataType(DataType.MultilineText)]
-        [StringLength(300, MinimumLength = 10, ErrorMessage = "Treść musi mieć od 10 do 300 znaków.")]
+        [StringLength(300, MinimumLength = 10, ErrorMessage = "Treść musi zawierać od 10 do 300 znaków.")]
         public string Content { get; set; }
         public double Raiting { get; set; }
         public int NumberOfRatings { get; set; }
