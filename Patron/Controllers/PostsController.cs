@@ -19,7 +19,21 @@ namespace Patron.Controllers
             var posts = db.Posts.Include(p => p.Author);
             return View(posts.ToList());
         }
-
+        public ActionResult ShowAuthorPosts(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Author author = db.Authors.Find(id);
+            if (author == null)
+            {
+                return HttpNotFound();
+            }
+            var posts = db.Posts.Where(p => p.Author == author);
+            return View(posts.ToList());
+            
+        }
         // GET: Posts/Details/5
         public ActionResult Details(int? id)
         {
