@@ -6,6 +6,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using PagedList.Mvc;
+using PagedList;
 
 namespace Patron.Controllers
 {
@@ -19,7 +21,7 @@ namespace Patron.Controllers
             var posts = db.Posts.Include(p => p.Author);
             return View(posts.ToList());
         }
-        public ActionResult ShowAuthorPosts(int? id)
+        public ActionResult ShowAuthorPosts(int? id, int? page)
         {
             if (id == null)
             {
@@ -30,8 +32,10 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
-            var posts = db.Posts.Where(p => p.Author == author);
-            return View(posts.ToList());
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            var posts = db.Posts.Where(p => p.Author.UserName==author.UserName).OrderByDescending(p => p.Date);
+            return View(posts.ToPagedList(pageNumber, pageSize));
             
         }
         // GET: Posts/Details/5
