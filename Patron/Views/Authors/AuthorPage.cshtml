@@ -97,9 +97,9 @@
             if (Model.AuthorThresholds != null)
             {
                 @Html.ActionLink("Napisz post", "Create",
-                     "Posts", null, null) }
+                          "Posts", null, null) }
             @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
-                 "Posts", null, new { id = Model.ID })}
+                 "Posts", new { id = Model.ID }, null)
         @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID })
         <br />
         }

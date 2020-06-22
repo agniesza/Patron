@@ -317,6 +317,7 @@
     <Content Include="Views\Patrons\EditProfile.cshtml" />
     <Content Include="Views\Payments\PatronPayments.cshtml" />
     <Content Include="Views\Authors\EditProfile.cshtml" />
+    <Content Include="Views\Posts\ShowAuthorPosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

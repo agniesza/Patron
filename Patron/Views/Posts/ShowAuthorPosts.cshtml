@@ -1,0 +1,61 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Patron.Models.Post>
+@{
+    ViewBag.Title = "Posty";
+}
+
+<h2>ShowAuthorPosts</h2>
+
+<p>
+    @Html.ActionLink("Utwórz nowy post", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            <p>Treść</p>
+        </th>
+        <th>
+              @Html.ActionLink("Ocena", "ShowAuthorPosts", new { sortOrder = ViewBag.RatingSortParm })
+
+        </th>
+        <th>
+            <p>Liczba ocen</p>
+        </th>
+        <th>
+            @Html.ActionLink("Data", "ShowAuthorPosts", new { sortOrder = ViewBag.DateSortParm })
+
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.ActionLink(item.Title, "Details", new { id = item.ID }) 
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Raiting)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfRatings)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("ShowAuthorPosts",
+    new { page }))

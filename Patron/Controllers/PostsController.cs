@@ -21,8 +21,9 @@ namespace Patron.Controllers
             var posts = db.Posts.Include(p => p.Author);
             return View(posts.ToList());
         }
-        public ActionResult ShowAuthorPosts(int? id, int? page)
+        public ActionResult ShowAuthorPosts(int? id, int? page, string sortOrder)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -32,9 +33,28 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "rating_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            var posts = db.Posts.Where(p => p.Author.UserName==author.UserName).OrderByDescending(p => p.Date);
+            var posts = db.Posts.Where(p => p.Author.UserName==author.UserName);
+            switch (sortOrder)
+            {
+                case "rating_desc":
+                    posts = posts.OrderByDescending(s => s.Raiting);
+                    break;
+                case "Date":
+                    posts = posts.OrderBy(s => s.Date);
+                    break;
+                case "date_desc":
+                    posts = posts.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    posts = posts.OrderBy(s => s.Title);
+                    break;
+            }
+
             return View(posts.ToPagedList(pageNumber, pageSize));
             
         }
