@@ -102,7 +102,7 @@ namespace Patron.Controllers
             post.NumberOfRatings = 0;
             db.Posts.Add(post);
             db.SaveChanges();
-            return RedirectToAction("AuthorPage", "Authors", new { id = post.Author.ID });
+            return RedirectToAction("ShowAuthorPosts", "Posts", new { id = post.Author.ID });
 
         }
 
