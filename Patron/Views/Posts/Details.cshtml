@@ -1,50 +1,48 @@
 ﻿@model Patron.Models.Post
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Title;
 }
 
-<h2>Details</h2>
+
 
 <div>
     <h4>Post</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Author.UserName)
+            <p>Autor</p>
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Author.UserName)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.Content)
+            <p>Tytuł</p>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            <p>Treść:</p>
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Content)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Raiting)
-        </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Raiting)
+            @Html.DisplayFor(model => model.Raiting) / @Html.DisplayFor(model => model.NumberOfRatings) głosów
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NumberOfRatings)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NumberOfRatings)
-        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
+                   "Posts", new { id = Model.AuthorID }, null)
 </p>
