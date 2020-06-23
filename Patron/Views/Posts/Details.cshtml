@@ -42,7 +42,23 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
+    @if (Context.User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) 
+@Html.ActionLink("Powrót do listy postów", "Index")
+}
+else
+{
+    if (User.Identity.Name == Model.Author.UserName)
+    {
+        @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) 
     @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
-                   "Posts", new { id = Model.AuthorID }, null)
+    "Posts", new { id = Model.AuthorID }, null)
+            }
+   else{
+        @Html.ActionLink("Twoje posty", "ShowPatronPosts",
+    "Posts", new { id = Model.AuthorID }, null)
+    }
+    }
+
 </p>

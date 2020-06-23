@@ -45,8 +45,15 @@
 }
 
 <div>
-    @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
-                    "Posts", new { id = Model.AuthorID }, null)
+    @if (Context.User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Powrót do listy postów", "Index")
+    }
+    else
+    {
+        @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
+                             "Posts", new { id = Model.AuthorID }, null)
+    }
 </div>
 
 @section Scripts {

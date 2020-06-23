@@ -1,34 +1,34 @@
 ﻿@model Patron.Models.Post
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = Model.Title;
 }
 
-<h2>Delete</h2>
+<h2>@Model.Title</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Czy na pewno chcesz usunąć ten post?</h3>
 <div>
-    <h4>Post</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Author.UserName)
+            <p>Autor</p>
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Author.UserName)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
 
         <dd>
             @Html.DisplayFor(model => model.Content)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Raiting)
+            <p>Ocena</p>
         </dt>
 
         <dd>
@@ -36,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NumberOfRatings)
+            <p>Liczba głosów</p>
         </dt>
 
         <dd>
@@ -48,9 +48,17 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Usuń" class="btn btn-danger" /> |
+        @if (Context.User.IsInRole("Admin"))
+        {
+            @Html.ActionLink("Powrót do listy postów", "Index")
+        }
+        else
+        {
+            @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
+                                 "Posts", new { id = Model.AuthorID }, null)
+        }
+    </div>
     }
 </div>
