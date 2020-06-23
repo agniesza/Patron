@@ -127,13 +127,14 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,AuthorID,Content,Raiting,NumberOfRatings")] Post post)
+        public ActionResult Edit([Bind(Include = "ID,AuthorID,Content,Raiting,NumberOfRatings, Date, Title")] Post post)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ShowAuthorPosts", "Posts", new { id = post.AuthorID });
+
             }
             ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", post.AuthorID);
             return View(post);
