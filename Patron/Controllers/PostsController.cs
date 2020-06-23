@@ -58,6 +58,43 @@ namespace Patron.Controllers
             return View(posts.ToPagedList(pageNumber, pageSize));
             
         }
+        public ActionResult ShowPatronPosts(int? id, int? page, string sortOrder)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Models.Patron patron = db.Patrons.Find(id);
+            if (patron == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "rating_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            var posts = db.Posts.Where(p => p.Patrons.Any(patr => patr.UserName==patron.UserName));
+            switch (sortOrder)
+            {
+                case "rating_desc":
+                    posts = posts.OrderByDescending(s => s.Raiting);
+                    break;
+                case "Date":
+                    posts = posts.OrderBy(s => s.Date);
+                    break;
+                case "date_desc":
+                    posts = posts.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    posts = posts.OrderBy(s => s.Title);
+                    break;
+            }
+
+            return View(posts.ToPagedList(pageNumber, pageSize));
+
+        }
         // GET: Posts/Details/5
         public ActionResult Details(int? id)
         {
