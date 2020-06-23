@@ -44,6 +44,14 @@ namespace Patron.Controllers
         public ActionResult Create()
         {
             ViewBag.ID = new SelectList(db.Patrons, "ID", "UserName");
+            ViewBag.FirstName = null;
+            ViewBag.LastName = null;
+            if (db.Authors.Any(p => p.UserName.Equals(User.Identity.Name)))
+            {
+                Author author = db.Authors.Single(p => p.UserName.Equals(User.Identity.Name));
+                ViewBag.FirstName = author.FirstName;
+                ViewBag.LastName = author.LastName;
+            }
             return View();
         }
 

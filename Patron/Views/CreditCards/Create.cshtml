@@ -19,14 +19,14 @@
         <div class="form-group">
             <div class="control-label col-md-2" style="font-weight:bold">Imię właściciela karty</div>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.FirstName, new { @Value = ViewBag.FirstName })
                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             <div class="control-label col-md-2" style="font-weight:bold">Nazwisko właściciela karty</div>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.LastName, new { @Value = ViewBag.LastName })
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
         </div>

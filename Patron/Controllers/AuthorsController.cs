@@ -164,6 +164,12 @@ namespace Patron.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Author author = db.Authors.Find(id);
+            if (db.Patrons.Any(p => p.UserName.Equals(User.Identity.Name)))
+            {
+                Models.Patron patron = db.Patrons.Single(p => p.UserName.Equals(User.Identity.Name));
+                author.FirstName = patron.FirstName;
+                author.LastName = patron.LastName;
+            }
             if (author == null)
             {
                 return HttpNotFound();
