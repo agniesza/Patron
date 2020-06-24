@@ -1,33 +1,21 @@
 ﻿@model Patron.Models.AuthorThreshold
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Name;
 }
 
-<h2>Details</h2>
+<h2>@Model.Author.FirstName @Model.Author.LastName</h2>
 
 <div>
-    <h4>AuthorThreshold</h4>
+    <h4>@Model.Name</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.UserName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Author.UserName)
-        </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            <div class="control-label col-md-2">
+                Opis
+            </div>
         </dt>
 
         <dd>
@@ -35,7 +23,9 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Value)
+            <div class="control-label col-md-2">
+                Wartość
+            </div>
         </dt>
 
         <dd>
@@ -43,16 +33,46 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.MaxNumberOfPatrons)
+            <div class="control-label col-md-2">
+                Liczba wspierających
+            </div>
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MaxNumberOfPatrons)
+            @Model.Patrons.Count / @Html.DisplayFor(model => model.MaxNumberOfPatrons)
         </dd>
+        @if (Model.Patrons.Count > 0)
+        {
+        <button class="btn-default">Wspierający Patroni</button>
+        <div id="patrons">
+            @foreach (var item in Model.Patrons)
+            {           
+                <div class = "btn-link" style="border-color:lime;"> 
+                @Html.ActionLink(item.FirstName + " " + item.LastName, "PatronHomePage", new { id = item.ID }, null)
+           </div>
+                     }
+        </div>
+        }
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edycja", "Edit", new { id = Model.ID }) |
+    @if (Context.User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Powrót do listy progów", "Index")
+    }
+    else
+    {
+        @Html.ActionLink("Powrót do profilu", "AuthorPage",
+                           "Authors", new { id = Model.Author.ID }, null)
+    }
 </p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#patrons").toggle();
+  });
+});
+</script>

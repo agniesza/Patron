@@ -1,9 +1,10 @@
 ﻿@using Microsoft.AspNet.Identity
 @model Patron.Models.Author
-
 @{
     ViewBag.Title = Model.FirstName + " " + Model.LastName;
 }
+<link href="~/Content/Style.css" rel="stylesheet" />
+
 <div class="title">
     <h2 style="text-align: center;">
         @Html.DisplayFor(model => model.FirstName)
@@ -15,12 +16,12 @@
             <span>@item.Name</span>
         }
     </h4>
-    <div style="text-align: right">
+    <div style="text-align: right; font-size:16px;">
         wspierających:
         @ViewBag.PatronsCount
-        wpływ miesięczny:
+        | wpływ miesięczny:
         @ViewBag.Monthly
-        łącznie zebrano:
+        | łącznie zebrano:
         @Html.DisplayFor(model => model.TotalMoney)
     </div>
 </div>
@@ -67,29 +68,30 @@
 
         @foreach (var item in @ViewBag.AuthorThresholds)
         {
-        <div class="rounder-border">
-            <h2>@item.Name</h2>
-            <h4>@item.Value zł</h4>
-            <p>@item.Description</p>
+            <div class="rounder-border">
+                <h2>@item.Name</h2>
+                <h4>@item.Value zł</h4>
+                <p>@item.Description</p>
 
-            @if (@ViewBag.isPatron)
-            {
+                @if (@ViewBag.isPatron)
+                {
 
-                @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, null)
+                    @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, null)
 
-            }
-            else if (@ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && item.Patrons.Count() < item.MaxNumberOfPatrons)
-            {
-                @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, null)
+                }
+                else if (@ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && item.Patrons.Count < item.MaxNumberOfPatrons)
+                {
+                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, null)
 
-            }
-            @if (@User.Identity.GetUserName() == @Model.UserName)
-            {
-                @Html.ActionLink("Edytuj", "Edit", "AuthorThresholds", new { id = item.ID }, null)
-                @Html.ActionLink("Usuń", "Delete", "AuthorThresholds", new { id = item.ID }, null)
+                }
+                @if (@User.Identity.GetUserName() == @Model.UserName)
+                {
+                    @Html.ActionLink("Edytuj", "Edit", "AuthorThresholds", new { id = item.ID }, null)
+                    @Html.ActionLink("Usuń", "Delete", "AuthorThresholds", new { id = item.ID }, null)
+                    @Html.ActionLink("Szczegóły", "Details", "AuthorThresholds", new { id = item.ID }, null)
 
-            }
-        </div>
+                }
+            </div>
         }
         @if (@User.Identity.GetUserName() == @Model.UserName)
         {
