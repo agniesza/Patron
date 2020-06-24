@@ -67,33 +67,38 @@
 
         @foreach (var item in @ViewBag.AuthorThresholds)
         {
-            <div class="rounder-border">
-                <h2>@item.Name</h2>
-                <h4>@item.Value zł</h4>
-                <p>@item.Description</p>
+        <div class="rounder-border">
+            <h2>@item.Name</h2>
+            <h4>@item.Value zł</h4>
+            <p>@item.Description</p>
 
-                @if (@ViewBag.isPatron)
-                {
+            @if (@ViewBag.isPatron)
+            {
 
-                    @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, null)
+                @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, null)
 
-                }
-                else if (@ViewBag.isLoggedInAsPatron)
-                {
-                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, null)
+            }
+            else if (@ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && item.Patrons.Count() < item.MaxNumberOfPatrons)
+            {
+                @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, null)
 
-                }
+            }
+            @if (@User.Identity.GetUserName() == @Model.UserName)
+            {
+                @Html.ActionLink("Edytuj", "Edit", "AuthorThresholds", new { id = item.ID }, null)
+                @Html.ActionLink("Usuń", "Delete", "AuthorThresholds", new { id = item.ID }, null)
 
-            </div>
+            }
+        </div>
         }
         @if (@User.Identity.GetUserName() == @Model.UserName)
         {
-            @Html.ActionLink("Dodaj próg wsparcia", "Create", "AuthorThresholds", new { id = Model.ID }, null)
+            @Html.ActionLink("Dodaj próg wsparcia", "Create", "AuthorThresholds", null, null)
 
         }
         @if (!@ViewBag.isPatron)
         {
-            if (@ViewBag.isLoggedInAsPatron)
+            if (@ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName)
             {@Html.ActionLink("Wesprzyj jednorazowo", "Create", "Payments", new { id = Model.ID }, null)
         }
     }

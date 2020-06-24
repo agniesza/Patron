@@ -36,7 +36,9 @@ namespace Patron.Controllers
         // GET: AuthorThresholds/Create
         public ActionResult Create()
         {
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName");
+            
+            Author author = db.Authors.Single(a => a.UserName == User.Identity.Name);
+            ViewBag.authorID = author.ID;
             return View();
         }
 
@@ -45,13 +47,15 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,AuthorID,Name,Description,Value,MaxNumberOfPatrons")] AuthorThreshold authorThreshold)
+        public ActionResult Create( AuthorThreshold authorThreshold)
         {
             if (ModelState.IsValid)
             {
+                Author author = db.Authors.Single(a => a.UserName == User.Identity.Name);
+                authorThreshold.Author = author;
                 db.AuthorThresholds.Add(authorThreshold);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AuthorPage", "Authors", new { id = author.ID });
             }
 
             ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", authorThreshold.AuthorID);
@@ -85,7 +89,8 @@ namespace Patron.Controllers
             {
                 db.Entry(authorThreshold).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AuthorPage", "Authors", new { id = authorThreshold.AuthorID });
+
             }
             ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", authorThreshold.AuthorID);
             return View(authorThreshold);
@@ -112,9 +117,11 @@ namespace Patron.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            Author author = authorThreshold.Author;
             db.AuthorThresholds.Remove(authorThreshold);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AuthorPage", "Authors", new { id = author.ID });
+
         }
 
         protected override void Dispose(bool disposing)
