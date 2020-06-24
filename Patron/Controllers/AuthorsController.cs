@@ -226,16 +226,20 @@ namespace Patron.Controllers
                 return HttpNotFound();
             }
             ViewBag.Categories = db.Categories;
-            ViewBag.AuthorCategories = author.Categories;
+            List<Category> acat = (author.Categories).GetRange(0, (author.Categories).Count);
+            ViewBag.AuthorCategories = acat;
+            author.Categories.Clear();
+            db.SaveChanges();
             return View(author);
         }
         [HttpPost]
         [Authorize]
         //[ValidateAntiForgeryToken]
-        public ActionResult EditProfile([Bind(Include = "ID,UserName,FirstName,LastName, Goals, Description, BankAccount, City, TwitterLink, FacebookLink, YouTubeLink, InstagramLink, OtherLink")] Author author, int[] cats)
+        public ActionResult EditProfile( Author author, int[] cats )
         {
             if (ModelState.IsValid)
             {
+                
                 HttpPostedFileBase file = Request.Files["avatarFile2"];
                 if (file != null && file.ContentLength > 0)
                 {
@@ -246,21 +250,19 @@ namespace Patron.Controllers
                 db.SaveChanges();
                 if (cats != null)
                 {
+                    author.Categories = new List<Category>();
+
                     foreach (var item in cats)
                     {
-                        if(author.Categories != null)
-                        author.Categories.Add(db.Categories.Find(item));
-                        else
-                        {
-                            author.Categories = new List<Category>();
-                            author.Categories.Add(db.Categories.Find(item));
+                             author.Categories.Add(db.Categories.Find(item));
                             db.SaveChanges();
-                        }
+                        
                     }
                 }
                 
                 return RedirectToAction("AuthorPage", new { id = author.ID });
             }
+            ViewBag.AuthorCategories = author.Categories;
             return View(author);
         }
         // GET: Authors/Delete/5
