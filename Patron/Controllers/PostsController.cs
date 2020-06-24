@@ -70,6 +70,7 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.patron = patron;
             ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "rating_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 

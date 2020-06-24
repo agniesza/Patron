@@ -26,21 +26,35 @@
 
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author.FirstName)
-            @Html.DisplayFor(modelItem => item.Author.LastName)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.FirstName)
+                @Html.DisplayFor(modelItem => item.Author.LastName)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Value)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
 
-    </tr>
-}
+        </tr>
+    }
 
 </table>
+<div>
+    @if (Context.User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Powrót do listy płatności", "Index")
+    }
+    else
+    {
+        @Html.ActionLink("Powrót do profilu", "PatronHomePage",
+                           "Patrons", new { id = ViewBag.patron.ID }, null)
+    }
+</div>
+
+

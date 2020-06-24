@@ -50,6 +50,18 @@
     }
 
 </table>
+<div>
+    @if (Context.User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Powrót do listy postów", "Index")
+    }
+    else
+    {
+        @Html.ActionLink("Powrót do profilu", "PatronHomePage",
+                           "Patrons", new { id = ViewBag.patron.ID }, null)
+    }
+</div>
+
 Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("ShowPatronPosts",

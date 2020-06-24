@@ -56,6 +56,7 @@
 </div>
 <p>
     @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) |
-    <a href="https://localhost:44321/Patrons/PatronHomePage/@(Model.Patron.ID)">Profil Patrona</a>
+    @Html.ActionLink("Powrót do profilu", "PatronHomePage",
+                              "Patrons", new { id = Model.Patron.ID }, null)
 
 </p>
