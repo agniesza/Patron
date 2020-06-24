@@ -26,43 +26,47 @@
     </div>
 </div>
 <div class="row">
-    <div class="leftcolumn">
-        <img src="~/Avatars/@Model.Avatar" alt="" height="200px" width="200px" />
-        <p> @Html.DisplayFor(model => model.UserName)</p>
-        <p>
+    <div class="leftcolumn" style="width: 40%;">
+        <div style="text-align:center;">
+            <img src="~/Avatars/@Model.Avatar" alt="" height="200px" width="200px" style="border-radius: 50%;" />
 
-        </p>
-        <div id="authorDesc>
-            @Html.DisplayFor(model => model.Description)
         </div>
-        <div id="authorGoals">
-            @Html.DisplayFor(model => model.Goals)
-        </div>
-        <i class="fa fa-map-marker" style="font-size:27px">
+        <i class="fa fa-envelope-open" style="font-size:27px; float: right;">
+            <span style="font-size:20px">@Html.DisplayFor(model => model.UserName)</span>
+        </i>
+        <i class="fa fa-map-marker" style="font-size:27px; float: left;">
             <span style="font-size:20px">@Html.DisplayFor(model => model.City)</span>
         </i>
         <br />
-        @if (Model.FacebookLink != null)
-        {<a id="FbLink" href=@Model.FacebookLink class="fa fa-facebook-square" style="font-size:50px">
-            </a>}
-        @if (Model.InstagramLink != null)
-        {<a id="IgLink" href=@Model.InstagramLink class="fa fa-instagram" style="font-size:50px">
-            </a>}
-        @if (Model.YouTubeLink != null)
-        {<a id="YtLink" href=@Model.YouTubeLink class="fa fa-youtube" style="font-size:50px">
-            </a>}
-        @if (Model.TwitterLink != null)
-        {<a id="TwitterLink" href=@Model.TwitterLink class="fa fa-twitter-square" style="font-size:50px">
-            </a>}
-        @if (Model.OtherLink != null)
-        {<a id="OtherLink" href=@Model.OtherLink class="fa fa-laptop" style="font-size:50px">
-            </a>}
         <br />
         <div id="authorDesc">
             @Html.DisplayFor(model => model.Description)
         </div>
+        <div id="authorGoals">
+            <h3>Cele</h3>
+            @Html.DisplayFor(model => model.Goals)
+        </div>
+
+        <br />
+        @if (Model.FacebookLink != null)
+        {<a id="FbLink" href=@Model.FacebookLink class="fa fa-facebook-square" style="font-size:50px; color:lime;">
+            </a>}
+        @if (Model.InstagramLink != null)
+        {<a id="IgLink" href=@Model.InstagramLink class="fa fa-instagram" style="font-size:50px; color:lime;">
+            </a>}
+        @if (Model.YouTubeLink != null)
+        {<a id="YtLink" href=@Model.YouTubeLink class="fa fa-youtube" style="font-size:50px; color:lime;">
+            </a>}
+        @if (Model.TwitterLink != null)
+        {<a id="TwitterLink" href=@Model.TwitterLink class="fa fa-twitter-square" style="font-size:50px; color:lime;">
+            </a>}
+        @if (Model.OtherLink != null)
+        {<a id="OtherLink" href=@Model.OtherLink class="fa fa-laptop" style="font-size:50px; color:lime;">
+            </a>}
+        <br />
+        
     </div>
-    <div class="rightcolumn">
+    <div class="rightcolumn" style="width: 60%;">
 
 
 
@@ -76,32 +80,34 @@
                 @if (@ViewBag.isPatron)
                 {
 
-                    @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, null)
+                    @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-warning" })
 
                 }
                 else if (@ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && item.Patrons.Count < item.MaxNumberOfPatrons)
                 {
-                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, null)
+                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
 
                 }
                 @if (@User.Identity.GetUserName() == @Model.UserName)
                 {
-                    @Html.ActionLink("Edytuj", "Edit", "AuthorThresholds", new { id = item.ID }, null)
-                    @Html.ActionLink("Usuń", "Delete", "AuthorThresholds", new { id = item.ID }, null)
-                    @Html.ActionLink("Szczegóły", "Details", "AuthorThresholds", new { id = item.ID }, null)
+                    @Html.ActionLink("Edytuj", "Edit", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Usuń", "Delete", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Szczegóły", "Details", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-info" })
 
                 }
             </div>
         }
         @if (@User.Identity.GetUserName() == @Model.UserName)
         {
-            @Html.ActionLink("Dodaj próg wsparcia", "Create", "AuthorThresholds", null, null)
-
+            <hr />
+                @Html.ActionLink("Dodaj próg wsparcia", "Create", "AuthorThresholds", null, new { @class = "btn btn-default" })
+                <hr />
         }
+
         @if (!@ViewBag.isPatron)
         {
             if (@ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName)
-            {@Html.ActionLink("Wesprzyj jednorazowo", "Create", "Payments", new { id = Model.ID }, null)
+            {@Html.ActionLink("Wesprzyj jednorazowo", "Create", "Payments", new { id = Model.ID }, new { @class = "btn btn-success" })
         }
     }
         @if (@User.Identity.GetUserName() == @Model.UserName)
@@ -109,10 +115,11 @@
             if (Model.AuthorThresholds != null)
             {
                 @Html.ActionLink("Napisz post", "Create",
-                          "Posts", null, null) }
+                          "Posts", null, new { @class = "btn btn-default" }) }
             @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
-                 "Posts", new { id = Model.ID }, null)
-            @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID })
+                 "Posts", new { id = Model.ID }, new { @class = "btn btn-default" })
+            <hr />
+            @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID }, new { @class = "btn btn-default" })
             <br />
         }
     </div>
