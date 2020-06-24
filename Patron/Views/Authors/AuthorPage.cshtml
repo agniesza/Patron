@@ -86,6 +86,11 @@
 
             </div>
         }
+        @if (@User.Identity.GetUserName() == @Model.UserName)
+        {
+            @Html.ActionLink("Dodaj próg wsparcia", "Create", "AuthorThresholds", new { id = Model.ID }, null)
+
+        }
         @if (!@ViewBag.isPatron)
         {
             if (@ViewBag.isLoggedInAsPatron)
@@ -100,8 +105,8 @@
                           "Posts", null, null) }
             @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
                  "Posts", new { id = Model.ID }, null)
-        @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID })
-        <br />
+            @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID })
+            <br />
         }
     </div>
 </div>
