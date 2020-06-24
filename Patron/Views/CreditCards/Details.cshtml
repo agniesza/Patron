@@ -10,7 +10,7 @@
     <h4>Karta płatnicza użytkownika @Html.DisplayFor(model => model.Patron.FirstName) @Html.DisplayFor(model => model.Patron.LastName)</h4>
     <hr />
     <dl class="dl-horizontal">
-        
+
         <dt>
             <p>Typ karty</p>
         </dt>
@@ -44,7 +44,14 @@
             @Html.DisplayFor(model => model.CVV)
         </dd>
 
-       
+        <dt>
+            <p>Właściciel</p>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)
+        </dd>
+
     </dl>
 </div>
 <p>

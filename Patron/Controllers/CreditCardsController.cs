@@ -46,11 +46,12 @@ namespace Patron.Controllers
             ViewBag.ID = new SelectList(db.Patrons, "ID", "UserName");
             ViewBag.FirstName = null;
             ViewBag.LastName = null;
-            if (db.Authors.Any(p => p.UserName.Equals(User.Identity.Name)))
+           
+            if (db.Patrons.Any(p => p.UserName.Equals(User.Identity.Name)))
             {
-                Author author = db.Authors.Single(p => p.UserName.Equals(User.Identity.Name));
-                ViewBag.FirstName = author.FirstName;
-                ViewBag.LastName = author.LastName;
+                Models.Patron patron = db.Patrons.Single(p => p.UserName.Equals(User.Identity.Name));
+                ViewBag.FirstName = patron.FirstName;
+                ViewBag.LastName = patron.LastName;
             }
             return View();
         }
@@ -61,7 +62,7 @@ namespace Patron.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CardType,CardNumber,ExpirationMonth,ExpirationYear,CVV,PatronID")] CreditCard creditCard)
+        public ActionResult Create(CreditCard creditCard)
         {
             if (ModelState.IsValid)
             {
@@ -100,7 +101,7 @@ namespace Patron.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "ID,CardType,CardNumber,ExpirationMonth,ExpirationYear,CVV,PatronID")] CreditCard creditCard)
+        public ActionResult Edit( CreditCard creditCard)
         {
             string currentUserName = User.Identity.Name;
             Models.Patron p = db.Patrons.Single(pp => pp.UserName == currentUserName);
