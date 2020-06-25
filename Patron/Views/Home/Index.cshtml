@@ -4,19 +4,21 @@
 @model IEnumerable<Patron.Models.Author>
 <style>
     .limeLink:link, .limeLink:visited {
-        background-color: lime;
-        color: white;
+        background-color: white;
+        color: lime;
         padding: 10px 20px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
         border-radius: 8px;
+        border: 2px solid lime;
         font-size: 17px;
         font-weight: bold;
     }
 
     .limeLink:hover, .limeLink:active {
         background-color: #99ff33;
+        color: white;
     }
 </style>
 <div class="jumbotron">
@@ -46,7 +48,7 @@
                 </p>
                 <p>
                     <!-- @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", "Authors/", (new { id = item.ID })) -->
-                    <a class="limeLink" href="https://localhost:44321/Authors/AuthorPage/@(item.ID)"> @item.FirstName  @item.LastName &raquo;</a>
+                    <a class="limeLink" style="font-size: 14px;" href="https://localhost:44321/Authors/AuthorPage/@(item.ID)"> @item.FirstName  @item.LastName &raquo;</a>
                 </p>
             </div>
         </div>

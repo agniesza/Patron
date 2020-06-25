@@ -10,39 +10,42 @@
     <h4>Zmień ustawienia konta</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>Hasło:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Zmień hasło", "ChangePassword", new { @class = "btn btn-default" })
-            }
-            else
-            {
-                @Html.ActionLink("Utwórz", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>Twój profil:</dt>
+
         @if (ViewBag.patron != null)
         {
             @Html.ActionLink("Twój profil Patrona", "PatronHomePage",
-       "Patrons", new {id = ViewBag.patron.ID}, null)
+            "Patrons", new {id = ViewBag.patron.ID}, null)
+            <br />
             if (ViewBag.author == null)
             {
-                @Html.ActionLink("Zostań autorem", "AddAuthorProfile",
+                <br />
+                @Html.ActionLink("Zostań autorem!", "AddAuthorProfile",
     "Authors", new { id = ViewBag.patron.ID }, null)}
         }
         @if (ViewBag.author != null)
         {
+            <br />
             @Html.ActionLink("Twój profil Autora", "AuthorPage",
         "Authors", new {id = ViewBag.author.ID}, null)
             if (ViewBag.patron == null)
             {
-                @Html.ActionLink("Zostań patronem", "AddPatronProfile",
+                <br />
+                @Html.ActionLink("Zostań patronem!", "AddPatronProfile",
     "Patrons", new { id = ViewBag.author.ID }, null)}
         }
-
+        <dd>
+            <hr />
+            <button class="btn btn-default" style="width:200px;">
+                @if (Model.HasPassword)
+                {
+                    @Html.ActionLink("Zmień hasło", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("Utwórz", "SetPassword")
+                }
+            </button>
+        </dd>
         <!--
     <dt>Logowania zewnętrzne:</dt>
     <dd>
