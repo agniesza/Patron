@@ -100,7 +100,7 @@ namespace Patron.Controllers
                     ViewBag.isLoggedInAsPatron = true;
                 }
             }
-
+            ViewBag.TotalMonay = author.Payments.Sum(p => p.Value);
             return View(author);
         }
 

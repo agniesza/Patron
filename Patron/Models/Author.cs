@@ -22,7 +22,6 @@ namespace Patron.Models
 
         public string City { get; set; }
         public string Avatar { get; set; }
-        public int TotalMoney { get; set; }
 
 
         public string FacebookLink { get; set; }

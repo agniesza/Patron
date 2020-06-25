@@ -32,14 +32,15 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
                     <li>@Html.ActionLink("Informacje", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                    <!--<li>@Html.ActionLink("Kontakt", "Contact", "Home")</li> -->
                     <li>@Html.ActionLink("Kategorie", "Index", "Categories")</li>
                     <li>@Html.ActionLink("Twórcy", "Index", "Authors")</li>
                     @if (Context.User.IsInRole("Admin"))
-                    {<li>@Html.ActionLink("Patroni", "Index", "Patrons")</li>
-                    <li>@Html.ActionLink("Progi autorów", "Index", "AuthorThresholds")</li>
-                    <li>@Html.ActionLink("Posty", "Index", "Posts")</li>
-                    <li>@Html.ActionLink("Płatności", "Index", "Payments")</li>
+                    {
+                        <li>@Html.ActionLink("Patroni", "Index", "Patrons")</li>
+                        <li>@Html.ActionLink("Progi autorów", "Index", "AuthorThresholds")</li>
+                        <li>@Html.ActionLink("Posty", "Index", "Posts")</li>
+                        <li>@Html.ActionLink("Płatności", "Index", "Payments")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
