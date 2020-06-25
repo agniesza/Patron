@@ -23,15 +23,19 @@
 
 @foreach (var item in Model)
 {
-    <div class="col-xs-3">
-        @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage",
-        "Authors", new {id = item.ID}, null)
-        @Html.DisplayFor(modelItem => item.Avatar)
+    <div class="col-xs-2">
+        <div style="border: 1px solid #e6e6e6;
+    border-radius: 8px; text-align:center;">
+
+            @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", new { id = item.ID }, new { @style = "text-decoration:none; font-size:15px;" })
+
+            <img src="~/Avatars/@item.Avatar" alt="" height="100px" width="100px" />
+        </div>
     </div>
 }
 <br />
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page }))
