@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace Patron.Controllers
 {
@@ -17,10 +18,19 @@ namespace Patron.Controllers
 
         // GET: Patrons
         [Authorize(Roles ="Admin")]
-        public ActionResult Index()
+        public ActionResult Index(string phrase, int? page)
         {
-
-            return View(db.Patrons.ToList());
+            var patrons = db.Patrons.OrderBy(p => p.UserName);
+            if (phrase != null)
+            {
+                page = 1;
+                patrons = patrons.Where(a => a.FirstName.Contains(phrase)
+                    || a.LastName.Contains(phrase)
+                    || a.UserName.Contains(phrase)).OrderBy(p => p.UserName);
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(patrons.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Patrons/Details/5

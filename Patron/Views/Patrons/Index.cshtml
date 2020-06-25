@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Patron.Models.Patron>
-
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Patron.Models.Patron>
 @{
     ViewBag.Title = "Patroni";
 }
@@ -12,6 +12,15 @@
     <br />
     <hr>
 }
+@using (Html.BeginForm("Index", "Patrons", FormMethod.Get))
+{
+
+    @Html.TextBox("phrase");
+
+    <input type="submit" value="Szukaj" />
+
+}
+<hr />
 <table class="table">
     <tr>
         <th>
@@ -53,3 +62,7 @@
     }
 
 </table>
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
