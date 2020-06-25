@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using PagedList;
+using System;
 
 namespace Patron.Controllers
 {
@@ -12,10 +14,46 @@ namespace Patron.Controllers
         private PatronContext db = new PatronContext();
 
         // GET: AuthorThresholds
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string phrase, int? page)
         {
-            var authorThresholds = db.AuthorThresholds.Include(a => a.Author);
-            return View(authorThresholds.ToList());
+            ViewBag.ValueSortParm = sortOrder == "Value" ? "date_desc" : "Value";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.AuthorSortParm = String.IsNullOrEmpty(sortOrder) ? "author_desc" : "";
+
+
+            var threshols = db.AuthorThresholds.Include(p => p.Author);
+            switch (sortOrder)
+            {
+                case "Value":
+                    threshols = threshols.OrderBy(s => s.Value);
+                    break;
+                case "value_desc":
+                    threshols = threshols.OrderByDescending(s => s.Value);
+                    break;
+                case "name_desc":
+                    threshols = threshols.OrderByDescending(s => s.Name);
+                    break;
+                case "author_desc":
+                    threshols = threshols.OrderByDescending(s => s.Author.UserName);
+                    break;
+                default:
+                    threshols = threshols.OrderBy(s => s.Author.UserName);
+                    break;
+            }
+            if (phrase != null)
+            {
+                page = 1;
+                threshols = threshols.Where(a => a.Author.FirstName.Contains(phrase)
+                    || a.Author.LastName.Contains(phrase)
+                    || a.Author.UserName.Contains(phrase)
+                    || a.Name.Contains(phrase)
+                    || a.Description.Contains(phrase)                   
+                    );
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(threshols.ToPagedList(pageNumber, pageSize));
+
         }
 
         // GET: AuthorThresholds/Details/5

@@ -38,8 +38,15 @@
 
     <div class="form-actions no-color">
         <input type="submit" value="Usuń próg" class="btn btn-danger" /> |
-        @Html.ActionLink("Powrót do profilu", "AuthorPage", "Authors", new { id = @ViewBag.authorID }, null)
+        @if (Context.User.IsInRole("Admin"))
+        {
+            @Html.ActionLink("Powrót do listy", "Index", "AuthorThresholds", new { id = @ViewBag.authorID }, null)
 
+        }
+        else
+        {
+            @Html.ActionLink("Powrót do profilu", "AuthorPage", "Authors", new { id = @ViewBag.authorID }, null)
+        }
     </div>
     }
 </div>

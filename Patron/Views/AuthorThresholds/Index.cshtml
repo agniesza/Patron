@@ -1,57 +1,67 @@
-﻿@model IEnumerable<Patron.Models.AuthorThreshold>
-
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Patron.Models.AuthorThreshold>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Progi autorów";
 }
 
-<h2>Index</h2>
+<h2>Progi wsparcia</h2>
+@using (Html.BeginForm("Index", "AuthorThresholds", FormMethod.Get))
+{
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    @Html.TextBox("phrase");
+
+    <input type="submit" value="Szukaj" />
+
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Author.UserName)
+            @Html.ActionLink("Autor", "Index", new { sortOrder = ViewBag.AuthorSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("Nazwa", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Opis
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Value)
+            @Html.ActionLink("Wartość(zł)", "Index", new { sortOrder = ViewBag.ValueSortParm })
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MaxNumberOfPatrons)
+            Maksymalna liczba patronów
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Value)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxNumberOfPatrons)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxNumberOfPatrons)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }, new { @class = "btn btn-success" }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
