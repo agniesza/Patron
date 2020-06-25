@@ -2,32 +2,55 @@
     ViewBag.Title = "";
 }
 @model IEnumerable<Patron.Models.Author>
+<style>
+    .limeLink:link, .limeLink:visited {
+        background-color: lime;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 8px;
+        font-size: 17px;
+        font-weight: bold;
+    }
 
+    .limeLink:hover, .limeLink:active {
+        background-color: #99ff33;
+    }
+</style>
 <div class="jumbotron">
     <h1> <span id="patr1">Patr</span><span id="on">ON</span></h1>
     <h4>PatrON łączy Autorów z osobami, które chcą wesprzeć ich pasję nie tylko dobrym słowem, ale i finansowo. Patroni wpłacają comiesięczne lub jednorazowe kwoty na konto Autorów, a Ci mogą je wykorzystać na potrzeby swojej działalności. 
     </h4><h4>Autorzy zyskują możliwość rozwoju, a Patroni – dostęp do wyjątkowych nagród, a także bezcenną świadomość realnego wspierania pasji innych!
     </h4>
     <p> 
-    <a href="/Authors/Index" class="btn btn-primary btn-lg"> Sprawdź, kogo możesz wesprzeć &raquo;</a></p>
+    <a href="/Authors/Index" class="limeLink"> Sprawdź, kogo możesz wesprzeć &raquo;</a></p>
 </div>
 
 <div class="row">
     @foreach (var item in Model)
     { 
     <div class="col-md-4">
-        @Html.DisplayFor(modelItem => item.Avatar)
-        <p>
-            @foreach (var cat in item.Categories)
-            {
-            <span> @(cat.Name) </span>
-            }
-        </p>
-        <p>
-    <!-- @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", "Authors/", (new { id = item.ID })) -->
-            <a class="btn btn-default" href="https://localhost:44321/Authors/AuthorPage/@(item.ID)"> @item.FirstName  @item.LastName &raquo;</a>
-        </p>
+        <div class="rounder-border" style="text-align:center;">
+            <div class="leftcolumn" style="width: 50%; background-color:white;">
+                <img src="~/Avatars/@item.Avatar" alt="" height="100px" width="100px" style="border-radius: 8px;" />
+
+            </div>
+            <div class="rightcolumn" style="width: 50%;">
+                <p>
+                    @foreach (var cat in item.Categories)
+                    {
+                        <span> @(cat.Name) </span>
+                    }
+                </p>
+                <p>
+                    <!-- @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", "Authors/", (new { id = item.ID })) -->
+                    <a class="limeLink" href="https://localhost:44321/Authors/AuthorPage/@(item.ID)"> @item.FirstName  @item.LastName &raquo;</a>
+                </p>
+            </div>
+        </div>
+        </div>
+        }
     </div>
-    }
-</div>
 

@@ -96,6 +96,20 @@ ul.ks-cboxtags {
     background-color: #f1f1f1;
 }
 
+.limeLink:link, .limeLink:visited {
+    background-color: lime;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+.limeLink:hover, .limeLink:active {
+    background-color: #99ff33;
+}
 /* Right column */
 .rightcolumn {
     float: left;
