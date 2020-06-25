@@ -1,31 +1,32 @@
 ﻿@model IEnumerable<Patron.Models.Category>
 
 @{
-                ViewBag.Title = "Kategorie";
+    ViewBag.Title = "Kategorie";
 }
 
 <h2>Kategorie</h2>
-<!--
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-    -->
-
-
-@foreach (var item in Model)
+@if (Context.User.IsInRole("Admin"))
 {
-<div class="col-xs-3">
-
-    <a class="btn btn-default"
-        @Html.ActionLink(item.Name, "ShowAuthors", new { id = item.ID})
-    
-</div>
-            <!--
-    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-    -->
-            }
-
+    <br />
+ @Html.ActionLink("Utwórz nową kategorię", "Create",null, new { @class = "btn btn-primary" }) 
 <br />
-<br />
+    <hr>
+}
+
+
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-3">
+
+            <a class="btn btn-default"
+               @Html.ActionLink(item.Name, "ShowAuthors", new { id = item.ID })
+@if (Context.User.IsInRole("Admin"))
+    {
+@Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-success" }) 
+     }
+        </div>
+       
+    }
+
+    <br />
+    <br />
