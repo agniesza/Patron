@@ -30,6 +30,8 @@
             @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", new { id = item.ID }, new { @style = "text-decoration:none; font-size:15px;" })
 
             <img src="~/Avatars/@item.Avatar" alt="" height="100px" width="100px" />
+            @if (Context.User.IsInRole("Admin"))
+            {@Html.ActionLink("Szczegóły", "Details", "Authors", new { id = item.ID }, new { @class = "btn btn-success" })}
         </div>
     </div>
 }

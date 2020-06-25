@@ -20,7 +20,7 @@
 
                 <a class="btn btn-default"
                    @Html.ActionLink(item.Name, "ShowAuthors", new { id = item.ID })
-                   @if (Context.User.IsInRole("Admin")) { @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-success" })  }
+                   @if (Context.User.IsInRole("Admin")) { @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }, new { @class = "btn btn-success" })  }
             </div>
 
         }

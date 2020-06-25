@@ -123,7 +123,12 @@ namespace Patron.Controllers
         {
             if (ModelState.IsValid)
             {
-               
+                HttpPostedFileBase file = Request.Files["avatarFile"];
+                if (file != null && file.ContentLength > 0)
+                {
+                    author.Avatar = file.FileName;
+                    file.SaveAs(HttpContext.Server.MapPath("~/Avatars/") + author.Avatar);
+                }
                 author.Categories = new List<Category>();
                 if (cats != null)
                 {
@@ -137,7 +142,8 @@ namespace Patron.Controllers
                 return RedirectToAction("Index");
             }
 
-            
+            ViewBag.Categories = db.Categories;
+
             return View(author);
         }
 

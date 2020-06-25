@@ -1,14 +1,13 @@
 ﻿@model Patron.Models.Author
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = Model.FirstName + " " + Model.LastName;
 }
 
-<h2>Delete</h2>
+<h2>Usuwanie</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Czy na pewno chcesz usunąć tego autora?</h3>
 <div>
-    <h4>Author</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -113,9 +112,11 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
+
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn btn-default" }) | <input type="submit" value="Usuń" class="btn btn-danger" />
+
         </div>
+
     }
 </div>
