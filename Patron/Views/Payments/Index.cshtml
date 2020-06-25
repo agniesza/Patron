@@ -65,9 +65,10 @@
                 @Html.DisplayFor(modelItem => item.Periodicity)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }, new { @class = "btn btn-success" }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+
             </td>
         </tr>
     }

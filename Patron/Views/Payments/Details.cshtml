@@ -1,17 +1,17 @@
 ﻿@model Patron.Models.Payment
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Płatność";
 }
 
-<h2>Details</h2>
+<h2>Szczegóły</h2>
 
 <div>
-    <h4>Payment</h4>
+    <h4>Płatność</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Author.UserName)
+            Autor
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Patron.UserName)
+            Patron
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            Data
         </dt>
 
         <dd>
@@ -35,23 +35,17 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Value)
+            Wartość (zł)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Value)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Periodicity)
+            Częstotliwość
         </dt>
 
         <dd>
@@ -61,6 +55,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Powrót do listy płatności", "Index", null, new { @class = "btn btn-default" })
+
 </p>
