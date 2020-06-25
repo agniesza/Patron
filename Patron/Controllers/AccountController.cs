@@ -168,7 +168,7 @@ namespace Patron.Controllers
 
                     if (UserType.Equals("Patron"))
                     {
-                        SendMail(model.Email, "Witaj w serwisie PatrON!", mess1);
+                        Message.SendMail(model.Email, "Witaj w serwisie PatrON!", mess1);
                         Models.Patron patron = new Models.Patron { UserName = model.Email };
                         //  Author author = new Author { UserName = model.Email };
                         PatronContext db = new PatronContext();
@@ -180,7 +180,7 @@ namespace Patron.Controllers
                     }
                     else if (UserType.Equals("Author"))
                     {
-                        SendMail(model.Email, "Witaj w serwisie PatrON!", mess2);
+                        Message.SendMail(model.Email, "Witaj w serwisie PatrON!", mess2);
                         PatronContext db = new PatronContext();
                         Author author = new Author { UserName = model.Email}; //, Category = db.Categories.First() 
                         db.Authors.Add(author);
@@ -198,24 +198,7 @@ namespace Patron.Controllers
             // Dotarcie do tego miejsca wskazuje, że wystąpił błąd, wyświetl ponownie formularz
             return View(model);
         }
-        public static void SendMail(string to, string subject, string body)
-        {
-            var message = new System.Net.Mail.MailMessage(ConfigurationManager.AppSettings["sender"], to)
-            {
-                Subject = subject,
-                Body = body
-            };
-            var smtpClient = new System.Net.Mail.SmtpClient
-            {
-                Host = ConfigurationManager.AppSettings["smtpHost"],
-                Credentials = new System.Net.NetworkCredential(
-                    ConfigurationManager.AppSettings["sender"],
-                    ConfigurationManager.AppSettings["passwd"]),
-                EnableSsl = true,
-               // Port = 587
-            };
-            smtpClient.Send(message);
-        }
+       
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
