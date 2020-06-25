@@ -7,8 +7,9 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink("Witaj," + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
+                @Html.ActionLink(" ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "fa fa-user-circle", style = "font-size:35px; float: right; " })
+
+                </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
     </ul>
     }
