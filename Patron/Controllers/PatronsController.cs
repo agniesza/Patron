@@ -74,8 +74,29 @@ namespace Patron.Controllers
             {
                 aat.Add(item.Author); //autozy z progow
             }
-            ViewBag.InActiveSub = aap.Where(p => !aat.Any(p2 => p2.ID == p.ID));
-            ViewBag.InActiveSubCount = aap.Where(p => !aat.Any(p2 => p2.ID == p.ID)).Count();
+
+            List<Author> unsubscribed = new List<Author>();
+            bool tmp;
+            //wez wszytskie platnosci patrona
+            foreach (var payment in patron.Payments)
+            {
+                tmp = false;
+                foreach (var athreshold in patron.AuthorThresholds)
+                {
+                    if (payment.AuthorID == athreshold.AuthorID)
+                        tmp = true;
+                }
+                if (!tmp)
+                {
+                    unsubscribed.Add(payment.Author);
+                }
+
+            }
+            List<Author> unsubscribedDistinct = unsubscribed.GroupBy(a => a.ID)
+                .Select(g => g.First()).ToList();
+
+            ViewBag.InActiveSub = unsubscribedDistinct;
+            ViewBag.InActiveSubCount = unsubscribedDistinct.Count;
             ViewBag.TotalMonay = patron.Payments.Sum(p => p.Value);
             return View(patron);
 
