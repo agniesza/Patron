@@ -1,51 +1,68 @@
-﻿@model IEnumerable<Patron.Models.Post>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Patron.Models.Post>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Posty autorów";
 }
 
-<h2>Index</h2>
+<h2>Posty autorów</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
+<hr>
+@using (Html.BeginForm("Index", "Posts", FormMethod.Get))
+{
+
+    @Html.TextBox("phrase");
+
+    <input type="submit" value="Szukaj" />
+
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Author.UserName)
+            @Html.ActionLink("Autor", "Index", new { sortOrder = ViewBag.AuthorSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            Tytuł
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Raiting)
+            @Html.ActionLink("Data", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NumberOfRatings)
+            @Html.ActionLink("Autor", "Index", new { sortOrder = ViewBag.RatingSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Liczba głosów", "Index", new { sortOrder = ViewBag.NumberOfRatingsSortParm })
+
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Raiting)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfRatings)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td> @Html.DisplayFor(modelItem => item.Date)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Raiting)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfRatings)
+            </td>
+            <td>
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }, new { @class = "btn btn-success" }) |
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
 
 </table>
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))

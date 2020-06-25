@@ -44,20 +44,20 @@
 <p>
     @if (Context.User.IsInRole("Admin"))
     {
-        @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) 
-@Html.ActionLink("Powrót do listy postów", "Index")
+       
+@Html.ActionLink("Powrót do listy postów", "Index", null, new { @class = "btn btn-default" })
 }
 else
 {
     if (User.Identity.Name == Model.Author.UserName)
     {
-        @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }) 
+        @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }, new { @class = "btn btn-success" }) 
     @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
-    "Posts", new { id = Model.AuthorID }, null)
+    "Posts", new { id = Model.AuthorID }, new { @class = "btn btn-default" })
             }
    else{
         @Html.ActionLink("Twoje posty", "ShowPatronPosts",
-    "Posts", new { id = Model.AuthorID }, null)
+    "Posts", new { id = Model.AuthorID }, new { @class = "btn btn-default" })
     }
     }
 

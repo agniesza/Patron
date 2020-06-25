@@ -16,10 +16,52 @@ namespace Patron.Controllers
         private PatronContext db = new PatronContext();
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string phrase, int? page)
         {
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.RatingSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
+            ViewBag.NumberOfRatingsSortParm = String.IsNullOrEmpty(sortOrder) ? "number_desc" : "";
+            ViewBag.AuthorSortParm = String.IsNullOrEmpty(sortOrder) ? "author_desc" : "";
+
             var posts = db.Posts.Include(p => p.Author);
-            return View(posts.ToList());
+            switch (sortOrder)
+            {
+                case "Rating":
+                    posts = posts.OrderBy(s => s.Raiting);
+                    break;
+                case "rating_desc":
+                    posts = posts.OrderByDescending(s => s.Raiting);
+                    break;
+                case "Date":
+                    posts = posts.OrderBy(s => s.Date);
+                    break;
+                case "date_desc":
+                    posts = posts.OrderByDescending(s => s.Date);
+                    break;
+                case "number_desc":
+                    posts = posts.OrderByDescending(s => s.NumberOfRatings);
+                    break;
+                case "author_desc":
+                    posts = posts.OrderByDescending(s => s.Author.UserName);
+                    break;
+                default:
+                    posts = posts.OrderBy(s => s.Date);
+                    break;
+            }
+            if (phrase != null)
+            {
+                page = 1;
+                posts = posts.Where(a => a.Author.FirstName.Contains(phrase)
+                    || a.Author.LastName.Contains(phrase)
+                    || a.Author.UserName.Contains(phrase)
+                    || a.Title.Contains(phrase)
+                    || a.Content.Contains(phrase)
+                    );
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(posts.ToPagedList(pageNumber, pageSize));
+
         }
         public ActionResult ShowAuthorPosts(int? id, int? idpatrona, int? page, string sortOrder)
         {

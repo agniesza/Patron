@@ -52,12 +52,12 @@
         <input type="submit" value="Usuń" class="btn btn-danger" /> |
         @if (Context.User.IsInRole("Admin"))
         {
-            @Html.ActionLink("Powrót do listy postów", "Index")
+            @Html.ActionLink("Powrót do listy postów", "Index", null, new { @class = "btn btn-default" })
         }
         else
         {
             @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
-                                 "Posts", new { id = Model.AuthorID }, null)
+                                 "Posts", new { id = Model.AuthorID }, new { @class = "btn btn-default" })
         }
     </div>
     }
