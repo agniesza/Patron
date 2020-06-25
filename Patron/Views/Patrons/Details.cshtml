@@ -1,10 +1,8 @@
 ﻿@model Patron.Models.Patron
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.FirstName+" "+Model.LastName;
 }
-
-<h2>Details</h2>
 
 <div>
     <h4>Patron</h4>
@@ -37,7 +35,12 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@if (Context.User.IsInRole("Admin"))
+{<div>
+     <p>
+         @Html.ActionLink("Edytuj", "Edit", null, new { @class = "btn btn-warning" })
+         @Html.ActionLink("Usuń", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" }) |
+         @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn btn-default" })
+     </p>
+    </div>
+}
