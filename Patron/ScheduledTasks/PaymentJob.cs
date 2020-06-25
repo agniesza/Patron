@@ -17,19 +17,23 @@ namespace Patron.ScheduledTasks
 
         async Task IJob.Execute(IJobExecutionContext context)
         {
-            Payment p = new Payment
+            foreach (var at in db.AuthorThresholds)
             {
-                Author = db.Authors.Find(1),
-                Patron = db.Patrons.Find(1),
-                //AuthorThreshold=authorThresholds[0],
-
-                Value = db.AuthorThresholds.Find(1).Value,
-                // Status= (Status) Enum.Parse(typeof(Status), "INACTIVE", true),
-                Periodicity = (Periodicity)Enum.Parse(typeof(Periodicity), "MONTHLY", true),
-                Date = DateTime.Today
-            };
-            db.Payments.Add(p);
-            db.SaveChanges();
+                foreach (var patr in at.Patrons)
+                {
+                    Payment p = new Payment
+                    {
+                        Author = at.Author,
+                        Patron = patr,
+                        Value = at.Value,
+                       Periodicity = (Periodicity)Enum.Parse(typeof(Periodicity), "MONTHLY", true),
+                        Date = DateTime.Now
+                    };
+                    db.Payments.Add(p);
+                    db.SaveChanges();
+                }
+            }
+            
             await Console.Out.WriteLineAsync("HelloJob is executing.");
         }
     }

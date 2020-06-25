@@ -199,7 +199,21 @@ namespace Patron.Controllers
             }
             Models.Patron patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
             authorThreshold.Patrons.Add(patron);
+            Payment payment = new Payment
+            {
+                Author = authorThreshold.Author,
+                Patron = patron,
+                Value = authorThreshold.Value,
+                Periodicity = (Periodicity)Enum.Parse(typeof(Periodicity), "MONTHLY", true),
+                Date = DateTime.Now
+            };
+            db.Payments.Add(payment);
             db.SaveChanges();
+            string mess = "Udzieliłeś wsparcia autorowi. " +
+                "Tym samym zobligowałeś się do comiesięcznego wspracia finansowego na rzecz Autora." +
+                "W każdej chwili możesz anulować subskrybcję.";
+            Message.SendMail(patron.UserName, "PatrON - Od teraz wspierasz "+authorThreshold.Author.FirstName+" "+ authorThreshold.Author.LastName, mess);
+
             return View(authorThreshold);
         }
         public ActionResult CancelSupport(int? id)
@@ -213,9 +227,15 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
+
             Models.Patron patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
             authorThreshold.Patrons.Remove(patron);
             db.SaveChanges();
+            string mess = "Przestałeś udzielać wsparcia autorowi. " +
+               "Tym samym zaprzestałeś udzielania comiesięcznego wspracia finansowego na rzecz Autora." +
+               "W każdej chwili możesz zacząć znów wspierać autora.";
+            Message.SendMail(patron.UserName, "PatrON - przestałeś wspierać autora " + authorThreshold.Author.FirstName + " " + authorThreshold.Author.LastName, mess);
+
             return RedirectToAction("AuthorPage", "Authors", new { id = id });
         }
     }

@@ -32,12 +32,8 @@ namespace Patron.ScheduledTasks
             ITrigger trigger = TriggerBuilder.Create()
                 .WithIdentity("myTrigger", "group1")
                 .StartNow()
-                .WithSimpleSchedule(x => x
-                .WithIntervalInHours(100)
-                 //   .WithIntervalInSeconds(40)
-                  .RepeatForever())
+                .WithSchedule(CronScheduleBuilder.MonthlyOnDayAndHourAndMinute(1, 12, 0))
             .Build();
-
             await sched.ScheduleJob(job, trigger);
         }
     }
