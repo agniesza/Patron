@@ -76,7 +76,7 @@ namespace Patron.Controllers
             }
             ViewBag.InActiveSub = aap.Where(p => !aat.Any(p2 => p2.ID == p.ID));
             ViewBag.InActiveSubCount = aap.Where(p => !aat.Any(p2 => p2.ID == p.ID)).Count();
-
+            ViewBag.TotalMonay = patron.Payments.Sum(p => p.Value);
             return View(patron);
 
         }

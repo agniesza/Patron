@@ -21,7 +21,7 @@ namespace Patron.Controllers
             var posts = db.Posts.Include(p => p.Author);
             return View(posts.ToList());
         }
-        public ActionResult ShowAuthorPosts(int? id, int? page, string sortOrder)
+        public ActionResult ShowAuthorPosts(int? id, int? idpatrona, int? page, string sortOrder)
         {
 
             if (id == null)
@@ -38,7 +38,16 @@ namespace Patron.Controllers
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            var posts = db.Posts.Where(p => p.Author.UserName==author.UserName);
+            var posts = db.Posts.Where(p => p.Author.UserName == author.UserName);
+
+            if (idpatrona != null)
+            {
+                Models.Patron patron = db.Patrons.Find(idpatrona);
+                posts = db.Posts.Where(p => p.Patrons.Any(patr => patr.ID == idpatrona) && 
+                p.Author.UserName == author.UserName);
+
+            }
+           
             switch (sortOrder)
             {
                 case "rating_desc":
@@ -54,7 +63,11 @@ namespace Patron.Controllers
                     posts = posts.OrderBy(s => s.Title);
                     break;
             }
-
+            ViewBag.isAuthor = false;
+            if (User.Identity.Name == author.UserName)
+            {
+                ViewBag.isAuthor = true;
+            }
             return View(posts.ToPagedList(pageNumber, pageSize));
             
         }

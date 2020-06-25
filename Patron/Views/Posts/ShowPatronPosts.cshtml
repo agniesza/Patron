@@ -7,7 +7,10 @@
 
 <table class="table">
     <tr>
-
+        <th>
+            <p>Autor</p>
+        </th>
+        
         <th>
             <p>Treść</p>
         </th>
@@ -27,26 +30,28 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author.FirstName)  @Html.DisplayFor(modelItem => item.Author.LastName)
+        </td>
+        <td>
+            @Html.ActionLink(item.Title, "Details", new { id = item.ID })
 
-            <td>
-                @Html.ActionLink(item.Title, "Details", new { id = item.ID })
-
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Raiting)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfRatings)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
-            </td>
-        </tr>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Raiting)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberOfRatings)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+        </td>
+    </tr>
     }
 
 </table>

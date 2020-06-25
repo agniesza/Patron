@@ -16,61 +16,63 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
 
-        <div class="form-group">
-            <p>Nazwa użytkownika (email)</p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            </div>
+    <div class="form-group">
+        <p>Nazwa użytkownika (email)</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
         </div>
+    </div>
 
-        <div class="form-group">
-            <p> Imię</p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        <p> Imię</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            <p> Nazwisko </p>
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        <p> Nazwisko </p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            <p>Twoje zdjęcie </p>
-            <div class="col-md-10">
-                <img src="~/Avatars/@Model.Avatar" alt="" height="150px" width="120px" />
-                <span style="visibility:hidden">
-                    @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control" } })
-                </span>
-                <p>
-                    Wgraj nowe zdjęcie:
-                </p>
-                <input type="file" name="avatarFile2" />
-                @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <p>Twoje zdjęcie </p>
+        <div class="col-md-10">
+            <img src="~/Avatars/@Model.Avatar" alt="" height="150px" width="120px" />
+            <span style="visibility:hidden">
+                @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control" } })
+            </span>
+            <p>
+                Wgraj nowe zdjęcie:
+            </p>
+            <input type="file" name="avatarFile2" />
+            @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
 
-            </div>
-           
         </div>
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Zapisz zmiany" class="btn btn-success" />
-            </div>
-        </div>
-        @Html.ActionLink("Anuluj", "PatronHomePage", new { id = Model.ID }, new { @class = "btn btn-default" })
 
     </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz zmiany" class="btn btn-success" />
+        </div>
+    </div>
+    @Html.ActionLink("Twoja karta płatnicza", "Details",
+"CreditCards", new { id = Model.ID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Anuluj", "PatronHomePage", new { id = Model.ID }, new { @class = "btn btn-default" })
+
+</div>
 }
 
 

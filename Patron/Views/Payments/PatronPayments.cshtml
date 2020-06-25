@@ -51,9 +51,9 @@
         @Html.ActionLink("Powrót do listy płatności", "Index")
     }
     else
-    {
+    {        
         @Html.ActionLink("Powrót do profilu", "PatronHomePage",
-                           "Patrons", new { id = ViewBag.patron.ID }, null)
+                           "Patrons", new { id = ViewBag.patron.ID }, new { @class = "btn btn-default" })
     }
 </div>
 

@@ -92,14 +92,14 @@ ul.ks-cboxtags {
 }
 .leftcolumn {
     float: left;
-    width: 50%;
+    width: 40%;
     background-color: #f1f1f1;
 }
 
 /* Right column */
 .rightcolumn {
     float: left;
-    width: 50%;
+    width: 60%;
     background-color: white;
     padding-left: 20px;
 }

@@ -4,6 +4,22 @@
 @{
     ViewBag.Title = Model.FirstName+" "+Model.LastName;
 }
+<style>
+    .limeLink:link, .limeLink:visited {
+        background-color: lime;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        border-radius: 8px;
+        font-size: 20px;
+    }
+
+    .limeLink:hover, .limeLink:active {
+        background-color: #99ff33;
+    }
+</style>
 <div class="title">
     <h2 style="text-align: center;">
         @Html.DisplayFor(model => model.FirstName)
@@ -12,24 +28,33 @@
     <h4 style="text-align: center; color: lime">wspiera talenty</h4>
 </div>
 <div class="row">
-    <div class="leftcolumn">
+    <div class="leftcolumn" style="width: 50%;">
         <div>
+            <div style="text-align:center;">
+                <img src="~/Avatars/@Model.Avatar" alt="" height="200px" width="200px" style="border-radius: 50%;" />
 
-       
-            <div style="text-align:center">
-                <img src="~/Avatars/@ViewBag.Avt" alt="" height="170px" width="150px" />
             </div>
-            
-                <p>
-                    @Html.DisplayFor(model => model.UserName)
-                </p>
-           
+            <i class="fa fa-envelope-open" style="font-size:27px; float: left;">
+                <span style="font-size:20px">@Html.DisplayFor(model => model.UserName)</span>
+            </i>
+            <hr />
 
-            <h4>Suma wpłat:  @Html.DisplayFor(model => model.TotalMoney)</h4>
-
+            <h4>Suma wpłat:  @ViewBag.TotalMonay </h4>
+            @if (@User.Identity.GetUserName() == @Model.UserName)
+            {
+                @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Twoje płatności", "PatronPayments",
+  "Payments", new { id = Model.ID }, new { @class = "btn btn-default" })
+            }
         </div>
     </div>
-    <div class="rightcolumn">
+    <div class="rightcolumn" style="width: 50%;">
+        @if (@User.Identity.GetUserName() == @Model.UserName)
+        {
+            @Html.ActionLink("Zobacz wszystkie posty", "ShowPatronPosts",
+  "Posts", new { id = Model.ID }, new { @class = "btn btn-default" })
+ 
+        }
         @if (@ViewBag.CountActiveSub > 0)
         {
             <dt>
@@ -40,14 +65,35 @@
             <dd>
                 @foreach (var asub in @ViewBag.ActiveSubscriptions)
                 {
-                    <div>
-
-                        <a href="https://localhost:44321/Authors/AuthorPage/@(asub.Author.ID)">@(asub.Author.FirstName) @(asub.Author.LastName)</a>
-                        @(asub.Value)zł/miesięcznie
-                        @(asub.Name)
+                <div class="rounder-border">
+                    <div class="leftcolumn" style="width: 50%; background-color: white;">
+                        <div style="text-align:center;">
+                            <br />
+                            <img src="~/Avatars/@asub.Author.Avatar" alt="" height="100px" width="100px" style="border-radius: 8px;" />
+                        </div>
                     </div>
-                }
-            </dd>
+                    <div class="rightcolumn" style="width: 50%;">
+                        <br />
+                        <a class="limeLink" href="https://localhost:44321/Authors/AuthorPage/@(asub.Author.ID)">@(asub.Author.FirstName) @(asub.Author.LastName)</a>
+                    </div>
+
+                    <div style="text-align:right;">
+                        <h4 style="visibility:hidden"> Próg</h4>
+                        <h4>@(asub.Value)zł/miesięcznie </h4>
+                        <h3>@(asub.Name)</h3>
+                    </div>
+                    <div style="text-align:center;">
+                        @if (@User.Identity.GetUserName() == @Model.UserName)
+                        {
+                            @Html.ActionLink("Zobacz posty", "ShowAuthorPosts",
+              "Posts", new { id = asub.Author.ID, idpatrona = Model.ID }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = asub.ID }, new { @class = "btn btn-warning" })
+
+                        }
+                    </div>
+                </div>
+                    }
+</dd>
         }
         else
         {
@@ -97,18 +143,8 @@
                 }
             </dd>
         }
-        @if (@User.Identity.GetUserName() == @Model.UserName)
-        {
 
-            @Html.ActionLink("Zobacz posty", "ShowPatronPosts",
-      "Posts", new { id = Model.ID }, null)
-            @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID })
-            <br />
-            <a href="https://localhost:44321/Payments/PatronPayments/@(Model.ID)">Twoje płatności</a>
-            <br>
-            <a href="https://localhost:44321/CreditCards/Details/@(Model.CreditCard.ID)">Twoja karta</a>
 
-        }
 
     </div>
 </div>
