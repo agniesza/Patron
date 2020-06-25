@@ -83,7 +83,7 @@ namespace Patron.Controllers
         }
 
         // GET: Payments/Create
-        [Authorize(Roles = "Admin")]
+
         public ActionResult Create(int? id)
         {
             if (id == null)
@@ -104,8 +104,10 @@ namespace Patron.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "ID,AuthorID,PatronID,Date,Value,Status,Periodicity")] Payment payment)
-        {
+        public ActionResult Create(Payment payment)
+        {           
+            int Ap = payment.PatronID;
+            payment.Patron = db.Patrons.Find(Ap);
             if (ModelState.IsValid)
             {
                 payment.Periodicity = (Periodicity)Enum.Parse(typeof(Periodicity), "ONE_TIME", true);
