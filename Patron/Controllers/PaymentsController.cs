@@ -18,7 +18,8 @@ namespace Patron.Controllers
         private PatronContext db = new PatronContext();
 
         // GET: Payments
-       // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(string sortOrder, string phrase, int? page)
         {
             ViewBag.ValueSortParm = String.IsNullOrEmpty(sortOrder) ? "value_desc" : "";
@@ -114,7 +115,7 @@ namespace Patron.Controllers
                 payment.Date = DateTime.Now;
                 db.Payments.Add(payment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AuthorPage", "Authors", new { id = payment.AuthorID});
             }
 
             ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", payment.AuthorID);

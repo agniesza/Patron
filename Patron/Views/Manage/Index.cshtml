@@ -2,50 +2,76 @@
 @{
     ViewBag.Title = "Zarządzaj kontem";
 }
+<style>
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 15px;
+    }
 
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
 <h2>@ViewBag.Title.</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>Zmień ustawienia konta</h4>
-    <hr />
-    <dl class="dl-horizontal">
-
-        @if (ViewBag.patron != null)
-        {
-            @Html.ActionLink("Twój profil Patrona", "PatronHomePage",
-            "Patrons", new {id = ViewBag.patron.ID}, null)
-            <br />
-            if (ViewBag.author == null)
-            {
-                <br />
-                @Html.ActionLink("Zostań autorem!", "AddAuthorProfile",
-    "Authors", new { id = ViewBag.patron.ID }, null)}
-        }
-        @if (ViewBag.author != null)
-        {
-            <br />
-            @Html.ActionLink("Twój profil Autora", "AuthorPage",
-        "Authors", new {id = ViewBag.author.ID}, null)
-            if (ViewBag.patron == null)
-            {
-                <br />
-                @Html.ActionLink("Zostań patronem!", "AddPatronProfile",
-    "Patrons", new { id = ViewBag.author.ID }, null)}
-        }
-        <dd>
+    <div class="row">
+        <div class="column">
             <hr />
+            <h4>Zmień ustawienia konta</h4>
             <button class="btn btn-default" style="width:200px;">
                 @if (Model.HasPassword)
                 {
-                    @Html.ActionLink("Zmień hasło", "ChangePassword")
+                    @Html.ActionLink("Zmień hasło", "ChangePassword", new { @class = "btn btn-default" })
                 }
                 else
                 {
                     @Html.ActionLink("Utwórz", "SetPassword")
                 }
             </button>
-        </dd>
+
+        </div>
+        <div class="column">
+            <hr />
+            <h4>Panel patrona</h4>
+            @if (ViewBag.patron != null)
+            {
+                @Html.ActionLink("Twój profil Patrona", "PatronHomePage",
+          "Patrons", new { id = ViewBag.patron.ID }, new { @class = "btn btn-default" });
+            }
+            else
+            {
+                @Html.ActionLink("Zostań patronem!", "AddPatronProfile",
+       "Patrons", new { id = ViewBag.author.ID }, new { @class = "btn btn-success" })
+            }
+        </div>
+        <div class="column">
+            <hr />
+            <h4>Panel autora</h4>
+            @if (ViewBag.author != null)
+            {
+                @Html.ActionLink("Twój profil Autora", "AuthorPage",
+                 "Authors", new { id = ViewBag.author.ID }, new { @class = "btn btn-default" })
+            }
+            else
+            {
+                @Html.ActionLink("Zostań autorem!", "AddAuthorProfile",
+        "Authors", new { id = ViewBag.patron.ID }, new { @class = "btn btn-success" })
+            }
+        </div>
+        
+       
+
+
+
+
+
+
         <!--
     <dt>Logowania zewnętrzne:</dt>
     <dd>
@@ -109,6 +135,5 @@
                 </text>
             }
         }*@
-        </dd>
-    </dl>
-</div>
+     
+    </div>

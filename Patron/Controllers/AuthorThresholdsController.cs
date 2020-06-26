@@ -205,7 +205,7 @@ namespace Patron.Controllers
                 Patron = patron,
                 Value = authorThreshold.Value,
                 Periodicity = (Periodicity)Enum.Parse(typeof(Periodicity), "MONTHLY", true),
-                Date = DateTime.Now
+                Date = DateTime.Today
             };
             db.Payments.Add(payment);
             db.SaveChanges();

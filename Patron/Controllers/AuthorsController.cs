@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList.Mvc;
 using PagedList;
+using System;
 
 namespace Patron.Controllers
 {
@@ -18,6 +19,7 @@ namespace Patron.Controllers
         // GET: Authors
         public ActionResult Index(string phrase, int? page)
         {
+            
             var authors = db.Authors.Include(a => a.Categories).OrderBy(aa => aa.UserName);
             if (phrase != null)
             {
