@@ -93,14 +93,14 @@
             <h2>@item.Name</h2>
             <h4>@item.Value zł</h4>
             <p>@item.Description</p>
-            <p> Wspierających: @item.Patrons.Count</p>
-            @if (@ViewBag.isPatron)
+            <p> Wspierających: @item.Patrons.Count / @item.MaxNumberOfPatrons</p>
+            @if (ViewBag.isPatron && ViewBag.supportedID ==item.ID) 
             {
 
                 @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-warning" })
 
             }
-            else if (@ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && item.Patrons.Count < item.MaxNumberOfPatrons)
+            else if (ViewBag.isPatron!=true && @ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && item.Patrons.Count < item.MaxNumberOfPatrons)
             {
                 @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
 

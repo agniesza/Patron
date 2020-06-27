@@ -86,14 +86,18 @@ namespace Patron.Controllers
             ViewBag.AllPatrons = db.Patrons;
 
             string currentUserName = User.Identity.Name;
+            ViewBag.patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
             ViewBag.isPatron = false;
+            ViewBag.supportedID = null;
             foreach (var item in author.AuthorThresholds)
             {
                 if (item.Patrons.Any(p => p.UserName.Equals(currentUserName)))
                 {
                     ViewBag.isPatron=true;
+                    ViewBag.supportedID = item.ID;
                 }
             }
+
             ViewBag.isLoggedInAsPatron = false;
             foreach (var item in db.Patrons)
             {
@@ -103,6 +107,7 @@ namespace Patron.Controllers
                 }
             }
             ViewBag.TotalMonay = author.Payments.Sum(p => p.Value);
+
             return View(author);
         }
 
