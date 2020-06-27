@@ -54,8 +54,8 @@
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }, new { @class = "btn btn-warning" }) |
-                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }, new { @class = "btn btn-success" }) |
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }, new { @class = "btn btn-warning" }) 
+                @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }, new { @class = "btn btn-success" }) 
                 @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
             </td>
         </tr>
