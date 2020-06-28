@@ -67,7 +67,7 @@ namespace Patron.Controllers
             ViewBag.ActiveSubscriptions = patron.AuthorThresholds;
             //ViewBag.InActiveSubscriptions = patron.Payments.Where(p => p.Periodicity==period);
             ViewBag.OneTimeSupport = patron.Payments.Where(p => p.Periodicity != period);
-            ViewBag.OneTimeSupportCount = 0;//patron.Payments.Where(p => p.Periodicity != period).Count;
+            ViewBag.OneTimeSupportCount = (patron.Payments.Where(p => p.Periodicity != period)).Count();//patron.Payments.Where(p => p.Periodicity != period).Count;
             ViewBag.Avt = patron.Avatar;
             ViewBag.CountActiveSub = patron.AuthorThresholds.Count;
             // ViewBag.CountInActiveSub = patron.Payments.DistinctBy(p => p.Author);

@@ -53,7 +53,7 @@
         {
             @Html.ActionLink("Zobacz wszystkie posty", "ShowPatronPosts",
   "Posts", new { id = Model.ID }, new { @class = "btn btn-default" })
- 
+
         }
         @if (@ViewBag.CountActiveSub > 0)
         {
@@ -65,35 +65,35 @@
             <dd>
                 @foreach (var asub in @ViewBag.ActiveSubscriptions)
                 {
-                <div class="rounder-border">
-                    <div class="leftcolumn" style="width: 50%; background-color: white;">
-                        <div style="text-align:center;">
+                    <div class="rounder-border">
+                        <div class="leftcolumn" style="width: 50%; background-color: white;">
+                            <div style="text-align:center;">
+                                <br />
+                                <img src="~/Avatars/@asub.Author.Avatar" alt="" height="100px" width="100px" style="border-radius: 8px;" />
+                            </div>
+                        </div>
+                        <div class="rightcolumn" style="width: 50%;">
                             <br />
-                            <img src="~/Avatars/@asub.Author.Avatar" alt="" height="100px" width="100px" style="border-radius: 8px;" />
+                            <a class="limeLink" href="https://localhost:44321/Authors/AuthorPage/@(asub.Author.ID)">@(asub.Author.FirstName) @(asub.Author.LastName)</a>
+                        </div>
+
+                        <div style="text-align:right;">
+                            <h4 style="visibility:hidden"> Próg</h4>
+                            <h4>@(asub.Value)zł/miesięcznie </h4>
+                            <h3>@(asub.Name)</h3>
+                        </div>
+                        <div style="text-align:center;">
+                            @if (@User.Identity.GetUserName() == @Model.UserName)
+                            {
+                                @Html.ActionLink("Zobacz posty", "ShowAuthorPosts",
+                  "Posts", new { id = asub.Author.ID, idpatrona = Model.ID }, new { @class = "btn btn-default" })
+                                @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = asub.ID }, new { @class = "btn btn-warning" })
+
+                            }
                         </div>
                     </div>
-                    <div class="rightcolumn" style="width: 50%;">
-                        <br />
-                        <a class="limeLink" href="https://localhost:44321/Authors/AuthorPage/@(asub.Author.ID)">@(asub.Author.FirstName) @(asub.Author.LastName)</a>
-                    </div>
-
-                    <div style="text-align:right;">
-                        <h4 style="visibility:hidden"> Próg</h4>
-                        <h4>@(asub.Value)zł/miesięcznie </h4>
-                        <h3>@(asub.Name)</h3>
-                    </div>
-                    <div style="text-align:center;">
-                        @if (@User.Identity.GetUserName() == @Model.UserName)
-                        {
-                            @Html.ActionLink("Zobacz posty", "ShowAuthorPosts",
-              "Posts", new { id = asub.Author.ID, idpatrona = Model.ID }, new { @class = "btn btn-default" })
-                            @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = asub.ID }, new { @class = "btn btn-warning" })
-
-                        }
-                    </div>
-                </div>
-                    }
-</dd>
+                }
+            </dd>
         }
         else
         {
@@ -106,43 +106,61 @@
                 @Model.FirstName <span>nie wspiera obecnie żadnych twórców.</span>
             }
         }
-
-
-
-
-        @if (@ViewBag.CountInActiveSub > 0)
+        @if (ViewBag.OneTimeSupportCount > 0)
         {
-            <dt>
-                Niektywne subskrupcje:
-
-            </dt>
+            <dt style="width: 70%; float :right;">Jednorazowo udzielone wsparcie:</dt>
             <dd>
-                @foreach (var nsub in @ViewBag.InActiveSub)
+                @foreach (var oneTime in ViewBag.OneTimeSupport)
                 {
-                    <div>
+                <div class="rounder-border" style="width: 70%; float :right;">
+                    <div class="leftcolumn" style="width: 50%; background-color:white;">
+                        @if (@oneTime.Author.Avatar != null)
+                        {
+                            <img src="~/Avatars/@oneTime.Author.Avatar" alt="" height="70px" width="70px" style="border-radius: 8px;" />
+                        }
+                        else
+                        {
+                            <img src="~/Avatars/example.png" alt="" height="70px" width="70px" style="border-radius: 8px;" />
 
-                        <a href="https://localhost:44321/Authors/AuthorPage/@(nsub.Author.ID)">@(nsub.Author.FirstName) @(nsub.Author.LastName)</a>
-                        @(nsub.Value)zł/miesięcznie
-                        @(nsub.Name)
-                    </div>
+                        }
+                        </div>
+                            <div class="rightcolumn" style="width: 50%;">
+                                <a href="https://localhost:44321/Authors/AuthorPage/@(oneTime.Author.ID)">@(oneTime.Author.FirstName) @(oneTime.Author.LastName)</a>
+                                <p>@(oneTime.Value)zł</p>
+                            </div>
+                    
+                   
 
+                </div>
                 }
             </dd>
         }
-        @if (@ViewBag.OneTimeSupportCount > 0)
+        @if (ViewBag.InActiveSubCount > 0 && @User.Identity.GetUserName() == @Model.UserName)
         {
-            <dt>Jednorazowo udzielone wsparcie:</dt>
-            <dd>
-                @foreach (var oneTime in @ViewBag.OneTimeSupport)
-                {
-                    <div>
-                        <a href="https://localhost:44321/Authors/AuthorPage/@(oneTime.Author.ID)">@(oneTime.Author.FirstName) @(oneTime.Author.LastName)</a>
-                        @(oneTime.Value)zł
+                <dt style="width: 70%; float :right;">Niektywne subskrupcje:</dt>
+                foreach (var nsub in ViewBag.InActiveSub)
+                {<div class="rounder-border" style="width: 70%; float :right;">
+                     <div class="leftcolumn" style="width: 50%; background-color:white;">
+                         @if (@nsub.Avatar != null)
+                         {
+                             <img src="~/Avatars/@nsub.Avatar" alt="" height="70px" width="70px" style="border-radius: 8px;" />
+                         }
+                         else
+                         {
+                             <img src="~/Avatars/example.png" alt="" height="70px" width="70px" style="border-radius: 8px;" />
 
+                         }
+
+                     </div>
+                        <div class="rightcolumn" style="width: 50%;">
+                            <br />
+                            <a href="https://localhost:44321/Authors/AuthorPage/@(nsub.ID)">@(nsub.FirstName) @(nsub.LastName)</a>
+                        </div>
                     </div>
+
                 }
-            </dd>
         }
+
 
 
 
