@@ -27,7 +27,7 @@
         <div style="border: 1px solid #e6e6e6;
     border-radius: 8px; text-align:center;">
 
-            @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", new { id = item.ID }, new { @style = "text-decoration:none; font-size:15px;" })
+            @Html.ActionLink(item.FirstName + " " + item.LastName,"AuthorPage", "Authors", new { id = item.ID }, new { @style = "text-decoration:none; font-size:15px;" })
 
             <img src="~/Avatars/@item.Avatar" alt="" height="100px" width="100px" />
             @if (Context.User.IsInRole("Admin"))
