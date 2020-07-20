@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Patron.Models.Payment>
+
+@{
+    ViewBag.Title = "Płatności jednorazowe";
+}
+<div class="title">
+    <h2 style="text-align: center;">
+        @ViewBag.author.FirstName
+        @ViewBag.author.LastName
+    </h2>
+    <h4 style="text-align: center; color: lime">jednorazowe wsparcie</h4>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            <p>Patron</p>
+        </th>
+
+        <th>
+            <p>Data</p>
+        </th>
+        <th>
+            <p>Wartość</p>
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patron.FirstName)
+                @Html.DisplayFor(modelItem => item.Patron.LastName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+
+        </tr>
+    }
+
+</table>
+<div>
+    @if (Context.User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Powrót do listy płatności", "Index")
+    }
+    else
+    {
+        @Html.ActionLink("Powrót do profilu", "AuthorPage",
+                           "Authors", new { id = ViewBag.author.ID }, new { @class = "btn btn-default" })
+    }
+</div>
+
+

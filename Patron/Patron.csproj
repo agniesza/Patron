@@ -333,6 +333,7 @@
     <Content Include="Views\Authors\EditProfile.cshtml" />
     <Content Include="Views\Posts\ShowAuthorPosts.cshtml" />
     <Content Include="Views\Posts\ShowPatronPosts.cshtml" />
+    <Content Include="Views\Payments\AuthorOneTimePayments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

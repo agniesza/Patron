@@ -56,6 +56,7 @@ namespace Patron.Controllers
                 int pageNumber = (page ?? 1);
             return View(payments.ToPagedList(pageNumber, pageSize));
         }
+        
         [Authorize]
         public ActionResult PatronPayments(int? id)
         {
@@ -65,6 +66,17 @@ namespace Patron.Controllers
             }
             var payments = db.Payments.Where(p => p.PatronID==id).Include(p => p.Author).Include(p => p.Patron).OrderByDescending(p => p.Date);
             ViewBag.patron = db.Patrons.Find(id);
+            return View(payments.ToList());
+        }
+        [Authorize]
+        public ActionResult AuthorOneTimePayments(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var payments = db.Payments.Where(p => p.AuthorID == id).Include(p => p.Patron).Include(p => p.Author).OrderByDescending(p => p.Date);
+            ViewBag.author = db.Authors.Find(id);
             return View(payments.ToList());
         }
         // GET: Payments/Details/5

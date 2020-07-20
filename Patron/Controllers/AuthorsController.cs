@@ -78,16 +78,20 @@ namespace Patron.Controllers
             int mvalue = 0;
             foreach (var item in author.AuthorThresholds)
             {
-                at = db.AuthorThresholds.Find(item.ID);
-                mvalue += at.Patrons.Count()*at.Value;
+             //   at = db.AuthorThresholds.Find(item.ID);
+                mvalue += item.Patrons.Count()*item.Value;
             }
             ViewBag.Monthly = mvalue;
             
             ViewBag.AllPatrons = db.Patrons;
 
             string currentUserName = User.Identity.Name;
-            ViewBag.patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
-            ViewBag.isPatron = false;
+            ViewBag.patron = null;
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
+            }
+                ViewBag.isPatron = false;
             ViewBag.supportedID = null;
             foreach (var item in author.AuthorThresholds)
             {
