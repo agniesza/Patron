@@ -2,7 +2,7 @@
 @model Patron.Models.Patron
 
 @{
-    ViewBag.Title = Model.FirstName+" "+Model.LastName;
+    ViewBag.Title = Model.FirstName + " " + Model.LastName;
 }
 <style>
     .limeLink:link, .limeLink:visited {
@@ -19,7 +19,25 @@
     .limeLink:hover, .limeLink:active {
         background-color: #99ff33;
     }
+
+    .dropdown-content {
+        display: none;
+    }
 </style>
+<script>
+    window.onload = function () {
+        document.getElementById("showOneTimeSupportBtn").onclick = function () { oneTimeSupportFun() };
+        document.getElementById("inActiveSubBtn").onclick = function () { inActiveSupportFun() };
+
+    }
+    function oneTimeSupportFun() {
+        document.getElementById("oneTimeList").classList.toggle("show");
+    }
+    function inActiveSupportFun() {
+        document.getElementById("inActiveList").classList.toggle("show");
+    }
+</script>
+
 <div class="title">
     <h2 style="text-align: center;">
         @Html.DisplayFor(model => model.FirstName)
@@ -108,50 +126,53 @@
         }
         @if (ViewBag.OneTimeSupportCount > 0)
         {
-            <dt style="width: 70%; float :right;">Jednorazowo udzielone wsparcie:</dt>
-            <dd>
-                @foreach (var oneTime in ViewBag.OneTimeSupport)
-                {
-                <div class="rounder-border" style="width: 70%; float :right;">
-                    <div class="leftcolumn" style="width: 50%; background-color:white;">
-                        @if (@oneTime.Author.Avatar != null)
-                        {
-                            <img src="~/Avatars/@oneTime.Author.Avatar" alt="" height="70px" width="70px" style="border-radius: 8px;" />
-                        }
-                        else
-                        {
-                            <img src="~/Avatars/example.png" alt="" height="70px" width="70px" style="border-radius: 8px;" />
+            <button id="showOneTimeSupportBtn" style="width: 80%; float :right;">Wpłaty jednorazowe</button>
+            <div id="oneTimeList" class="dropdown-content">
+                <dt style="width: 70%; float :right;">Jednorazowo udzielone wsparcie:</dt>
+                <dd>
+                    @foreach (var oneTime in ViewBag.OneTimeSupport)
+                    {
+                        <div class="rounder-border" style="width: 70%; float :right;">
+                            <div class="leftcolumn" style="width: 50%; background-color:white;">
+                                @if (@oneTime.Author.Avatar != null)
+                                {
+                                    <img src="~/Avatars/@oneTime.Author.Avatar" alt="" height="70px" width="70px" style="border-radius: 8px;" />
+                                }
+                                else
+                                {
+                                    <img src="~/Avatars/example.png" alt="" height="70px" width="70px" style="border-radius: 8px;" />
 
-                        }
-                        </div>
+                                }
+                            </div>
                             <div class="rightcolumn" style="width: 50%;">
                                 <a href="https://localhost:44321/Authors/AuthorPage/@(oneTime.Author.ID)">@(oneTime.Author.FirstName) @(oneTime.Author.LastName)</a>
                                 <p>@(oneTime.Value)zł</p>
                             </div>
-                    
-                   
 
-                </div>
-                }
-            </dd>
+                        </div>
+                    }
+                </dd>
+            </div>
         }
         @if (ViewBag.InActiveSubCount > 0 && @User.Identity.GetUserName() == @Model.UserName)
         {
+            <button id="inActiveSubBtn" style="width: 80%; float :right;">Autorzy, których już nie wspierasz</button>
+            <div id="inActiveList" class="dropdown-content">
                 <dt style="width: 70%; float :right;">Niektywne subskrupcje:</dt>
-                foreach (var nsub in ViewBag.InActiveSub)
+                @foreach (var nsub in ViewBag.InActiveSub)
                 {<div class="rounder-border" style="width: 70%; float :right;">
-                     <div class="leftcolumn" style="width: 50%; background-color:white;">
-                         @if (@nsub.Avatar != null)
-                         {
-                             <img src="~/Avatars/@nsub.Avatar" alt="" height="70px" width="70px" style="border-radius: 8px;" />
-                         }
-                         else
-                         {
-                             <img src="~/Avatars/example.png" alt="" height="70px" width="70px" style="border-radius: 8px;" />
+                        <div class="leftcolumn" style="width: 50%; background-color:white;">
+                            @if (@nsub.Avatar != null)
+                            {
+                                <img src="~/Avatars/@nsub.Avatar" alt="" height="70px" width="70px" style="border-radius: 8px;" />
+                            }
+                            else
+                            {
+                                <img src="~/Avatars/example.png" alt="" height="70px" width="70px" style="border-radius: 8px;" />
 
-                         }
+                            }
 
-                     </div>
+                        </div>
                         <div class="rightcolumn" style="width: 50%;">
                             <br />
                             <a href="https://localhost:44321/Authors/AuthorPage/@(nsub.ID)">@(nsub.FirstName) @(nsub.LastName)</a>
@@ -159,13 +180,11 @@
                     </div>
 
                 }
+            </div>
         }
 
 
 
 
-    </div>
-</div>
-<p>
 
-</p>
+    </div>
