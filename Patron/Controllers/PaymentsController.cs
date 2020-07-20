@@ -68,16 +68,46 @@ namespace Patron.Controllers
             ViewBag.patron = db.Patrons.Find(id);
             return View(payments.ToList());
         }
+
         [Authorize]
-        public ActionResult AuthorOneTimePayments(int? id)
+        public ActionResult AuthorOneTimePayments(int? id, string sortOrder, string phrase, int? page)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var payments = db.Payments.Where(p => p.AuthorID == id).Include(p => p.Patron).Include(p => p.Author).OrderByDescending(p => p.Date);
+            ViewBag.ValueSortParm = String.IsNullOrEmpty(sortOrder) ? "value_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            var payments = db.Payments.Where(p => p.AuthorID == id).Include(p => p.Patron).Include(p => p.Author);
+            switch (sortOrder)
+            {
+                case "value_desc":
+                    payments = payments.OrderByDescending(s => s.Value);
+                    break;
+                case "Date":
+                    payments = payments.OrderBy(s => s.Date);
+                    break;
+                case "date_desc":
+                    payments = payments.OrderByDescending(s => s.Date);
+                    break;
+                default:
+                    payments = payments.OrderBy(s => s.Author.UserName);
+                    break;
+            }
+            if (phrase != null)
+            {
+                page = 1;
+                payments = payments.Where(a => 
+                    a.Patron.FirstName.Contains(phrase)
+                    || a.Patron.LastName.Contains(phrase)
+                    || a.Patron.UserName.Contains(phrase)
+                    );
+            }
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
             ViewBag.author = db.Authors.Find(id);
-            return View(payments.ToList());
+            return View(payments.ToPagedList(pageNumber, pageSize));
         }
         // GET: Payments/Details/5
         [Authorize(Roles = "Admin")]

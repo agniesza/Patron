@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Patron.Models.Payment>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Patron.Models.Payment>
 
 @{
     ViewBag.Title = "Płatności jednorazowe";
@@ -10,7 +12,13 @@
     </h2>
     <h4 style="text-align: center; color: lime">jednorazowe wsparcie</h4>
 </div>
+@using (Html.BeginForm("AuthorOneTimePayments", "Payments", FormMethod.Get))
+{
+    @Html.TextBox("phrase");
 
+    <input type="submit" value="Szukaj wg patrona" />
+
+}
 <table class="table">
     <tr>
         <th>
@@ -18,10 +26,10 @@
         </th>
 
         <th>
-            <p>Data</p>
+            @Html.ActionLink("Data", "AuthorOneTimePayments", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th>
-            <p>Wartość</p>
+            @Html.ActionLink("Wartość", "AuthorOneTimePayments", new { sortOrder = ViewBag.ValueSortParm })
         </th>
 
     </tr>
@@ -45,16 +53,15 @@
     }
 
 </table>
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("AuthorOneTimePayments",
+    new { page }))
 <div>
-    @if (Context.User.IsInRole("Admin"))
-    {
-        @Html.ActionLink("Powrót do listy płatności", "Index")
-    }
-    else
-    {
+   
         @Html.ActionLink("Powrót do profilu", "AuthorPage",
                            "Authors", new { id = ViewBag.author.ID }, new { @class = "btn btn-default" })
-    }
+    
 </div>
 
 
