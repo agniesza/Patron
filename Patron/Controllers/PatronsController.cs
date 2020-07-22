@@ -65,13 +65,10 @@ namespace Patron.Controllers
             Status status = (Status)Enum.Parse(typeof(Status), "INACTIVE", true);
             Periodicity period = (Periodicity)Enum.Parse(typeof(Periodicity), "MONTHLY", true);
             ViewBag.ActiveSubscriptions = patron.AuthorThresholds;
-            //ViewBag.InActiveSubscriptions = patron.Payments.Where(p => p.Periodicity==period);
-            ViewBag.OneTimeSupport = patron.Payments.Where(p => p.Periodicity != period);
+             ViewBag.OneTimeSupport = patron.Payments.Where(p => p.Periodicity != period);
             ViewBag.OneTimeSupportCount = (patron.Payments.Where(p => p.Periodicity != period)).Count();//patron.Payments.Where(p => p.Periodicity != period).Count;
             ViewBag.Avt = patron.Avatar;
             ViewBag.CountActiveSub = patron.AuthorThresholds.Count;
-            // ViewBag.CountInActiveSub = patron.Payments.DistinctBy(p => p.Author);
-            // var paym = patron.Payments.Any(p => p.Author.ID ==;
             List<Payment> ap = patron.Payments;
             List<Author> aap = new List<Author>();
             foreach (var item in ap)
@@ -105,12 +102,40 @@ namespace Patron.Controllers
             List<Author> unsubscribedDistinct = unsubscribed.GroupBy(a => a.ID)
                 .Select(g => g.First()).ToList();
 
+            ViewBag.IncomingPayments = IncomingPayments(patron);
+            int sumIncomingPayments = 0;
+            foreach (var p in ViewBag.IncomingPayments)
+            {
+                sumIncomingPayments += p.Value;
+            }
+            ViewBag.SumIncomingPayments = sumIncomingPayments;
             ViewBag.InActiveSub = unsubscribedDistinct;
             ViewBag.InActiveSubCount = unsubscribedDistinct.Count;
             ViewBag.TotalMonay = patron.Payments.Sum(p => p.Value);
             return View(patron);
 
         }
+        public List<Payment> IncomingPayments(Models.Patron patron)
+        {
+
+            List<Payment> payments = new List<Payment>();
+            foreach (var at in patron.AuthorThresholds)
+            {
+                foreach (var p in patron.Payments)
+                {
+                    if(p.AuthorID == at.AuthorID && p.Date.Month == DateTime.Today.AddMonths(-1).Month && p.Date > DateTime.Today.AddMonths(-2))
+                    {
+                        payments.Add(p);
+                    }
+                }
+                {
+
+                }
+            }
+
+            return payments;
+        }
+
         // GET: Patrons/Create
         [Authorize(Roles = "Admin")]
         public ActionResult Create()

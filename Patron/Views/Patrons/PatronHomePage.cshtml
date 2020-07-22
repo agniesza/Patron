@@ -65,6 +65,13 @@
   "Payments", new { id = Model.ID }, new { @class = "btn btn-default" })
             }
         </div>
+        <div>
+            <h4>Płatności w tym miesiącu: @ViewBag.SumIncomingPayments zł</h4>
+            @foreach (var p in ViewBag.IncomingPayments)
+            {
+            <p>@p.Author.FirstName @p.Author.LastName >> @p.Value zł</p>
+            }
+        </div>
     </div>
     <div class="rightcolumn" style="width: 50%;">
         @if (@User.Identity.GetUserName() == @Model.UserName)
