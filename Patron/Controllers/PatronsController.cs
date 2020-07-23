@@ -117,13 +117,14 @@ namespace Patron.Controllers
         }
         public List<Payment> IncomingPayments(Models.Patron patron)
         {
+            Periodicity period = (Periodicity)Enum.Parse(typeof(Periodicity), "MONTHLY", true);
 
             List<Payment> payments = new List<Payment>();
             foreach (var at in patron.AuthorThresholds)
             {
                 foreach (var p in patron.Payments)
                 {
-                    if(p.AuthorID == at.AuthorID && p.Date.Month == DateTime.Today.AddMonths(-1).Month && p.Date > DateTime.Today.AddMonths(-2))
+                    if(p.AuthorID == at.AuthorID && p.Date.Month == DateTime.Today.AddMonths(-1).Month && p.Date > DateTime.Today.AddMonths(-2) && p.Periodicity == period)
                     {
                         payments.Add(p);
                     }
