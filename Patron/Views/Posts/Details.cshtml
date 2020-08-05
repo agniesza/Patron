@@ -7,33 +7,24 @@
 
 
 <div>
-    <h4>Post</h4>
-    <hr />
     <dl class="dl-horizontal">
-        <dt>
-            <p>Autor</p>
-        </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Author.UserName)
+            <p style="text-align:left"> <span style="font-weight: bold">Autor postu:</span> @Html.DisplayFor(model => model.Author.UserName) </p>
         </dd>
-        <dt>
-            <p>Tytuł</p>
-        </dt>
+        
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            <p>Treść:</p>
-        </dt>
+            <h2 style="text-align:center">@Html.DisplayFor(model => model.Title)</h2>
+</dd>
+      
 
-        <dd>
+        <dd style="font-size:medium">
             @Html.DisplayFor(model => model.Content)
         </dd>
 
 
-        <dd>
+        <dd style="font-size:small">
             @Html.DisplayFor(model => model.Raiting) / @Html.DisplayFor(model => model.NumberOfRatings) głosów
         </dd>
 
