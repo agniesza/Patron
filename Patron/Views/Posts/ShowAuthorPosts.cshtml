@@ -6,23 +6,22 @@
 }
 @if (ViewBag.isAuthor==true)
 {
+    <br />
     <p>
-        @Html.ActionLink("Utwórz nowy post", "Create")
+        @Html.ActionLink("Utwórz nowy post", "Create", null, new { @class = "btn btn-success" })
     </p>
 }
     <table class="table">
         <tr>
 
             <th>
-                <p>Treść</p>
+                
             </th>
             <th>
                 @Html.ActionLink("Ocena", "ShowAuthorPosts", new { sortOrder = ViewBag.RatingSortParm })
 
             </th>
-            <th>
-                <p>Liczba ocen</p>
-            </th>
+            
             <th>
                 @Html.ActionLink("Data", "ShowAuthorPosts", new { sortOrder = ViewBag.DateSortParm })
 
@@ -39,17 +38,15 @@
 
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Raiting)
+                    @Html.DisplayFor(modelItem => item.Raiting) /  @Html.DisplayFor(modelItem => item.NumberOfRatings) głosów
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberOfRatings)
-                </td>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }, new { @class = "btn btn-warning" }) 
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }
