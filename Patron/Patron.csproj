@@ -334,9 +334,11 @@
     <Content Include="Views\Posts\ShowAuthorPosts.cshtml" />
     <Content Include="Views\Posts\ShowPatronPosts.cshtml" />
     <Content Include="Views\Payments\AuthorOneTimePayments.cshtml" />
+    <Content Include="Views\Shared\_VoteNow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

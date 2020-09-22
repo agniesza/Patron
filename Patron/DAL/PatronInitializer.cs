@@ -142,8 +142,6 @@ namespace Patron.DAL
                     Author = authors[0],
                     Patrons= new List<Models.Patron> {patrons[0], patrons[1], patrons[2]},
                     Content ="Testkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
-                    Raiting=5.0,
-                    NumberOfRatings=2,
                     Date=DateTime.Now
 
                 },

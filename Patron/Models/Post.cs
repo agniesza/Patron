@@ -13,8 +13,6 @@ namespace Patron.Models
         [DataType(DataType.MultilineText)]
         [StringLength(300, MinimumLength = 10, ErrorMessage = "Treść musi zawierać od 10 do 300 znaków.")]
         public string Content { get; set; }
-        public double Raiting { get; set; }
-        public int NumberOfRatings { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
@@ -22,13 +20,5 @@ namespace Patron.Models
         public virtual List<Patron> Patrons { get; set; }
         public virtual Author Author { get; set; }
 
-
-        private void CalculateRaiting(int rate)
-        {
-            double tmp = (Raiting * NumberOfRatings) + rate;
-            NumberOfRatings++;
-            Raiting = tmp / NumberOfRatings;
-
-        }
     }
 }

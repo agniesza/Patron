@@ -19,28 +19,20 @@ namespace Patron.Controllers
         public ActionResult Index(string sortOrder, string phrase, int? page)
         {
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            ViewBag.RatingSortParm = sortOrder == "Rating" ? "rating_desc" : "Rating";
             ViewBag.NumberOfRatingsSortParm = String.IsNullOrEmpty(sortOrder) ? "number_desc" : "";
             ViewBag.AuthorSortParm = String.IsNullOrEmpty(sortOrder) ? "author_desc" : "";
 
             var posts = db.Posts.Include(p => p.Author);
             switch (sortOrder)
             {
-                case "Rating":
-                    posts = posts.OrderBy(s => s.Raiting);
-                    break;
-                case "rating_desc":
-                    posts = posts.OrderByDescending(s => s.Raiting);
-                    break;
+                
                 case "Date":
                     posts = posts.OrderBy(s => s.Date);
                     break;
                 case "date_desc":
                     posts = posts.OrderByDescending(s => s.Date);
                     break;
-                case "number_desc":
-                    posts = posts.OrderByDescending(s => s.NumberOfRatings);
-                    break;
+               
                 case "author_desc":
                     posts = posts.OrderByDescending(s => s.Author.UserName);
                     break;
@@ -92,9 +84,7 @@ namespace Patron.Controllers
            
             switch (sortOrder)
             {
-                case "rating_desc":
-                    posts = posts.OrderByDescending(s => s.Raiting);
-                    break;
+                
                 case "Date":
                     posts = posts.OrderBy(s => s.Date);
                     break;
@@ -134,9 +124,7 @@ namespace Patron.Controllers
             var posts = db.Posts.Where(p => p.Patrons.Any(patr => patr.UserName==patron.UserName));
             switch (sortOrder)
             {
-                case "rating_desc":
-                    posts = posts.OrderByDescending(s => s.Raiting);
-                    break;
+               
                 case "Date":
                     posts = posts.OrderBy(s => s.Date);
                     break;
@@ -192,7 +180,7 @@ namespace Patron.Controllers
             }
             post.Author = db.Authors.Single(a => a.UserName == User.Identity.Name);
             post.Date = DateTime.Now;
-            post.NumberOfRatings = 0;
+          
             db.Posts.Add(post);
             db.SaveChanges();
             return RedirectToAction("ShowAuthorPosts", "Posts", new { id = post.Author.ID });
