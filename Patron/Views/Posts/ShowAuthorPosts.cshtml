@@ -17,10 +17,7 @@
             <th>
                 
             </th>
-            <th>
-                @Html.ActionLink("Ocena", "ShowAuthorPosts", new { sortOrder = ViewBag.RatingSortParm })
-
-            </th>
+           
             
             <th>
                 @Html.ActionLink("Data", "ShowAuthorPosts", new { sortOrder = ViewBag.DateSortParm })
@@ -31,16 +28,14 @@
 
         @foreach (var item in Model)
         {
+           
             <tr>
 
                 <td>
                     @Html.ActionLink(item.Title, "Details", new { id = item.ID })
 
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Raiting) /  @Html.DisplayFor(modelItem => item.NumberOfRatings) głosów
-                </td>
-                
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>

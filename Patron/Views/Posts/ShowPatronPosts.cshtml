@@ -14,13 +14,7 @@
         <th>
             <p>Treść</p>
         </th>
-        <th>
-            @Html.ActionLink("Ocena", "ShowPatronPosts", new { sortOrder = ViewBag.RatingSortParm })
-
-        </th>
-        <th>
-            <p>Liczba ocen</p>
-        </th>
+        
         <th>
             @Html.ActionLink("Data", "ShowPatronPosts", new { sortOrder = ViewBag.DateSortParm })
 
@@ -38,12 +32,7 @@
             @Html.ActionLink(item.Title, "Details", new { id = item.ID })
 
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Raiting)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumberOfRatings)
-        </td>
+      
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>

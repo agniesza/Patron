@@ -28,13 +28,8 @@
         <th>
             @Html.ActionLink("Data", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
-        <th>
-            @Html.ActionLink("Autor", "Index", new { sortOrder = ViewBag.RatingSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("Liczba głosów", "Index", new { sortOrder = ViewBag.NumberOfRatingsSortParm })
-
-        </th>
+       
+        
         <th></th>
     </tr>
 
@@ -48,12 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td> @Html.DisplayFor(modelItem => item.Date)</td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Raiting)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfRatings)
-            </td>
+            
             <td>
                 @Html.ActionLink("Szczegóły", "Details", new { id = item.ID }, new { @class = "btn btn-success" }) 
                 @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
