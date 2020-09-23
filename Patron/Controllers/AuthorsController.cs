@@ -86,11 +86,7 @@ namespace Patron.Controllers
             ViewBag.AllPatrons = db.Patrons;
 
             string currentUserName = User.Identity.Name;
-            ViewBag.patron = null;
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
-            }
+            
                 ViewBag.isPatron = false;
             ViewBag.supportedID = null;
             foreach (var item in author.AuthorThresholds)

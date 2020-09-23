@@ -93,7 +93,7 @@ namespace Patron.Controllers
                     if (payment.AuthorID == athreshold.AuthorID)
                         tmp = true;
                 }
-                if (!tmp)
+                if (!tmp && payment.Periodicity == period)
                 {
                     unsubscribed.Add(payment.Author);
                 }
@@ -129,9 +129,7 @@ namespace Patron.Controllers
                         payments.Add(p);
                     }
                 }
-                {
-
-                }
+            
             }
 
             return payments;
