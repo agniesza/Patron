@@ -48,7 +48,7 @@
             @foreach (var item in Model.Patrons)
             {           
                 <div class = "btn-link" style="border-color:lime;"> 
-                @Html.ActionLink(item.FirstName + " " + item.LastName, "PatronHomePage", new { id = item.ID }, null)
+                @Html.ActionLink(item.FirstName + " " + item.LastName, "PatronPage", new { id = item.ID }, null)
            </div>
                      }
         </div>

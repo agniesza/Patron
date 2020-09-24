@@ -41,7 +41,7 @@
             <h4>Panel patrona</h4>
             @if (ViewBag.patron != null)
             {
-                @Html.ActionLink("Twój profil Patrona", "PatronHomePage",
+                @Html.ActionLink("Twój profil Patrona", "PatronPage",
           "Patrons", new { id = ViewBag.patron.ID }, new { @class = "btn btn-default" });
             }
             else

@@ -51,7 +51,7 @@ namespace Patron.Controllers
         }
 
         //GET
-        public ActionResult PatronHomePage(int? id)
+        public ActionResult PatronPage(int? id)
         {
             if (id == null)
             {
@@ -188,7 +188,7 @@ namespace Patron.Controllers
                 }
                 db.Entry(patron).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("PatronHomePage", new { id = patron.ID });
+                return RedirectToAction("PatronPage", new { id = patron.ID });
             }
             return View(patron);
         }
