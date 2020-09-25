@@ -171,14 +171,30 @@ namespace Patron.Controllers
         public ActionResult Create( Post post, int[] authorthresholds)
         {
             post.Patrons = new List<Models.Patron>();
+            Author author = db.Authors.Single(a => a.UserName == User.Identity.Name);
             if (authorthresholds != null)
             {
                 foreach (var item in authorthresholds)
                 {
-                    post.Patrons.Add(db.Patrons.Find(item));
+                    if (item == -1)
+                    {
+                        foreach (var p in author.Followers)
+                        {
+                            post.Patrons.Add(p);
+                        }
+                    }
+                    else
+                    {
+                        AuthorThreshold at = db.AuthorThresholds.Find(item);
+                        foreach (var p in at.Patrons)
+                        {
+                            post.Patrons.Add(p);
+                        }
+                        
+                    }
                 }
             }
-            post.Author = db.Authors.Single(a => a.UserName == User.Identity.Name);
+            post.Author = author;
             post.Date = DateTime.Now;
           
             db.Posts.Add(post);

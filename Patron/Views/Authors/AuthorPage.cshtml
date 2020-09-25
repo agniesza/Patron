@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = Model.FirstName + " " + Model.LastName;
 }
+
 <link href="~/Content/Style.css" rel="stylesheet" />
 
 <div class="title">
@@ -56,6 +57,10 @@
         </i>
         <br />
         <br />
+        <div>
+            <p>Obserwujący: @Model.Followers.Count</p>
+        </div>
+        <br />
         <div id="authorDesc">
             @Html.DisplayFor(model => model.Description)
         </div>
@@ -85,7 +90,16 @@
     </div>
     <div class="rightcolumn" style="width: 60%;">
 
+        @if (ViewBag.isFollower != true && @ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName)
+        {
+            @Html.ActionLink("Obserwuj", "Follow", new { id = Model.ID }, new { @class = "btn btn-default" })
 
+        }
+        else if (ViewBag.isFollower == true)
+        {
+            @Html.ActionLink("Przestań obserwować", "Unfollow", new { id = Model.ID }, new { @class = "btn btn-default" })
+
+        }
 
         @foreach (var item in @ViewBag.AuthorThresholds)
         {
@@ -123,6 +137,8 @@
 
 
         }
+        <hr />
+        @Html.ActionLink("Pokaż obserwujących >>", "Followers", new { id = Model.ID }, new { @class = "btn btn-default" })
 
         @if (!@ViewBag.isPatron)
         {

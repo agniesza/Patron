@@ -40,7 +40,6 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }, new { @class = "btn btn-warning" }) 
                     @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
                 </td>
             </tr>

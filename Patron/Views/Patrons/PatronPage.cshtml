@@ -27,14 +27,18 @@
 <script>
     window.onload = function () {
         document.getElementById("showOneTimeSupportBtn").onclick = function () { oneTimeSupportFun() };
+        document.getElementById("followedSubBtn").onclick = function () { followedFun() };
         document.getElementById("inActiveSubBtn").onclick = function () { inActiveSupportFun() };
-
+       
     }
     function oneTimeSupportFun() {
         document.getElementById("oneTimeList").classList.toggle("show");
     }
     function inActiveSupportFun() {
         document.getElementById("inActiveList").classList.toggle("show");
+    }
+    function followedFun() {
+        document.getElementById("followedList").classList.toggle("show");
     }
 </script>
 
@@ -189,7 +193,34 @@
                 }
             </div>
         }
+        @if (Model.Followed.Count > 0 )
+        {
+            <button id="followedSubBtn" style="width: 80%; float :right;">Obserwowani</button>
+            <div id="followedList" class="dropdown-content">
+                <dt style="width: 70%; float :right;">Obserwowani autorzy:</dt>
+                @foreach (var followed in Model.Followed)
+                {<div class="rounder-border" style="width: 70%; float :right;">
+                        <div class="leftcolumn" style="width: 50%; background-color:white;">
+                            @if (@followed.Avatar != null)
+                            {
+                                <img src="~/Avatars/@followed.Avatar" alt="" height="70px" width="70px" style="border-radius: 8px;" />
+                            }
+                            else
+                            {
+                                <img src="~/Avatars/example.png" alt="" height="70px" width="70px" style="border-radius: 8px;" />
 
+                            }
+
+                        </div>
+                        <div class="rightcolumn" style="width: 50%;">
+                            <br />
+                            <a href="https://localhost:44321/Authors/AuthorPage/@(followed.ID)">@(followed.FirstName) @(followed.LastName)</a>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        }
 
 
 

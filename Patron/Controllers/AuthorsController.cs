@@ -97,7 +97,13 @@ namespace Patron.Controllers
                     ViewBag.supportedID = item.ID;
                 }
             }
-
+            ViewBag.isFollower = false;
+            
+                if (author.Followers.Any(p => p.UserName.Equals(currentUserName)))
+                {
+                    ViewBag.isFollower = true;
+                }
+            
             ViewBag.isLoggedInAsPatron = false;
             foreach (var item in db.Patrons)
             {
@@ -225,6 +231,57 @@ namespace Patron.Controllers
             // ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);
             ViewBag.Categories = db.Categories;
             return View(author);
+        }
+        [Authorize]
+        public ActionResult Follow(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Author author = db.Authors.Find(id);
+            if (author == null)
+            {
+                return HttpNotFound();
+            }
+            Models.Patron patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
+            author.Followers.Add(patron);
+            db.SaveChanges();
+            return RedirectToAction("AuthorPage", new { id = author.ID });
+
+        }
+        [Authorize]
+        public ActionResult Unfollow(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Author author = db.Authors.Find(id);
+            if (author == null)
+            {
+                return HttpNotFound();
+            }
+            Models.Patron patron = db.Patrons.Single(p => p.UserName == User.Identity.Name);
+            author.Followers.Remove(patron);
+            db.SaveChanges();
+            return RedirectToAction("AuthorPage", new { id = author.ID });
+
+        }
+        [Authorize]
+        public ActionResult Followers(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Author author = db.Authors.Find(id);
+            if (author == null)
+            {
+                return HttpNotFound();
+            }
+            return View(author);
+
         }
         [Authorize]
         public ActionResult EditProfile(int? id)

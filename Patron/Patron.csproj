@@ -311,7 +311,6 @@
     <Content Include="Views\Posts\Create.cshtml" />
     <Content Include="Views\Posts\Delete.cshtml" />
     <Content Include="Views\Posts\Details.cshtml" />
-    <Content Include="Views\Posts\Edit.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Patrons\PatronPage.cshtml" />
     <Content Include="Views\Authors\AuthorPage.cshtml" />
@@ -335,6 +334,7 @@
     <Content Include="Views\Posts\ShowPatronPosts.cshtml" />
     <Content Include="Views\Payments\AuthorOneTimePayments.cshtml" />
     <Content Include="Views\Shared\_VoteNow.cshtml" />
+    <Content Include="Views\Authors\Followers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

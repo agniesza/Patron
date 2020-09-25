@@ -14,7 +14,7 @@ namespace Patron.Models
         [StringLength(30, MinimumLength = 15, ErrorMessage = "Numer rachunku nie może przekraczać 30 znaków.")]
         public string BankAccount { get; set; }
         [DataType(DataType.MultilineText)]
-        [StringLength(2000, MinimumLength = 50, ErrorMessage = "Opis musi posiadać od 50 do 2000 znaków.")]
+        [StringLength(2000, MinimumLength = 20, ErrorMessage = "Opis musi posiadać od 20 do 2000 znaków.")]
         public string Description { get; set; }
         [DataType(DataType.MultilineText)]
         [StringLength(500, MinimumLength = 20, ErrorMessage = "Opis celów musi posiadać od 20 do 500 znaków.")]
@@ -31,11 +31,12 @@ namespace Patron.Models
         public string OtherLink { get; set; }
 
 
-        //public virtual Category Category { get; set; }
+        
         public virtual List<Category> Categories { get; set; }
         public virtual List<Post> Posts { get; set; }
         public virtual List<Payment> Payments { get; set; }
         public virtual List<AuthorThreshold> AuthorThresholds { get; set; }
+        public virtual List<Patron> Followers { get; set; }
 
 
 

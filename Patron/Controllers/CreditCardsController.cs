@@ -70,7 +70,7 @@ namespace Patron.Controllers
                 creditCard.Patron = patron;
                 db.CreditCards.Add(creditCard);
                 db.SaveChanges();
-                return RedirectToAction("PatronHomePage", "Patrons", new { id = patron.ID });
+                return RedirectToAction("PatronPage", "Patrons", new { id = patron.ID });
             }
 
             ViewBag.ID = new SelectList(db.Patrons, "ID", "UserName", creditCard.ID);
@@ -109,7 +109,7 @@ namespace Patron.Controllers
             {
                 db.Entry(creditCard).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("PatronHomePage", "Patrons",  new { id = p.ID });
+                return RedirectToAction("PatronPage", "Patrons",  new { id = p.ID });
             }
            
             ViewBag.ID = new SelectList(db.Patrons, "ID", "UserName", creditCard.ID);

@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNet.Identity
+@model Patron.Models.Author
+@{
+    ViewBag.Title = Model.FirstName + " " + Model.LastName;
+}
+
+<link href="~/Content/Style.css" rel="stylesheet" />
+
+<div class="title">
+    <h2 style="text-align: center;">
+        @Html.DisplayFor(model => model.FirstName)
+        @Html.DisplayFor(model => model.LastName)
+    </h2>
+    <h4 style="text-align: center; color: lime">
+        @foreach (var item in Model.Categories)
+        {
+            <span>@item.Name</span>
+        }
+    </h4>
+</div>
+<div class="row">
+    @Html.ActionLink("Powrót do profilu", "AuthorPage",
+                          "Authors", new { id = Model.ID }, new { @class = "btn btn-default" })
+
+    <dt>Obserwujący:</dt>
+    @foreach (var follower in Model.Followers)
+    {<div class="rounder-border" style="width: 50%; float :left;">
+            <div class="leftcolumn" style="width: 50%; background-color:white;">
+                @if (@follower.Avatar != null)
+                {
+                    <img src="~/Avatars/@follower.Avatar" alt="" height="70px" width="70px" style="border-radius: 8px;" />
+                }
+                else
+                {
+                    <img src="~/Avatars/example.png" alt="" height="70px" width="70px" style="border-radius: 8px;" />
+
+                }
+
+            </div>
+            <div class="rightcolumn" style="width: 50%;">
+                <br />
+                <a href="https://localhost:44321/Patrons/PatronPage/@(follower.ID)">@(follower.FirstName) @(follower.LastName)</a>
+            </div>
+        </div>
+
+    }
+</div>
