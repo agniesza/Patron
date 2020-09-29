@@ -473,9 +473,7 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Goals\Create.cshtml" />
     <Content Include="Views\Goals\Delete.cshtml" />
-    <Content Include="Views\Goals\Details.cshtml" />
     <Content Include="Views\Goals\Edit.cshtml" />
-    <Content Include="Views\Goals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

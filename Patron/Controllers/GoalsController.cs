@@ -39,8 +39,12 @@ namespace Patron.Controllers
         // GET: Goals/Create
         public ActionResult Create()
         {
+            Author author= db.Authors.Single(a => a.UserName == User.Identity.Name);
+
+            ViewBag.authorID = author.ID;
+
             return View();
-        }
+           }
 
         // POST: Goals/Create
         // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
@@ -53,9 +57,11 @@ namespace Patron.Controllers
             {
                 Author author = db.Authors.Single(a => a.UserName == User.Identity.Name);
                 goal.Author = author;
+                goal.isAchieved = "N";
                 db.Goals.Add(goal);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AuthorPage", "Authors", new { id = author.ID });
+
             }
 
             return View(goal);
