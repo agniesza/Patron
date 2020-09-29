@@ -4,48 +4,47 @@
 @{
     ViewBag.Title = "Posty";
 }
-@if (ViewBag.isAuthor==true)
+@if (ViewBag.isAuthor == true)
 {
     <br />
     <p>
         @Html.ActionLink("Utwórz nowy post", "Create", null, new { @class = "btn btn-success" })
     </p>
-}
-    <table class="table">
+}  
+<table class="table">
+    <tr>
+
+        <th>
+
+        </th>
+
+
+        <th>
+            @Html.ActionLink("Data", "ShowAuthorPosts", new { sortOrder = ViewBag.DateSortParm })
+
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
         <tr>
 
-            <th>
-                
-            </th>
-           
-            
-            <th>
-                @Html.ActionLink("Data", "ShowAuthorPosts", new { sortOrder = ViewBag.DateSortParm })
+            <td>
+                @Html.ActionLink(item.Title, "Details", new { id = item.ID })
+            </td>
 
-            </th>
-            <th></th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+            </td>
         </tr>
+    }
 
-        @foreach (var item in Model)
-        {
-           
-            <tr>
-
-                <td>
-                    @Html.ActionLink(item.Title, "Details", new { id = item.ID })
-
-                </td>
-               
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
-                </td>
-            </tr>
-        }
-
-    </table>
+</table>
     Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("ShowAuthorPosts",

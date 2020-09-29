@@ -62,7 +62,8 @@
         </div>
         <br />
         <div id="authorDesc">
-            @Html.DisplayFor(model => model.Description)
+            @Html.Raw(Model.Description)
+
         </div>
         <div id="authorGoals">
             <h3>Cele</h3>
@@ -103,30 +104,31 @@
 
         @foreach (var item in @ViewBag.AuthorThresholds)
         {
-            <div class="rounder-border">
-                <h2>@item.Name</h2>
-                <h4>@item.Value zł</h4>
-                <p>@item.Description</p>
-                <p> Wspierających: @item.Patrons.Count / @item.MaxNumberOfPatrons</p>
-                @if (ViewBag.isPatron && ViewBag.supportedID == item.ID)
-                {
+        <div class="rounder-border">
+            <h2>@item.Name</h2>
+            <h4>@item.Value zł</h4>
+           
+          
+            <p> Wspierających: @item.Patrons.Count / @item.MaxNumberOfPatrons</p>
+            @if (ViewBag.isPatron && ViewBag.supportedID == item.ID)
+            {
 
-                    @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-warning" })
 
-                }
-                else if (ViewBag.isPatron != true && @ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && item.Patrons.Count < item.MaxNumberOfPatrons)
-                {
-                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
+            }
+            else if (ViewBag.isPatron != true && @ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && item.Patrons.Count < item.MaxNumberOfPatrons)
+            {
+                @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
 
-                }
-                @if (@User.Identity.GetUserName() == @Model.UserName)
-                {
-                    @Html.ActionLink("Edytuj", "Edit", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Usuń", "Delete", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-danger" })
-                    @Html.ActionLink("Szczegóły", "Details", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-info" })
+            }
+            @if (@User.Identity.GetUserName() == @Model.UserName)
+            {
+                @Html.ActionLink("Edytuj", "Edit", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Usuń", "Delete", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Szczegóły", "Details", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-info" })
 
-                }
-            </div>
+            }
+        </div>
         }
         @if (@User.Identity.GetUserName() == @Model.UserName)
         {
