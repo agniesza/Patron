@@ -16,7 +16,7 @@ namespace Patron.DAL
         public DbSet<Category> Categories { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Payment> Payments { get; set; }
-        public DbSet<AuthorThreshold> AuthorThresholds { get; set; }
+        public DbSet<Threshold> AuthorThresholds { get; set; }
         public DbSet<CreditCard> CreditCards { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

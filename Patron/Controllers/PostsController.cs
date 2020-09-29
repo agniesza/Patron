@@ -185,7 +185,7 @@ namespace Patron.Controllers
                     }
                     else
                     {
-                        AuthorThreshold at = db.AuthorThresholds.Find(item);
+                        Threshold at = db.AuthorThresholds.Find(item);
                         foreach (var p in at.Patrons)
                         {
                             post.Patrons.Add(p);

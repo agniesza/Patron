@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Patron.Models
 {
-    public class AuthorThreshold
+    public class Threshold
     {
         public int ID { get; set; }
         public int AuthorID { get; set; }

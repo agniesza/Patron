@@ -66,7 +66,7 @@ namespace Patron.Controllers
             ViewBag.Avt = author.Avatar;
             ViewBag.AuthorThresholds = author.AuthorThresholds;
             //wspierających:
-            AuthorThreshold at;
+            Threshold at;
             int num = 0;
             foreach (var item in author.AuthorThresholds)
             {

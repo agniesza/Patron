@@ -63,7 +63,7 @@ namespace Patron.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            Threshold authorThreshold = db.AuthorThresholds.Find(id);
             if (authorThreshold == null)
             {
                 return HttpNotFound();
@@ -85,7 +85,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( AuthorThreshold authorThreshold)
+        public ActionResult Create( Threshold authorThreshold)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace Patron.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            Threshold authorThreshold = db.AuthorThresholds.Find(id);
             if (authorThreshold == null)
             {
                 return HttpNotFound();
@@ -121,7 +121,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,AuthorID,Name,Description,Value,MaxNumberOfPatrons")] AuthorThreshold authorThreshold)
+        public ActionResult Edit([Bind(Include = "ID,AuthorID,Name,Description,Value,MaxNumberOfPatrons")] Threshold authorThreshold)
         {
             if (ModelState.IsValid)
             {
@@ -141,7 +141,7 @@ namespace Patron.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            Threshold authorThreshold = db.AuthorThresholds.Find(id);
             if (authorThreshold == null)
             {
                 return HttpNotFound();
@@ -154,7 +154,7 @@ namespace Patron.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            Threshold authorThreshold = db.AuthorThresholds.Find(id);
             Author author = authorThreshold.Author;
             db.AuthorThresholds.Remove(authorThreshold);
             db.SaveChanges();
@@ -177,7 +177,7 @@ namespace Patron.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            Threshold authorThreshold = db.AuthorThresholds.Find(id);
             if (authorThreshold == null)
             {
                 return HttpNotFound();
@@ -192,7 +192,7 @@ namespace Patron.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            Threshold authorThreshold = db.AuthorThresholds.Find(id);
             if (authorThreshold == null)
             {
                 return HttpNotFound();
@@ -222,7 +222,7 @@ namespace Patron.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AuthorThreshold authorThreshold = db.AuthorThresholds.Find(id);
+            Threshold authorThreshold = db.AuthorThresholds.Find(id);
             if (authorThreshold == null)
             {
                 return HttpNotFound();

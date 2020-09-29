@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Patron.Models
 {
@@ -13,11 +14,9 @@ namespace Patron.Models
         public string LastName { get; set; }
         [StringLength(30, MinimumLength = 15, ErrorMessage = "Numer rachunku nie może przekraczać 30 znaków.")]
         public string BankAccount { get; set; }
-        [DataType(DataType.MultilineText)]
-        [StringLength(2000, MinimumLength = 20, ErrorMessage = "Opis musi posiadać od 20 do 2000 znaków.")]
+        [AllowHtml]
         public string Description { get; set; }
-        [DataType(DataType.MultilineText)]
-        [StringLength(500, MinimumLength = 20, ErrorMessage = "Opis celów musi posiadać od 20 do 500 znaków.")]
+        [AllowHtml]
         public string Goals { get; set; }
 
         public string City { get; set; }
@@ -35,7 +34,7 @@ namespace Patron.Models
         public virtual List<Category> Categories { get; set; }
         public virtual List<Post> Posts { get; set; }
         public virtual List<Payment> Payments { get; set; }
-        public virtual List<AuthorThreshold> AuthorThresholds { get; set; }
+        public virtual List<Threshold> AuthorThresholds { get; set; }
         public virtual List<Patron> Followers { get; set; }
 
 

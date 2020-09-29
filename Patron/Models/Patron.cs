@@ -16,7 +16,7 @@ namespace Patron.Models
         public virtual CreditCard CreditCard { get; set; }
         public virtual List<Post> Posts { get; set; }
         public virtual List<Payment> Payments { get; set; }
-        public virtual List<AuthorThreshold> AuthorThresholds { get; set; }
+        public virtual List<Threshold> AuthorThresholds { get; set; }
         public virtual List<Author> Followed { get; set; }
 
     }

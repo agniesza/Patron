@@ -75,7 +75,7 @@ namespace Patron.Controllers
             {
                 aap.Add(item.Author); //autorzy z płatnosci
             }
-            List<AuthorThreshold> at = patron.AuthorThresholds;
+            List<Threshold> at = patron.AuthorThresholds;
             List<Author> aat= new List<Author>();
             foreach (var item in at)
             {

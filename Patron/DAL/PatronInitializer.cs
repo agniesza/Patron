@@ -98,9 +98,9 @@ namespace Patron.DAL
             authors.ForEach(c => context.Authors.Add(c));
             context.SaveChanges();
 
-            var authorThresholds = new List<AuthorThreshold>
+            var authorThresholds = new List<Threshold>
             {
-                new AuthorThreshold
+                new Threshold
                 {
 
                     Author = authors[0],
@@ -110,7 +110,7 @@ namespace Patron.DAL
                     MaxNumberOfPatrons = 30,
                     Value = 5
                 },
-                new AuthorThreshold
+                new Threshold
                 {
 
                     Author =authors[0],
@@ -120,7 +120,7 @@ namespace Patron.DAL
                     MaxNumberOfPatrons=20,
                     Value=15
                 },
-                 new AuthorThreshold
+                 new Threshold
                 {
 
                     Author =authors[1],
