@@ -268,7 +268,7 @@ namespace Patron.Controllers
             return RedirectToAction("AuthorPage", new { id = author.ID });
 
         }
-        [Authorize]
+        
         public ActionResult Followers(int? id)
         {
             if (id == null)

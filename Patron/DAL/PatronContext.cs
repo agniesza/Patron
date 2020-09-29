@@ -18,6 +18,7 @@ namespace Patron.DAL
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Threshold> AuthorThresholds { get; set; }
         public DbSet<CreditCard> CreditCards { get; set; }
+        public DbSet<Goal> Goals { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -16,8 +16,6 @@ namespace Patron.Models
         public string BankAccount { get; set; }
         [AllowHtml]
         public string Description { get; set; }
-        [AllowHtml]
-        public string Goals { get; set; }
 
         public string City { get; set; }
         public string Avatar { get; set; }
@@ -36,6 +34,7 @@ namespace Patron.Models
         public virtual List<Payment> Payments { get; set; }
         public virtual List<Threshold> AuthorThresholds { get; set; }
         public virtual List<Patron> Followers { get; set; }
+        public virtual List<Goal> Goals { get; set; }
 
 
 

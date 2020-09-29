@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="leftcolumn" style="width: 40%;">
+    <div class="leftcolumn" style="width: 60%; background-color: white">
         <div style="text-align:center;">
             <img src="~/Avatars/@Model.Avatar" alt="" height="200px" width="200px" style="border-radius: 50%;" />
 
@@ -40,12 +40,13 @@
             {
                 @Html.ActionLink("Napisz post", "Create",
                                    "Posts", null, new { @class = "btn btn-default" })
-                @Html.ActionLink("Twoje posty", "ShowAuthorPosts",
+                @Html.ActionLink("Twoje posty >>", "ShowAuthorPosts",
                               "Posts", new { id = Model.ID }, new { @class = "btn btn-default" })
             }
             <br />
             <hr />
         }
+
 
 
 
@@ -66,30 +67,53 @@
 
         </div>
         <div id="authorGoals">
-            <h3>Cele</h3>
-            @Html.DisplayFor(model => model.Goals)
+            <div style="width: 90%; text-align: left">
+            <h3>Cele:</h3>
+            @foreach (var goal in Model.Goals)
+            {
+            <div class="rounder-border">
+                <h3>@goal.Name</h3>
+                <h5>@goal.Description</h5>
+                @if (goal.isAchieved == "y")
+                {
+                    <h5 style="color:lime; font-weight:bold; text-align: right">ZREALIZOWANY!</h5>
+                }
+                @if (@User.Identity.GetUserName() == @Model.UserName)
+                {
+                    @Html.ActionLink("Usuń", "Delete", "Goals", new { id = goal.ID }, new { @class = "btn btn-danger" })
+                
+                    @Html.ActionLink("Edytuj", "Edit", "Goals", new { id = goal.ID }, new { @class = "btn btn-success" })
+                }
+            </div>
+
+            }
+            @if (@User.Identity.GetUserName() == @Model.UserName)
+            {
+                @Html.ActionLink("Dodaj cel", "Create", "Goals", null, new { @class = "btn btn-default" })
+            }
         </div>
+         </div>
 
-        <br />
-        @if (Model.FacebookLink != null)
-        {<a id="FbLink" href=@Model.FacebookLink class="fa fa-facebook-square" style="font-size:50px; color:lime;">
-            </a>}
-        @if (Model.InstagramLink != null)
-        {<a id="IgLink" href=@Model.InstagramLink class="fa fa-instagram" style="font-size:50px; color:lime;">
-            </a>}
-        @if (Model.YouTubeLink != null)
-        {<a id="YtLink" href=@Model.YouTubeLink class="fa fa-youtube" style="font-size:50px; color:lime;">
-            </a>}
-        @if (Model.TwitterLink != null)
-        {<a id="TwitterLink" href=@Model.TwitterLink class="fa fa-twitter-square" style="font-size:50px; color:lime;">
-            </a>}
-        @if (Model.OtherLink != null)
-        {<a id="OtherLink" href=@Model.OtherLink class="fa fa-laptop" style="font-size:50px; color:lime;">
-            </a>}
-        <br />
+                <br />
+                @if (Model.FacebookLink != null)
+                {<a id="FbLink" href=@Model.FacebookLink class="fa fa-facebook-square" style="font-size:50px; color:lime;">
+                    </a>}
+                @if (Model.InstagramLink != null)
+                {<a id="IgLink" href=@Model.InstagramLink class="fa fa-instagram" style="font-size:50px; color:lime;">
+                    </a>}
+                @if (Model.YouTubeLink != null)
+                {<a id="YtLink" href=@Model.YouTubeLink class="fa fa-youtube" style="font-size:50px; color:lime;">
+                    </a>}
+                @if (Model.TwitterLink != null)
+                {<a id="TwitterLink" href=@Model.TwitterLink class="fa fa-twitter-square" style="font-size:50px; color:lime;">
+                    </a>}
+                @if (Model.OtherLink != null)
+                {<a id="OtherLink" href=@Model.OtherLink class="fa fa-laptop" style="font-size:50px; color:lime;">
+                    </a>}
+                <br />
 
-    </div>
-    <div class="rightcolumn" style="width: 60%;">
+            </div>
+    <div class="rightcolumn" style="width: 40%; background-color: #f1f1f1; border-radius: 8px">
 
         @if (ViewBag.isFollower != true && @ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName)
         {
