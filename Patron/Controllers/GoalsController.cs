@@ -51,7 +51,7 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,isAchieved")] Goal goal)
+        public ActionResult Create(Goal goal)
         {
             if (ModelState.IsValid)
             {
@@ -87,13 +87,16 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,isAchieved")] Goal goal)
+        public ActionResult Edit( Goal goal, string isGoalAchieved)
         {
             if (ModelState.IsValid)
             {
+                    goal.isAchieved = isGoalAchieved;
+                Author author = db.Authors.Single(a => a.UserName == User.Identity.Name);
                 db.Entry(goal).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AuthorPage", "Authors", new { id = author.ID });
+
             }
             return View(goal);
         }

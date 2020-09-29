@@ -11,6 +11,7 @@ namespace Patron.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string  isAchieved { get; set; }
+        public int AuthorID { get; set; }
 
         public virtual Author Author { get; set; }
 
