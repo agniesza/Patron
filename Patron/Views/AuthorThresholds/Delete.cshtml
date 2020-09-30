@@ -4,49 +4,43 @@
     ViewBag.Title = Model.Name;
 }
 
-<h2>Usuwanie</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <h3>Czy na pewno chcesz usunąć ten próg?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
 
-        <dd>
-            @Html.DisplayFor(model => model.Author.UserName)
-        </dd>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
 
 
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-
+        <hr />
 
 
         <dd>
-            @Html.DisplayFor(model => model.Value) zł
+            Wartość: @Html.DisplayFor(model => model.Value) zł
         </dd>
 
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        <input type="submit" value="Usuń próg" class="btn btn-danger" /> |
-        @if (Context.User.IsInRole("Admin"))
-        {
-            @Html.ActionLink("Powrót do listy", "Index", "AuthorThresholds", new { id = @ViewBag.authorID }, null)
+        <div class="form-actions no-color">
+            <input type="submit" value="Usuń próg" class="btn btn-danger" /> 
+            @if (Context.User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Powrót do listy", "Index", "AuthorThresholds", new { id = @ViewBag.authorID }, null)
 
-        }
-        else
-        {
-            @Html.ActionLink("Powrót do profilu", "AuthorPage", "Authors", new { id = @ViewBag.authorID }, null)
-        }
-    </div>
+            }
+
+        </div>
     }
+    <div>
+        @Html.ActionLink("Powrót do profilu", "AuthorPage", "Authors", new { id = @Model.Author.ID }, null)
+    </div>
 </div>
