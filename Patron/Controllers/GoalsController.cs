@@ -122,9 +122,11 @@ namespace Patron.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Goal goal = db.Goals.Find(id);
+            Author author = goal.Author;
             db.Goals.Remove(goal);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AuthorPage", "Authors", new { id = author.ID });
+
         }
 
         protected override void Dispose(bool disposing)

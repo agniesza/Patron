@@ -9,6 +9,7 @@ namespace Patron.Models
         public int ID { get; set; }
 
         public string Name { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string  isAchieved { get; set; }
         public int AuthorID { get; set; }
