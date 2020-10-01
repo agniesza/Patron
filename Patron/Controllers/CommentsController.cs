@@ -132,12 +132,17 @@ namespace Patron.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             Comment comment = db.Comments.Find(id);
+            Author a = comment.Author;
             if (comment == null)
             {
                 return HttpNotFound();
             }
-            return View(comment);
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+            return RedirectToAction("AuthorComments", "Comments", new { id = a.ID });
+
         }
 
         // POST: Comments/Delete/5
