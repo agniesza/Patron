@@ -29,6 +29,17 @@ namespace Patron.Controllers
             {
                 ViewBag.isThisAuthor = true;
             }
+            ViewBag.isLoggedInAsPatron = false;
+            
+                foreach (var item in cc.Author.Payments)
+                {
+                    if (item.Patron.UserName.Equals(User.Identity.Name))
+                    {
+                    ViewBag.isLoggedInAsPatron = true;
+                }
+
+                }
+                
             
 
             int pageSize = 10;

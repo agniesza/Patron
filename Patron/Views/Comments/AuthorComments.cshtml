@@ -4,7 +4,7 @@
 @model PagedList.IPagedList<Patron.Models.Comment>
 
 <br />
-@if (!ViewBag.isThisAuthor)
+@if (!ViewBag.isThisAuthor && ViewBag.isLoggedInAsPatron)
 {
 <p>
     @Html.ActionLink("Dodaj komentarz", "Create", null, new { @class = "btn btn-success" })
