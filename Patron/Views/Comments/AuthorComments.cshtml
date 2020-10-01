@@ -7,7 +7,7 @@
 @if (!ViewBag.isThisAuthor && ViewBag.isLoggedInAsPatron)
 {
 <p>
-    @Html.ActionLink("Dodaj komentarz", "Create", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Dodaj komentarz", "Create", new { id = ViewBag.AuthorId }, new { @class = "btn btn-success" })
 </p>
 }
 @foreach (var item in Model)

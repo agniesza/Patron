@@ -15,6 +15,7 @@ namespace Patron.Models
 
         public DateTime Date { get; set; }
 
+        [Range(1, 5, ErrorMessage = "Podaj prawidłową wartość")]
         public int Rate { get; set; }
 
         public int PatronID { get; set; }

@@ -24,6 +24,7 @@ namespace Patron.Controllers
             }
             var comments = db.Comments.OrderByDescending(c => c.Date).Include(c => c.Author).Include(c => c.Patron);
             Comment cc = comments.First();
+            ViewBag.AuthorId = cc.AuthorID;
             ViewBag.isThisAuthor = false;
             if (cc.Author.UserName.Equals(User.Identity.Name))
             {
@@ -63,11 +64,22 @@ namespace Patron.Controllers
         }
 
         // GET: Comments/Create
-        public ActionResult Create()
+        public ActionResult Create( int? id)
         {
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName");
-            ViewBag.PatronID = new SelectList(db.Patrons, "ID", "UserName");
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.Author = db.Authors.Find(id);
+            Comment comment = new Comment();
+            Models.Patron p = db.Patrons.Single(pp => pp.UserName == User.Identity.Name);
+            comment.Patron = p;
+            comment.Author = db.Authors.Find(id);
+            comment.Date = DateTime.Now;
+            comment.Rate = 5;
+            db.Comments.Add(comment);
+            db.SaveChanges();
+            return View(comment);
         }
 
         // POST: Comments/Create
@@ -79,14 +91,15 @@ namespace Patron.Controllers
         {
             if (ModelState.IsValid)
             {
+               
                 comment.Date = DateTime.Now;
-                db.Comments.Add(comment);
+                db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                return RedirectToAction("AuthorComments", "Comments", new { id = comment.AuthorID });
 
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", comment.AuthorID);
-            ViewBag.PatronID = new SelectList(db.Patrons, "ID", "UserName", comment.PatronID);
+            }
+            ViewBag.Author = db.Authors.Single(c => c.ID==comment.AuthorID);
+
             return View(comment);
         }
 
