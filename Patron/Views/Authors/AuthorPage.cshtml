@@ -10,7 +10,7 @@
     <h2 style="text-align: center;">
         @Html.DisplayFor(model => model.FirstName)
         @Html.DisplayFor(model => model.LastName)
-    </h2>
+        </h2>
     <h4 style="text-align: center; color: lime">
         @foreach (var item in Model.Categories)
         {
@@ -128,31 +128,31 @@
 
         @foreach (var item in @ViewBag.AuthorThresholds)
         {
-        <div class="rounder-border">
-            <h2>@item.Name</h2>
-            <h4>@item.Value zł</h4>
-           
-          
-            <p> Wspierających: @item.Patrons.Count / @item.MaxNumberOfPatrons</p>
-            @if (ViewBag.isPatron && ViewBag.supportedID == item.ID)
-            {
+            <div class="rounder-border">
+                <h2>@item.Name</h2>
+                <h4>@item.Value zł</h4>
 
-                @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-warning" })
 
-            }
-            else if (ViewBag.isPatron != true && @ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && item.Patrons.Count < item.MaxNumberOfPatrons)
-            {
-                @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
+                <p> Wspierających: @item.Patrons.Count / @item.MaxNumberOfPatrons</p>
+                @if (ViewBag.isPatron && ViewBag.supportedID == item.ID)
+                {
 
-            }
-            @if (@User.Identity.GetUserName() == @Model.UserName)
-            {
-                @Html.ActionLink("Edytuj", "Edit", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
-                @Html.ActionLink("Usuń", "Delete", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-danger" })
-                @Html.ActionLink("Szczegóły", "Details", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-warning" })
 
-            }
-        </div>
+                }
+                else if (ViewBag.isPatron != true && @ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && item.Patrons.Count < item.MaxNumberOfPatrons)
+                {
+                    @Html.ActionLink("Wspieraj", "Support", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
+
+                }
+                @if (@User.Identity.GetUserName() == @Model.UserName)
+                {
+                    @Html.ActionLink("Edytuj", "Edit", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Usuń", "Delete", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Szczegóły", "Details", "AuthorThresholds", new { id = item.ID }, new { @class = "btn btn-info" })
+
+                }
+            </div>
         }
         @if (@User.Identity.GetUserName() == @Model.UserName)
         {
@@ -165,6 +165,8 @@
         }
         <hr />
         @Html.ActionLink("Pokaż obserwujących >>", "Followers", new { id = Model.ID }, new { @class = "btn btn-default" })
+        <hr />
+        @Html.ActionLink("Komentarze >>","AuthorComments", "Comments", new { id = Model.ID }, new { @class = "btn btn-default" })
 
         @if (!@ViewBag.isPatron)
         {

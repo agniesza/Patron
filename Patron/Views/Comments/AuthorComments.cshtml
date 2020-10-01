@@ -1,0 +1,65 @@
+﻿@using PagedList;
+@using Microsoft.AspNet.Identity
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Patron.Models.Comment>
+
+<br />
+@if (!ViewBag.isThisAuthor)
+{
+<p>
+    @Html.ActionLink("Dodaj komentarz", "Create", null, new { @class = "btn btn-success" })
+</p>
+}
+@foreach (var item in Model)
+{
+    <div class="col-md-10">
+        <div class="rounder-border" style="text-align:center; border: 0px solid #e6e6e6;">
+            <div class="leftcolumn" style="width: 10%; background-color:white;">
+                <img src="~/Avatars/@item.Patron.Avatar" alt="" height="70px" width="70px" style="border-radius: 10px;" />
+
+            </div>
+            <div class="rightcolumn" style="width: 90%;">
+
+                <p>
+                    <div style="text-align:left">@Html.ActionLink(item.Patron.UserName, "PatronPage", "Patrons", (new { id = item.PatronID }))</div>
+                </p>
+
+                <p>
+                    @Html.DisplayFor(modelItem => item.Content)
+                    @if (@User.Identity.GetUserName() == item.Patron.UserName)
+                    {
+                    <p>
+                        @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
+                    </p>
+                }
+                    </p>
+                    <div style="text-align:left">
+                        @for (int i = 0; i < item.Rate; i++)
+                        {
+                            @: <i class="fa fa-star" style="font-size:27px; color:gold"></i>
+                        }
+                    </div>
+                    <div style="text-align:right">
+                        <p>
+                             @item.Date
+                        </p>
+
+                    </div>
+                    <hr />
+                </div>
+            </div>
+
+        </div>
+        <br />
+
+        <br />
+
+    }
+<p style="visibility:hidden"> sialalalggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg</p>
+<hr />
+
+        Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("AuthorComments",
+            new { page }))

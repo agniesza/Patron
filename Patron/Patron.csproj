@@ -181,6 +181,7 @@
     <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\AuthorThresholdsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CreditCardsController.cs" />
     <Compile Include="Controllers\GoalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -475,6 +476,11 @@
     <Content Include="Views\Goals\Create.cshtml" />
     <Content Include="Views\Goals\Delete.cshtml" />
     <Content Include="Views\Goals\Edit.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\AuthorComments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
