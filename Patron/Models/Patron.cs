@@ -18,6 +18,7 @@ namespace Patron.Models
         public virtual List<Payment> Payments { get; set; }
         public virtual List<Threshold> AuthorThresholds { get; set; }
         public virtual List<Author> Followed { get; set; }
+        public virtual List<Comment> Comments { get; set; }
 
     }
 }

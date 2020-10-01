@@ -35,6 +35,7 @@ namespace Patron.Models
         public virtual List<Threshold> AuthorThresholds { get; set; }
         public virtual List<Patron> Followers { get; set; }
         public virtual List<Goal> Goals { get; set; }
+        public virtual List<Comment> Comments { get; set; }
 
 
 
