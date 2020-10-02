@@ -62,7 +62,32 @@ namespace Patron.Controllers
             }
             return View(comment);
         }
+        // GET: Comments/Create
+        public ActionResult CreateComment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Models.Patron p = db.Patrons.Single(pp => pp.UserName == User.Identity.Name);
 
+            ViewBag.Author = db.Authors.Find(id);
+            Comment comment = new Comment
+            {
+                Patron = p,
+                Author = db.Authors.Find(id),
+                Date = DateTime.Now,
+                Rate = 5,
+                Content = " "
+            };
+
+            db.Comments.Add(comment);
+            db.SaveChanges();
+            int idik = comment.ID;
+            Comment com = db.Comments.Find(idik);
+            return RedirectToAction("Create", "Comments", new { id = com.ID });
+
+        }
         // GET: Comments/Create
         public ActionResult Create( int? id)
         {
@@ -70,15 +95,14 @@ namespace Patron.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.Author = db.Authors.Find(id);
-            Comment comment = new Comment();
-            Models.Patron p = db.Patrons.Single(pp => pp.UserName == User.Identity.Name);
-            comment.Patron = p;
-            comment.Author = db.Authors.Find(id);
-            comment.Date = DateTime.Now;
-            comment.Rate = 5;
-            db.Comments.Add(comment);
-            db.SaveChanges();
+            Comment comment = db.Comments.Find(id);
+            if (comment == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Author = comment.Author;
+            ViewBag.Patron = comment.Patron;
+
             return View(comment);
         }
 
@@ -89,18 +113,12 @@ namespace Patron.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Comment comment)
         {
-            if (ModelState.IsValid)
-            {
-               
-                comment.Date = DateTime.Now;
+             //comment.Date = DateTime.Now;
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("AuthorComments", "Comments", new { id = comment.AuthorID });
 
-            }
-            ViewBag.Author = db.Authors.Single(c => c.ID==comment.AuthorID);
-
-            return View(comment);
+          
         }
 
         // GET: Comments/Edit/5
@@ -115,9 +133,7 @@ namespace Patron.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", comment.AuthorID);
-            ViewBag.PatronID = new SelectList(db.Patrons, "ID", "UserName", comment.PatronID);
-            return View(comment);
+           return View(comment);
         }
 
         // POST: Comments/Edit/5
@@ -125,16 +141,14 @@ namespace Patron.Controllers
         // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Content,Date,Rate,PatronID,AuthorID")] Comment comment)
+        public ActionResult Edit(Comment comment)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(comment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AuthorComments", "Comments", new { id = comment.AuthorID });
             }
-            ViewBag.AuthorID = new SelectList(db.Authors, "ID", "UserName", comment.AuthorID);
-            ViewBag.PatronID = new SelectList(db.Patrons, "ID", "UserName", comment.PatronID);
             return View(comment);
         }
 

@@ -11,13 +11,18 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     @Html.HiddenFor(model => model.ID)
     @Html.HiddenFor(model => model.AuthorID)
     @Html.HiddenFor(model => model.PatronID)
+    @Html.HiddenFor(model => model.Author)
+    @Html.HiddenFor(model => model.Patron)
+    @Html.HiddenFor(model => model.Date)
     <h4>Dodaj komentarz do profilu autora</h4>
     <hr />
     <div class="form-group">
-       <div class="col-md-10">
+        <div class="col-md-10">
             @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
         </div>
