@@ -22,7 +22,7 @@ namespace Patron.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var comments = db.Comments.OrderByDescending(c => c.Date).Include(c => c.Author).Include(c => c.Patron);
+            var comments = db.Comments.OrderByDescending(c => c.Date).Include(c => c.Author).Include(c => c.Patron).Where(c => c.AuthorID==id);
             Comment cc = comments.First();
             ViewBag.AuthorId = cc.AuthorID;
             ViewBag.isThisAuthor = false;

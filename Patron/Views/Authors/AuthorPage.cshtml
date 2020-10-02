@@ -35,7 +35,7 @@
         @if (@User.Identity.GetUserName() == @Model.UserName)
         {
             @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID }, new { @class = "btn btn-default" })
-   <hr />
+            <hr />
             if (Model.AuthorThresholds != null)
             {
                 @Html.ActionLink("Napisz post", "Create",
@@ -66,56 +66,57 @@
             @Html.Raw(Model.Description)
 
         </div>
+        <br />
+        @if (Model.FacebookLink != null)
+        {<a id="FbLink" href=@Model.FacebookLink class="fa fa-facebook-square" style="font-size:50px; color:lime;">
+            </a>}
+        @if (Model.InstagramLink != null)
+        {<a id="IgLink" href=@Model.InstagramLink class="fa fa-instagram" style="font-size:50px; color:lime;">
+            </a>}
+        @if (Model.YouTubeLink != null)
+        {<a id="YtLink" href=@Model.YouTubeLink class="fa fa-youtube" style="font-size:50px; color:lime;">
+            </a>}
+        @if (Model.TwitterLink != null)
+        {<a id="TwitterLink" href=@Model.TwitterLink class="fa fa-twitter-square" style="font-size:50px; color:lime;">
+            </a>}
+        @if (Model.OtherLink != null)
+        {<a id="OtherLink" href=@Model.OtherLink class="fa fa-laptop" style="font-size:50px; color:lime;">
+            </a>}
+        <br />
         <div id="authorGoals">
             <div style="width: 90%; text-align: left">
-            <h3>Cele:</h3>
-            @foreach (var goal in Model.Goals)
-            {
-            <div class="rounder-border">
-                <h3>@goal.Name</h3>
-                <h5>@goal.Description</h5>
-                @if (goal.isAchieved == "Y")
+                <h3>Cele:</h3>
+                @foreach (var goal in Model.Goals)
                 {
-                    <h5 style="color:lime; font-weight:bold; text-align: right">ZREALIZOWANY!</h5>
+                    <div class="rounder-border">
+                        <h3>@goal.Name</h3>
+                        <h5>@goal.Description</h5>
+                        @if (goal.isAchieved == "Y")
+                        {
+                            <h5 style="color:lime; font-weight:bold; text-align: right">ZREALIZOWANY!</h5>
+                        }
+                        @if (@User.Identity.GetUserName() == @Model.UserName)
+                        {
+                            @Html.ActionLink("Usuń", "Delete", "Goals", new { id = goal.ID }, new { @class = "btn btn-danger" })
+
+                            @Html.ActionLink("Edytuj", "Edit", "Goals", new { id = goal.ID }, new { @class = "btn btn-success" })
+                        }
+                    </div>
+
                 }
                 @if (@User.Identity.GetUserName() == @Model.UserName)
                 {
-                    @Html.ActionLink("Usuń", "Delete", "Goals", new { id = goal.ID }, new { @class = "btn btn-danger" })
-                
-                    @Html.ActionLink("Edytuj", "Edit", "Goals", new { id = goal.ID }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Dodaj cel", "Create", "Goals", null, new { @class = "btn btn-default" })
                 }
             </div>
-
-            }
-            @if (@User.Identity.GetUserName() == @Model.UserName)
-            {
-                @Html.ActionLink("Dodaj cel", "Create", "Goals", null, new { @class = "btn btn-default" })
-            }
         </div>
-         </div>
 
-                <br />
-                @if (Model.FacebookLink != null)
-                {<a id="FbLink" href=@Model.FacebookLink class="fa fa-facebook-square" style="font-size:50px; color:lime;">
-                    </a>}
-                @if (Model.InstagramLink != null)
-                {<a id="IgLink" href=@Model.InstagramLink class="fa fa-instagram" style="font-size:50px; color:lime;">
-                    </a>}
-                @if (Model.YouTubeLink != null)
-                {<a id="YtLink" href=@Model.YouTubeLink class="fa fa-youtube" style="font-size:50px; color:lime;">
-                    </a>}
-                @if (Model.TwitterLink != null)
-                {<a id="TwitterLink" href=@Model.TwitterLink class="fa fa-twitter-square" style="font-size:50px; color:lime;">
-                    </a>}
-                @if (Model.OtherLink != null)
-                {<a id="OtherLink" href=@Model.OtherLink class="fa fa-laptop" style="font-size:50px; color:lime;">
-                    </a>}
-                <br />
 
-            </div>
+
+    </div>
     <div class="rightcolumn" style="width: 40%; background-color: #f1f1f1; border-radius: 8px">
 
-        @if (ViewBag.isFollower != true && @ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName)
+        @if (ViewBag.isFollower != true && @ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName && @ViewBag.isPatron == false)
         {
             @Html.ActionLink("Obserwuj", "Follow", new { id = Model.ID }, new { @class = "btn btn-default" })
 
@@ -130,6 +131,7 @@
         {
             <div class="rounder-border">
                 <h2>@item.Name</h2>
+                <p>@item.Description</p>
                 <h4>@item.Value zł</h4>
 
 
@@ -166,8 +168,8 @@
         <hr />
         @Html.ActionLink("Pokaż obserwujących >>", "Followers", new { id = Model.ID }, new { @class = "btn btn-default" })
         <hr />
-        @Html.ActionLink("Komentarze >>","AuthorComments", "Comments", new { id = Model.ID }, new { @class = "btn btn-default" })
-
+        @Html.ActionLink("Komentarze >>", "AuthorComments", "Comments", new { id = Model.ID }, new { @class = "btn btn-default" })
+        <hr />
         @if (!@ViewBag.isPatron)
         {
             if (@ViewBag.isLoggedInAsPatron && @User.Identity.GetUserName() != @Model.UserName)

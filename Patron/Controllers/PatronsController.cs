@@ -17,7 +17,6 @@ namespace Patron.Controllers
         private PatronContext db = new PatronContext();
 
         // GET: Patrons
-        [Authorize(Roles ="Admin")]
         public ActionResult Index(string phrase, int? page)
         {
             var patrons = db.Patrons.OrderBy(p => p.UserName);

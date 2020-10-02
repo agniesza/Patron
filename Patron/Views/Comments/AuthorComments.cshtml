@@ -21,7 +21,7 @@
             <div class="rightcolumn" style="width: 90%;">
 
                 <p>
-                    <div style="text-align:left">@Html.ActionLink(item.Patron.UserName, "PatronPage", "Patrons", (new { id = item.PatronID }))</div>
+                    <div style="text-align:left">@Html.ActionLink(item.Patron.UserName, "PatronPage", "Patrons", new { id = item.PatronID }, null)</div>
                 </p>
 
                 <p>

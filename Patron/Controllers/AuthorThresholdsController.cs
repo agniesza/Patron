@@ -213,6 +213,11 @@ namespace Patron.Controllers
                 "Tym samym zobligowałeś się do comiesięcznego wspracia finansowego na rzecz Autora." +
                 "W każdej chwili możesz anulować subskrybcję.";
             Message.SendMail(patron.UserName, "PatrON - Od teraz wspierasz "+authorThreshold.Author.FirstName+" "+ authorThreshold.Author.LastName, mess);
+            if (patron.Followed.Contains(authorThreshold.Author))
+            {
+                patron.Followed.Remove(authorThreshold.Author);
+                db.SaveChanges();
+            }
 
             return View(authorThreshold);
         }

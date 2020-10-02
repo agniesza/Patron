@@ -80,7 +80,7 @@
     <div class="rightcolumn" style="width: 50%;">
         @if (@User.Identity.GetUserName() == @Model.UserName)
         {
-            @Html.ActionLink("Zobacz wszystkie posty", "ShowPatronPosts",
+            @Html.ActionLink("Zobacz wszystkie posty >>", "ShowPatronPosts",
   "Posts", new { id = Model.ID }, new { @class = "btn btn-default" })
 
         }
@@ -114,9 +114,9 @@
                         <div style="text-align:center;">
                             @if (@User.Identity.GetUserName() == @Model.UserName)
                             {
-                                @Html.ActionLink("Zobacz posty", "ShowAuthorPosts",
+                                @Html.ActionLink("Zobacz posty >>", "ShowAuthorPosts",
                   "Posts", new { id = asub.Author.ID, idpatrona = Model.ID }, new { @class = "btn btn-default" })
-                                @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = asub.ID }, new { @class = "btn btn-warning" })
+                                @Html.ActionLink("Przestań wspierać autora", "CancelSupport", "AuthorThresholds", new { id = asub.ID }, new { @class = "btn btn-default" })
 
                             }
                         </div>

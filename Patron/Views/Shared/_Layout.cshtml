@@ -37,9 +37,10 @@
                     <!--<li>@Html.ActionLink("Kontakt", "Contact", "Home")</li> -->
                     <li>@Html.ActionLink("Kategorie", "Index", "Categories")</li>
                     <li>@Html.ActionLink("Autorzy", "Index", "Authors")</li>
+                    <li>@Html.ActionLink("Patroni", "Index", "Patrons")</li>
+
                     @if (Context.User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Patroni", "Index", "Patrons")</li>
                         <li>@Html.ActionLink("Progi autorów", "Index", "AuthorThresholds")</li>
                         <li>@Html.ActionLink("Posty", "Index", "Posts")</li>
                         <li>@Html.ActionLink("Płatności", "Index", "Payments")</li>
