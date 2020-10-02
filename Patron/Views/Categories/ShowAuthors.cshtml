@@ -8,8 +8,12 @@
     ViewBag.Title = "Autorzy";
 }
 
-<h2>@ViewBag.Category.Name</h2>
-<h4>Szukaj autorów w tej kategorii</h4>
+<div class="title">
+    <h2 style="text-align: center;">
+        Autorzy
+    </h2>
+    <h4 style="text-align: center; color: lime"> @ViewBag.Category.Name</h4>
+</div>
 
 @using (Html.BeginForm("ShowAuthors", "Categories", FormMethod.Get))
 {

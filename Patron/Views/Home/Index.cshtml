@@ -21,38 +21,46 @@
         color: white;
     }
 </style>
-<div class="jumbotron"">
+<div class="jumbotron" ">
     <h1> <span id="patr1">Patr</span><span id="on">ON</span></h1>
-    <h4>PatrON łączy Autorów z osobami, które chcą wesprzeć ich pasję nie tylko dobrym słowem, ale i finansowo. Patroni wpłacają comiesięczne lub jednorazowe kwoty na konto Autorów, a Ci mogą je wykorzystać na potrzeby swojej działalności. 
-    </h4><h4>Autorzy zyskują możliwość rozwoju, a Patroni – dostęp do wyjątkowych nagród, a także bezcenną świadomość realnego wspierania pasji innych!
+    <h4>
+        PatrON łączy Autorów z osobami, które chcą wesprzeć ich pasję nie tylko dobrym słowem, ale i finansowo. Patroni wpłacają comiesięczne lub jednorazowe kwoty na konto Autorów, a Ci mogą je wykorzystać na potrzeby swojej działalności.
+    </h4><h4>
+        Autorzy zyskują możliwość rozwoju, a Patroni – dostęp do wyjątkowych nagród, a także bezcenną świadomość realnego wspierania pasji innych!
     </h4>
-    <p> 
-    <a href="/Authors/Index" class="limeLink"> Sprawdź, kogo możesz wesprzeć &raquo;</a></p>
+    <p>
+        <a href="/Authors/Index" class="limeLink"> Sprawdź, kogo możesz wesprzeć &raquo;</a>
+    </p>
 </div>
 
 <div class="row">
+    <h4><span style="visibility:hidden">.............</span>Najpopularniejsi autorzy</h4>
     @foreach (var item in Model)
-    { 
-    <div class="col-md-4">
-        <div class="rounder-border" style="text-align:center;">
-            <div class="leftcolumn" style="width: 50%; background-color:white;">
-                <img src="~/Avatars/@item.Avatar" alt="" height="100px" width="100px" style="border-radius: 8px;" />
+    {
+        <div class="col-md-4">
+            <div class="rounder-border" style="text-align:center;">
+                <div class="leftcolumn" style="width: 50%; background-color:white;">
+                    <img src="~/Avatars/@item.Avatar" alt="" height="100px" width="100px" style="border-radius: 8px;" />
 
-            </div>
-            <div class="rightcolumn" style="width: 50%;">
-                <p>
-                    @foreach (var cat in item.Categories)
-                    {
-                        <span> @(cat.Name) </span>
-                    }
-                </p>
-                <p>
-                    <!-- @Html.ActionLink(item.FirstName + " " + item.LastName, "AuthorPage", "Authors/", (new { id = item.ID })) -->
-                    <a class="limeLink" style="font-size: 14px;" href="https://localhost:44321/Authors/AuthorPage/@(item.ID)"> @item.FirstName  @item.LastName &raquo;</a>
-                </p>
+                </div>
+                <div class="rightcolumn" style="width: 50%;">
+                    <p>
+                       
+                        @foreach (var cat in item.Categories)
+                        {
+                            <span> @(cat.Name) </span>
+                        }
+                    </p>
+                    <p>
+                        <a class="limeLink" style="font-size: 14px;" href="https://localhost:44321/Authors/AuthorPage/@(item.ID)"> @item.FirstName  @item.LastName &raquo;</a>
+                    </p>
+                </div>
             </div>
         </div>
-        </div>
-        }
-    </div>
+    }
+</div>
 
+<hr />
+<footer>
+    <p>&copy; @DateTime.Now.Year - <span id="patr2">Patr</span><span id="on">ON</span></p>
+</footer>

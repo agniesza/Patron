@@ -25,7 +25,7 @@ namespace Patron.Controllers
                 page = 1;
                 patrons = patrons.Where(a => a.FirstName.Contains(phrase)
                     || a.LastName.Contains(phrase)
-                    || a.UserName.Contains(phrase)).OrderBy(p => p.UserName);
+                    || a.UserName.Contains(phrase)).OrderBy(p => p.Payments.Count);
             }
             int pageSize = 10;
             int pageNumber = (page ?? 1);
@@ -78,7 +78,7 @@ namespace Patron.Controllers
             List<Author> aat= new List<Author>();
             foreach (var item in at)
             {
-                aat.Add(item.Author); //autozy z progow
+                aat.Add(item.Author); //autorzy z progow
             }
 
             List<Author> unsubscribed = new List<Author>();

@@ -1,6 +1,8 @@
-﻿        
+﻿
 @{
-    ViewBag.Title = "Statystyki płatności";
+                /**/
+
+                ViewBag.Title = "Statystyki płatności";
 }
 
 <h2>Statystyki</h2>
@@ -15,14 +17,19 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.Date.ToString("dd MMM yyyy") -  
-        </td>
-        <td>
-- @item.PaymentCount
-        </td>
-    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @item.Date.ToString("dd MMM yyyy") -
+    </td>
+    <td>
+        - @item.PaymentCount
+    </td>
+</tr>
 }
 </table>
+<hr />
+<footer>
+    <p>&copy; @DateTime.Now.Year - <span id="patr2">Patr</span><span id="on">ON</span></p>
+</footer>

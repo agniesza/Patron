@@ -26,7 +26,7 @@ namespace Patron.Controllers
                 page = 1;
                 authors = authors.Where(a => a.FirstName.Contains(phrase)
                     || a.LastName.Contains(phrase)
-                    || a.UserName.Contains(phrase)).OrderBy(aa => aa.UserName);
+                    || a.UserName.Contains(phrase)).OrderBy(aa => aa.Payments.Count);
             }
             int pageSize = 15;
             int pageNumber = (page ?? 1);
