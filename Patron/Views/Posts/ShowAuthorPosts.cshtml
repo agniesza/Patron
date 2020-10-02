@@ -4,48 +4,65 @@
 @{
     ViewBag.Title = "Posty";
 }
-@if (ViewBag.isAuthor == true)
+<div class="title">
+    <h2 style="text-align: center;">
+        Posty
+    </h2>
+    <h4 style="text-align: center; color: lime"> @ViewBag.author.FirstName @ViewBag.author.LastName</h4>
+</div>
+@foreach (var item in Model)
 {
+    <div class="col-md-10">
+        <div class="rounder-border" style="text-align:center; border: 0px solid #e6e6e6;">
+            <div class="leftcolumn" style="width: 10%; background-color:white;">
+                <br />
+                <br />
+                <img src="~/Avatars/@item.Author.Avatar" alt="" height="90px" width="90px" style="border-radius: 10px;" />
+
+            </div>
+            <div class="rightcolumn" style="width: 90%;">
+
+                <p>
+                    <div style="text-align:left">@Html.ActionLink(item.Author.UserName, "AuthorPage", "Authors", new { id = item.AuthorID }, null)</div>
+                </p>
+
+                <h4>@item.Title</h4>
+                <p>
+                    @Html.DisplayFor(modelItem => item.Content)
+
+                </p>
+
+                <div style="text-align:right">
+                    <p>
+                        @item.Date
+                    </p>
+
+                </div>
+                <hr />
+            </div>
+        </div>
+
+    </div>
     <br />
-    <p>
-        @Html.ActionLink("Utwórz nowy post", "Create", null, new { @class = "btn btn-success" })
-    </p>
-}  
-<table class="table">
-    <tr>
 
-        <th>
+    <br />
 
-        </th>
-
-
-        <th>
-            @Html.ActionLink("Data", "ShowAuthorPosts", new { sortOrder = ViewBag.DateSortParm })
-
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+}
+<p style="visibility:hidden"> sialalalggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg</p>
+<hr />
+<div>
+    @if (Context.User.IsInRole("Admin"))
     {
-
-        <tr>
-
-            <td>
-                @Html.ActionLink(item.Title, "Details", new { id = item.ID })
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.ActionLink("Usuń", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
+        @Html.ActionLink("Powrót do listy postów", "Index")
     }
+    else
+    {
+        @Html.ActionLink("Powrót do profilu", "PatronPage",
+                           "Patrons", new { id = ViewBag.patron.ID }, null)
+    }
+</div>
 
-</table>
-    Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
 
-    @Html.PagedListPager(Model, page => Url.Action("ShowAuthorPosts",
-        new { page }))
+@Html.PagedListPager(Model, page => Url.Action("ShowAuthorPosts",
+    new { page }))

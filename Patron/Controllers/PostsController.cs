@@ -57,17 +57,19 @@ namespace Patron.Controllers
         }
         public ActionResult ShowAuthorPosts(int? id, int? idpatrona, int? page, string sortOrder)
         {
-
+            
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Author author = db.Authors.Find(id);
+            ViewBag.author = author;
             if (author == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "rating_desc" : "";
+            ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
             int pageSize = 10;
@@ -77,6 +79,7 @@ namespace Patron.Controllers
             if (idpatrona != null)
             {
                 Models.Patron patron = db.Patrons.Find(idpatrona);
+                ViewBag.patron = patron;
                 posts = db.Posts.Where(p => p.Patrons.Any(patr => patr.ID == idpatrona) && 
                 p.Author.UserName == author.UserName);
 
@@ -103,7 +106,7 @@ namespace Patron.Controllers
             return View(posts.ToPagedList(pageNumber, pageSize));
             
         }
-        public ActionResult ShowPatronPosts(int? id, int? page, string sortOrder)
+        public ActionResult ShowPatronPosts(int? id, int? page, string sortOrder, string phrase)
         {
 
             if (id == null)
@@ -116,15 +119,24 @@ namespace Patron.Controllers
                 return HttpNotFound();
             }
             ViewBag.patron = patron;
-            ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "rating_desc" : "";
+            ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            var posts = db.Posts.Where(p => p.Patrons.Any(patr => patr.UserName==patron.UserName));
+            var posts = db.Posts.Where(p => p.Patrons.Any(patr => patr.UserName == patron.UserName));
+            if (phrase != null)
+            {
+                page = 1;
+                posts = posts.Where(a => a.Author.FirstName.Contains(phrase)
+                    || a.Author.LastName.Contains(phrase)
+                    || a.Author.UserName.Contains(phrase)
+                    || a.Title.Contains(phrase)
+                    || a.Content.Contains(phrase));
+            }
             switch (sortOrder)
             {
-               
+
                 case "Date":
                     posts = posts.OrderBy(s => s.Date);
                     break;

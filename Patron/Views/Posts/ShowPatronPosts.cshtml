@@ -4,46 +4,61 @@
 @{
     ViewBag.Title = "Posty";
 }
+<div class="title">
+    <h2 style="text-align: center;">
+        Posty
+    </h2>
+</div>
+<br />
+@using (Html.BeginForm("ShowPatronPosts", "Posts", FormMethod.Get))
+{
 
-<table class="table">
-    <tr>
-        <th>
-            <p>Autor</p>
-        </th>
-        
-        <th>
-            <p>Treść</p>
-        </th>
-        
-        <th>
-            @Html.ActionLink("Data", "ShowPatronPosts", new { sortOrder = ViewBag.DateSortParm })
+    @Html.TextBox("phrase");
 
-        </th>
-        <th></th>
-    </tr>
+    <input type="submit" value="Szukaj" />
 
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author.FirstName)  @Html.DisplayFor(modelItem => item.Author.LastName)
-        </td>
-        <td>
-            @Html.ActionLink(item.Title, "Details", new { id = item.ID })
+}
+<hr />
+@foreach (var item in Model)
+{
+    <div class="col-md-10">
+        <div class="rounder-border" style="text-align:center; border: 0px solid #e6e6e6;">
+            <div class="leftcolumn" style="width: 10%; background-color:white;">
+                <br />
+                <br />
+                <img src="~/Avatars/@item.Author.Avatar" alt="" height="90px" width="90px" style="border-radius: 10px;" />
 
-        </td>
-      
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.ActionLink("Edytuj", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Usuń", "Delete", new { id = item.ID })
-        </td>
-    </tr>
-    }
+            </div>
+            <div class="rightcolumn" style="width: 90%;">
 
-</table>
+                <p>
+                    <div style="text-align:left">@Html.ActionLink(item.Author.UserName, "AuthorPage", "Authors", new { id = item.AuthorID }, null)</div>
+                </p>
+
+                <h4>@item.Title</h4>
+                <p>
+                    @Html.DisplayFor(modelItem => item.Content)
+
+                </p>
+
+                <div style="text-align:right">
+                    <p>
+                        @item.Date
+                    </p>
+
+                </div>
+                <hr />
+            </div>
+        </div>
+
+    </div>
+    <br />
+
+    <br />
+
+}
+<p style="visibility:hidden"> sialalalggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg</p>
+<hr />
 <div>
     @if (Context.User.IsInRole("Admin"))
     {
