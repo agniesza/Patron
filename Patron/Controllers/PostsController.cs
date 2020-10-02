@@ -72,7 +72,7 @@ namespace Patron.Controllers
             ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
-            int pageSize = 10;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             var posts = db.Posts.Where(p => p.Author.UserName == author.UserName);
 
@@ -122,7 +122,7 @@ namespace Patron.Controllers
             ViewBag.RatingSortParm = String.IsNullOrEmpty(sortOrder) ? "date_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
-            int pageSize = 10;
+            int pageSize = 5;
             int pageNumber = (page ?? 1);
             var posts = db.Posts.Where(p => p.Patrons.Any(patr => patr.UserName == patron.UserName));
             if (phrase != null)
