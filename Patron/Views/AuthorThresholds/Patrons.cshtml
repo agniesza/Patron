@@ -1,0 +1,52 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Patron.Models.Patron>
+@{
+    ViewBag.Title = "Patroni";
+}
+
+<div class="title">
+    <h2 style="text-align: center;">
+        Wspierający
+    </h2>
+    <h4 style="text-align: center; color: lime"> @ViewBag.Threshold.Author.FirstName @ViewBag.Threshold.Author.LastName - @ViewBag.Threshold.Name<h4>
+
+</div>
+
+<hr />
+@Html.ActionLink("Powrót do profilu", "AuthorPage",
+                         "Authors", new { id = ViewBag.Threshold.AuthorID }, new { @class = "btn btn-default" })
+<br />
+<br />
+
+<div>
+    <table>
+        @foreach (var item in Model)
+        {
+            <div class="col-xs-2">
+                <div style="border: 1px solid #e6e6e6;
+    border-radius: 8px; text-align:center;">
+
+                    @Html.ActionLink(item.FirstName + " " + item.LastName, "PatronPage", "Patrons", new { id = item.ID }, new { @style = "text-decoration:none; font-size:15px;" })
+                    <br />
+                    <img src="~/Avatars/@item.Avatar" alt="" height="100px" width="100px" />
+
+                </div>
+            </div>
+        }
+    </table>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<p style="visibility:hidden">
+    sialalalggg
+    gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg
+</p>
+<hr />
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Patrons",
+    new { page }))

@@ -55,7 +55,18 @@ namespace Patron.Controllers
             return View(threshols.ToPagedList(pageNumber, pageSize));
 
         }
+        public ActionResult Patrons(int id, int? page)
+        {
 
+            var at = db.AuthorThresholds.Find(id);
+            var patrons = at.Patrons.OrderBy(p => p.LastName);
+            ViewBag.Threshold = at;
+          
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(patrons.ToPagedList(pageNumber, pageSize));
+
+        }
         // GET: AuthorThresholds/Details/5
         public ActionResult Details(int? id)
         {
