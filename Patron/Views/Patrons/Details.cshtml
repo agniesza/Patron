@@ -1,18 +1,18 @@
 ﻿@model Patron.Models.Patron
 
 @{
-    ViewBag.Title = Model.FirstName+" "+Model.LastName;
+    ViewBag.Title = Model.FirstName + " " + Model.LastName;
 }
-
+<h2>@Model.FirstName @Model.LastName</h2>
 <div>
+
     <h4>Patron</h4>
     <hr />
     <dl class="dl-horizontal">
-        <img src="~/Avatars/@ViewBag.Avt" alt="" height="50px" width="50px" />
         <dt>
-            Nazwa użytkownika:
+            <img src="~/Avatars/@ViewBag.Avt" alt="" height="50px" width="50px" />
         </dt>
-
+      
         <dd>
             @Html.DisplayFor(model => model.UserName)
         </dd>
@@ -37,10 +37,9 @@
 </div>
 @if (Context.User.IsInRole("Admin"))
 {<div>
-     <p>
-         @Html.ActionLink("Edytuj", "Edit", null, new { @class = "btn btn-warning" })
-         @Html.ActionLink("Usuń", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" }) |
-         @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn btn-default" })
-     </p>
+        <p>
+            @Html.ActionLink("Usuń", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger" }) |
+            @Html.ActionLink("Powrót do listy", "Index", null, new { @class = "btn btn-default" })
+        </p>
     </div>
 }

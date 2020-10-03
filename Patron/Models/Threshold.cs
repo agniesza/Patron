@@ -17,6 +17,7 @@ namespace Patron.Models
         public int MaxNumberOfPatrons { get; set; }
 
         public virtual Author Author { get; set; }
+        
         public virtual List<Patron> Patrons { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace Patron.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
-
+        public int MyProperty { get; set; }
         public virtual List<Patron> Patrons { get; set; }
         public virtual Author Author { get; set; }
 

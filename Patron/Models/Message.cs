@@ -22,7 +22,7 @@ namespace Patron.Models
                     ConfigurationManager.AppSettings["sender"],
                     ConfigurationManager.AppSettings["passwd"]),
                 EnableSsl = true,
-                // Port = 587
+               
             };
             smtpClient.Send(message);
         }

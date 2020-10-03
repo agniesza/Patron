@@ -195,6 +195,11 @@ namespace Patron.DAL
             userManager.Create(user, passwor);
 
             userManager.AddToRole(user.Id, "Admin");
+            var user2 = new ApplicationUser { UserName = "kjokomonajlepsze@gmail.com" };
+            string passwor2 = "Platon13";
+            userManager.Create(user2, passwor2);
+
+            userManager.AddToRole(user2.Id, "Admin");
 
         }
     }
