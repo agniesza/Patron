@@ -60,7 +60,10 @@
                 <span style="font-size:20px">@Html.DisplayFor(model => model.UserName)</span>
             </i>
             <hr />
-
+            <br />
+            <br />
+            <p style="text-align:left; font-style:italic">W PatrON od @Html.DisplayFor(model => model.RegistrationDate, "{0:MM/dd/yyyy}")</p>
+            <br />
             <h4>Suma wpłat:  @ViewBag.TotalMonay </h4>
             @if (@User.Identity.GetUserName() == @Model.UserName)
             {
@@ -95,7 +98,7 @@
                 @foreach (var asub in @ViewBag.ActiveSubscriptions)
                 {
                     <div class="rounder-border">
-                        <div class="leftcolumn" style="width: 50%; background-color: white;">
+                        <div class="leftcolumn" style="width: 50%; background-color: #f1f1f1;">
                             <div style="text-align:center;">
                                 <br />
                                 <img src="~/Avatars/@asub.Author.Avatar" alt="" height="100px" width="100px" style="border-radius: 8px;" />

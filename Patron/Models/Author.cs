@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -19,6 +20,11 @@ namespace Patron.Models
 
         public string City { get; set; }
         public string Avatar { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime RegistrationDate { get; set; }
+
 
 
         public string FacebookLink { get; set; }

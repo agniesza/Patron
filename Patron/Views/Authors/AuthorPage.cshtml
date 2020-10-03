@@ -17,13 +17,13 @@
             <span>@item.Name</span>
         }
     </h4>
-    <div style="text-align: right; font-size:16px;">
+    <div style="text-align: right; font-size:18px;">
         wspierających:
         @ViewBag.PatronsCount
         | wpływ miesięczny:
-        @ViewBag.Monthly
+        @ViewBag.Monthly zł
         | łącznie zebrano:
-        @ViewBag.TotalMonay
+        @ViewBag.TotalMonay zł
     </div>
 </div>
 <div class="row">
@@ -58,8 +58,10 @@
         </i>
         <br />
         <br />
+        <p style="text-align:left; font-style:italic">W PatrON od @Html.DisplayFor(model => model.RegistrationDate, "{0:MM/dd/yyyy}")</p>
+        <br />
         <div>
-            <p>Obserwujący: @Model.Followers.Count</p>
+            <p>Obserwujący: <span style="font-weight:bold"> @Model.Followers.Count </span></p>
         </div>
         <br />
         <div id="authorDesc">

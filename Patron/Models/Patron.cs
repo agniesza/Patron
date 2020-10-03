@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Patron.Models
@@ -12,6 +13,10 @@ namespace Patron.Models
 
         public string LastName { get; set; }
         public string Avatar { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime RegistrationDate { get; set; }
 
         public virtual CreditCard CreditCard { get; set; }
         public virtual List<Post> Posts { get; set; }

@@ -49,9 +49,9 @@ namespace Patron.DAL
 
             var patrons = new List<Models.Patron>
             {
-                new Models.Patron {FirstName ="Julia", LastName ="Żaczek", UserName ="jula@wp.pl" },
-                new Models.Patron {FirstName ="Jakub", LastName ="Rodak", UserName ="rod@wp.pl" },
-                new Models.Patron {FirstName ="Eliasz", LastName ="Kula", UserName ="kula@wp.pl" }
+                new Models.Patron {FirstName ="Julia", LastName ="Żaczek", UserName ="jula@wp.pl", RegistrationDate = DateTime.Now },
+                new Models.Patron {FirstName ="Jakub", LastName ="Rodak", UserName ="rod@wp.pl", RegistrationDate = DateTime.Now },
+                new Models.Patron {FirstName ="Eliasz", LastName ="Kula", UserName ="kula@wp.pl", RegistrationDate = DateTime.Now }
          };
             patrons.ForEach(c => context.Patrons.Add(c));
             context.SaveChanges();
@@ -68,7 +68,8 @@ namespace Patron.DAL
                 Avatar= "example.png",
                 FacebookLink= "xxx",
                 OtherLink="xxx",
-                City = "Warszawa"},
+                City = "Warszawa",
+                RegistrationDate = DateTime.Now},
                 new Author {FirstName ="Maria", LastName ="Maria", UserName ="maria@wp.pl",
                 Categories = new List<Category> {categories[3], categories[1]},
                     BankAccount="62921000080024460630000010",
@@ -79,7 +80,8 @@ namespace Patron.DAL
                 Avatar= "example.png",
                 FacebookLink= "xxx",
                 OtherLink="xxx",
-                City = "Siedlce"},
+                City = "Siedlce",
+                RegistrationDate = DateTime.Now},
                 new Author {FirstName ="Jagna", LastName ="Nowak", UserName ="jaga@wp.pl",
                 Categories = new List<Category> {categories[3], categories[1]},
                     BankAccount="62921000080024460630000010",
@@ -90,7 +92,8 @@ namespace Patron.DAL
                 TwitterLink= "xxx",
                 FacebookLink= "xxx",
                 OtherLink="xxx",
-                City = "Gdańsk" }
+                City = "Gdańsk",
+                RegistrationDate = DateTime.Now}
          };
             authors.ForEach(c => context.Authors.Add(c));
             context.SaveChanges();

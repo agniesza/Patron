@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Net.Mail;
+using System;
+
 namespace Patron.Controllers
 {
     [Authorize]
@@ -169,7 +171,7 @@ namespace Patron.Controllers
                     if (UserType.Equals("Patron"))
                     {
                         Message.SendMail(model.Email, "Witaj w serwisie PatrON!", mess1);
-                        Models.Patron patron = new Models.Patron { UserName = model.Email };
+                        Models.Patron patron = new Models.Patron { UserName = model.Email, RegistrationDate = DateTime.Now };
                         //  Author author = new Author { UserName = model.Email };
                         PatronContext db = new PatronContext();
                         db.Patrons.Add(patron);
@@ -182,7 +184,7 @@ namespace Patron.Controllers
                     {
                         Message.SendMail(model.Email, "Witaj w serwisie PatrON!", mess2);
                         PatronContext db = new PatronContext();
-                        Author author = new Author { UserName = model.Email}; //, Category = db.Categories.First() 
+                        Author author = new Author { UserName = model.Email, RegistrationDate = DateTime.Now }; //, Category = db.Categories.First() 
                         db.Authors.Add(author);
                         db.SaveChanges();
                         // ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", author.CategoryID);
