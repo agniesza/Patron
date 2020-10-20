@@ -70,10 +70,12 @@
                 @Html.ActionLink("Edytuj profil", "EditProfile", new { id = Model.ID }, new { @class = "btn btn-default" })
                 @Html.ActionLink("Twoje płatności", "PatronPayments",
   "Payments", new { id = Model.ID }, new { @class = "btn btn-default" })
+                <h4>Płatności w tym miesiącu(nadchodzące): @ViewBag.SumIncomingPayments zł</h4>
+
             }
+
         </div>
         <div>
-            <h4>Płatności w tym miesiącu(nadchodzące): @ViewBag.SumIncomingPayments zł</h4>
             @foreach (var p in ViewBag.IncomingPayments)
             {
             <p>@p.Author.FirstName @p.Author.LastName >> @p.Value zł</p>
